@@ -1,0 +1,42 @@
+{
+  "name": "epitome-2",
+  "description": "Epitome, an MVP framework built on top of MooTools",
+  "homepage": "http://epitome-mvc.github.com/epitome-2",
+  "version": "0.0.1",
+  "author": "Dimitar Christoff <christoff@gmail.com> (https://twitter.com/D_mitar)",
+  "keywords": [
+    "mootools",
+    "epitome",
+    "mvc",
+    "mvp"
+  ],
+  "scripts": {
+    "test": "node_modules/buster/bin/buster-test -r specification -s http://localhost:11111"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epitome-mvc/epitome-2"
+  },
+  "bugs": {
+    "url": "https://github.com/epitome-mvc/epitome-2/issues"
+  },
+  "main": "./src/epitome.js",
+  "license": "MIT (http://mootools.net/license.txt)",
+  "dependencies": {
+    "mootools": "~1.4.5",
+    "slicker": "0.0.1"
+  },
+  "devDependencies": {
+    "buster": "~0.7.6",
+    "colors": "*",
+    "grunt": "~0.4.1",
+    "grunt-doctor-md": "~0.0.4",
+    "grunt-contrib-clean": "*",
+    "express": "*",
+    "socket.io": "*",
+    "update-notifier": "~0.1.5"
+  },
+  "engines": {
+    "node": "~0.8.26"
+  }
+}
