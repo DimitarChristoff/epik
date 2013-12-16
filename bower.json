@@ -1,20 +1,9 @@
 {
-  "name": "epitome-2",
+  "name": "epic",
   "version": "0.0.1",
   "main": [
-    "Epitome-min.js",
-    "src/epitome.js",
-    "src/epitome-collection.js",
-    "src/epitome-collection-sync.js",
-    "src/epitome-events.js",
-    "src/epitome-isequal.js",
-    "src/epitome-model.js",
-    "src/epitome-model-sync.js",
-    "src/epitome-router.js",
-    "src/epitome-storage.js",
-    "src/epitome-template.js",
-    "src/epitome-view.js",
-    "src/main.js"
+    "lib/index.js",
+    "lib/model.js"
   ],
   "ignore": [
     "**/.*",
@@ -28,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "primish": "~0.2.0",
+    "primish": "~0.2.2",
     "requirejs": "~2.1.9",
     "lodash": "~2.4.1"
   },

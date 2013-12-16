@@ -1,7 +1,7 @@
 {
-  "name": "epitome-2",
-  "description": "Epitome, an MVP framework built on top of MooTools",
-  "homepage": "http://epitome-mvc.github.com/epitome-2",
+  "name": "epic",
+  "description": "Epic (aka, Epitome 2), a micro MVP framework ",
+  "homepage": "http://epitome-mvc.github.com/epic",
   "version": "0.0.1",
   "author": "Dimitar Christoff <christoff@gmail.com> (https://twitter.com/D_mitar)",
   "keywords": [
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/epitome-mvc/epitome-2/issues"
   },
-  "main": "./src/epitome.js",
+  "main": "./lib/index.js",
   "license": "MIT (http://mootools.net/license.txt)",
   "dependencies": {
     "mootools": "~1.4.5",

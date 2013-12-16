@@ -1,9 +1,11 @@
-define(['../lib/index', '../lib/model'], function(epitome, Model){
-	'use strict';
+define(['../lib/index', '../lib/model'], function(epic, model){
 
-	var Person = new epitome.primish({
+	var	primish = epic.primish,
+		_ = epic._;
 
-		extend: Model,
+	var Person = new primish({
+
+		extend: model,
 
 		options: {
 			defaults: {
@@ -35,7 +37,7 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 		},
 		onError: function(errors){
 			console.warn('WARNING: validation errors have occurred');
-			epitome._.forEach(errors, function(error){
+			_.forEach(errors, function(error){
 				console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
 			});
 		}
