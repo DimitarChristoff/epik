@@ -2,6 +2,9 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 	'use strict';
 
 	var Person = new epitome.primish({
+
+		extend: Model,
+
 		options: {
 			defaults: {
 				name: 'Robert',
@@ -9,12 +12,13 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 				age: 30
 			}
 		},
+
 		validators: {
 			age: function(value){
-				return value > this.options.defaults.age;
+				return parseInt(value, 10) == value ? true : 'Age needs to be an integer';
 			}
-		},
-		extend: Model
+		}
+
 	});
 
 	var bob = new Person({
@@ -28,6 +32,12 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 		},
 		onEmpty: function(){
 			console.log('emptied', this.toJSON());
+		},
+		onError: function(errors){
+			console.warn('WARNING: validation errors have occurred');
+			epitome._.forEach(errors, function(error){
+				console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
+			});
 		}
 	});
 
@@ -42,6 +52,8 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 	bob.set('name', 'Bobby');
 
 	console.log(bob.get(['name', 'surname', 'age']));
+
+	bob.set('age', 31.5);
 	bob.empty();
 
 });
