@@ -1,12 +1,20 @@
-define(['../lib/model'], function(model){
+define(['../lib/index', '../lib/model'], function(epitome, Model){
 	'use strict';
 
-	var m = new model({
-		one: 1
-	}, {
-		defualts: {
-			name: 'Robert'
+	var Person = new epitome.primish({
+		options: {
+			defaults: {
+				name: 'Robert',
+				surname: 'Roberts',
+				age: 30
+			}
 		},
+		extend: Model
+	});
+
+	var bob = new Person({
+		job: 'accountant',
+	}, {
 		onChange: function(keys){
 			console.log(keys);
 		},
@@ -18,13 +26,17 @@ define(['../lib/model'], function(model){
 		}
 	});
 
-	console.log(m.toJSON());
+	console.log(bob.get('id'));
+	console.log(bob.toJSON());
 
-	m.set({
-		one: m.get('one') + 1,
+	bob.set({
+		age: bob.get('age') + 1,
 		name: 'Bob'
 	});
 
-	m.set('name', 'Bobby');
-	m.empty();
+	bob.set('name', 'Bobby');
+
+	console.log(bob.get(['name', 'surname', 'age']));
+	bob.empty();
+
 });
