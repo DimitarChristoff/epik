@@ -3,7 +3,7 @@ define(['../lib/index', '../lib/model'], function(epic, model){
 	var	primish = epic.primish,
 		_ = epic._;
 
-	var Person = new primish({
+	var Person = primish({
 
 		extend: model,
 
