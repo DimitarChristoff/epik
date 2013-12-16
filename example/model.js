@@ -9,6 +9,11 @@ define(['../lib/index', '../lib/model'], function(epitome, Model){
 				age: 30
 			}
 		},
+		validators: {
+			age: function(value){
+				return value > this.options.defaults.age;
+			}
+		},
 		extend: Model
 	});
 
