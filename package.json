@@ -23,12 +23,7 @@
     "slicker": "0.0.2"
   },
   "devDependencies": {
-    "buster": "~0.7.6",
-    "colors": "*",
-    "grunt": "~0.4.1",
-    "grunt-doctor-md": "~0.0.4",
-    "grunt-contrib-clean": "*",
-    "update-notifier": "~0.1.5"
+    "buster": "~0.7.6"
   },
   "engines": {
     "node": "~0.8.26"
