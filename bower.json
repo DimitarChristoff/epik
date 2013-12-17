@@ -19,7 +19,8 @@
   "dependencies": {
     "primish": "~0.2.2",
     "requirejs": "~2.1.9",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "slicker": "~0.0.2"
   },
   "authors": [
     "DimitarChristoff <christoff@gmail.com>"
