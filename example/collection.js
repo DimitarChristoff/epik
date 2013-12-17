@@ -1,7 +1,6 @@
 define(['../lib/index', '../lib/collection'], function(epic, collection){
 
-	var	primish = epic.primish,
-		_ = epic._;
+	var	primish = epic.primish;
 
 	var Persons = primish({
 
@@ -17,10 +16,23 @@ define(['../lib/index', '../lib/collection'], function(epic, collection){
 		surname: 'Boberts'
 	}]);
 
-	console.log(peeps, peeps.toJSON());
 
+	var one = peeps.at(0);
 
 	peeps.forEach(function(model){
 		console.log(model);
-	})
+	});
+
+	peeps.on('change', function(model, etc) {
+		console.log('changed props', model);
+	});
+
+	peeps.listenTo(one, 'change:foo', function(){
+		console.log('foo has changed');
+	});
+
+	one.set('foo', 'bar');
+
+	//console.log(peeps, peeps.toJSON());
+
 });
