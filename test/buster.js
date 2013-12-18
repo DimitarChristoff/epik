@@ -7,7 +7,7 @@ config['Browser tests'] = {
 
 	libs: [
 		'lib/components/lodash/dist/lodash.js',
-		'lib/components/primish/prime.js',
+		'lib/components/primish/primish.js',
 		'lib/components/primish/emitter.js',
 		'lib/components/primish/options.js',
 		'lib/index.js'

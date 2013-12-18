@@ -2,7 +2,7 @@
 
 var Model = this.epic.model,
 	_ = this.epic._,
-	primish = this.prime;
+	primish = this.primish;
 
 	buster.testRunner.timeout = 1000;
 
@@ -249,7 +249,7 @@ var Model = this.epic.model,
 
 			this.errorMsg = 'Bar needs to be 3 or more characters';
 
-			var modelProto = prime({
+			var modelProto = primish({
 
 				extend: Model,
 
