@@ -320,11 +320,10 @@ var Model = this.epic.model,
 
 		'Expect error event to pass the failed validation and error msg >': function(done){
 			var msg = this.errorMsg;
-			this.model.on('error', function(errors){
+			this.model.on('error:once', function(errors){
 				var error = Array.filter(errors, function(el){
 					return el.key === 'bar';
 				})[0];
-
 				buster.assert.equals(error.error, msg);
 				done();
 			});
@@ -333,8 +332,7 @@ var Model = this.epic.model,
 
 		'Expect error event to pass all failed validation objects >': function(done){
 			var self = this;
-			this.model.on('error', function(errors){
-
+			this.model.on('error:once', function(errors){
 				buster.assert.equals(errors.length, Object.keys(self.dataFail).length);
 				done();
 			});
