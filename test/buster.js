@@ -6,17 +6,17 @@ config['Browser tests'] = {
 	environment: 'browser',
 
 	libs: [
-		'lib/components/requirejs/require.js',
 		'lib/components/lodash/dist/lodash.js',
-		'lib/components/primish/*.js',
-		'lib/index.js',
-		'lib/require.config.js'
+		'lib/components/primish/prime.js',
+		'lib/components/primish/emitter.js',
+		'lib/components/primish/options.js',
+		'lib/index.js'
 	],
 
 	sources: [
-		'lib/index.js',
+		//'lib/index.js',
 		'lib/model.js',
-		'lib/collection.js'
+		//'lib/collection.js'
 	],
 
 	tests: [
@@ -24,7 +24,7 @@ config['Browser tests'] = {
 		'test/specs/*-test.js'
 	],
 
-	extensions: [require('buster-amd')]
+	//extensions: [require('buster-amd')]
 
 //	resources: [
 //		// used as a static response json stub for model.sync

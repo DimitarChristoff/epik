@@ -1,4 +1,8 @@
-define(['lib/model', 'lodash'], function(Model, _){
+//define(['lib/model', 'lodash'], function(Model, _){
+
+var Model = this.epic.model,
+	_ = this.epic._,
+	primish = this.prime;
 
 	buster.testRunner.timeout = 1000;
 
@@ -44,7 +48,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 			buster.assert.isTrue(this.model instanceof Model);
 		},
 
-/*		'Expect the _attributes object to contain the sent values >': function(){
+		'Expect the _attributes object to contain the sent values >': function(){
 			var testVal = 123;
 			this.model.set('testing', testVal);
 			buster.assert.equals(testVal, this.model._attributes['testing']);
@@ -131,7 +135,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 			this.model.unset(keys);
 
 			// see what's left, should be null,null,null so an empty array.
-			data = Object.values(this.model.get(keys)).filter(function(el){
+			data = _.values(this.model.get(keys)).filter(function(el){
 				return el !== null;
 			});
 
@@ -140,7 +144,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 
 
 		'Expect model.toJSON to return an object >': function(){
-			buster.assert.equals(typeOf(this.model.toJSON()), 'object');
+			buster.assert(_.isObject(this.model.toJSON()));
 		},
 
 		'Expect model.toJSON to return a dereferenced object >': function(){
@@ -154,7 +158,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 		'Expect model to fire a change passing all changed properties as an object >': function(){
 			var self = this;
 			this.model.on('change', function(changed){
-				buster.assert.equals(changed, self.dataMany);
+				buster.assert.equals(changed, Object.keys(self.dataMany));
 			});
 
 			this.model.set(this.dataMany);
@@ -163,7 +167,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 		'Expect model accessor `get` to fire instead of normal model get >': function(){
 			var spy = this.spy();
 
-			this.model.properties = Object.merge({
+			this.model.properties = _.merge({
 				foo: {
 					get: function(){
 						spy();
@@ -179,7 +183,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 		'Expect model accessor `get` to prefer custom value over model value >': function(){
 			var newFoo = 'not old foo';
 
-			this.model.properties = Object.merge({
+			this.model.properties = _.merge({
 				foo: {
 					get: function(){
 						return newFoo;
@@ -193,7 +197,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 		'Expect model accessor `set` to fire instead of model set, passing the value >': function(){
 			var spy = this.spy();
 
-			this.model.properties = Object.merge({
+			this.model.properties = _.merge({
 				foo: {
 					set: spy
 				}
@@ -245,7 +249,7 @@ define(['lib/model', 'lodash'], function(Model, _){
 
 			this.errorMsg = 'Bar needs to be 3 or more characters';
 
-			var modelProto = new Class({
+			var modelProto = prime({
 
 				extend: Model,
 
@@ -318,10 +322,10 @@ define(['lib/model', 'lodash'], function(Model, _){
 			var msg = this.errorMsg;
 			this.model.on('error', function(errors){
 				var error = Array.filter(errors, function(el){
-					return el.bar;
+					return el.key === 'bar';
 				})[0];
 
-				buster.assert.equals(error.bar.error, msg);
+				buster.assert.equals(error.error, msg);
 				done();
 			});
 			this.model.set(this.dataFail);
@@ -335,8 +339,8 @@ define(['lib/model', 'lodash'], function(Model, _){
 				done();
 			});
 			this.model.set(this.dataFail);
-		} */
+		}
 	});
 
-});
+//});
 
