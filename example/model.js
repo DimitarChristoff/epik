@@ -1,4 +1,15 @@
-define(['../lib/index', '../lib/model'], function(epic, model){
+require.config({
+
+	baseUrl: '../',
+
+	paths: {
+		primish: 'lib/components/primish',
+		lodash: 'lib/components/lodash/dist/lodash',
+		slicker: 'lib/components/slicker/index'
+	}
+});
+
+define(['lib/index', 'lib/model'], function(epic, model){
 
 	var	primish = epic.primish,
 		_ = epic._;
