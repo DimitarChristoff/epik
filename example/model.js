@@ -29,6 +29,9 @@ define(['lib/index', 'lib/model'], function(epic, model){
 		validators: {
 			age: function(value){
 				return parseInt(value, 10) == value ? true : 'Age needs to be an integer';
+			},
+			name: function(value){
+				return (value.charAt(0).toLowerCase() !== value.charAt(0)) || 'Name needs to be capitalized';
 			}
 		}
 
@@ -66,7 +69,10 @@ define(['lib/index', 'lib/model'], function(epic, model){
 
 	console.log(bob.get(['name', 'surname', 'age']));
 
-	bob.set('age', 31.5);
+	bob.set({
+		age: 31.5,
+		name: 'bob'
+	});
 	bob.empty();
 
 });

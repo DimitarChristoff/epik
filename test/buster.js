@@ -16,12 +16,13 @@ config['Browser tests'] = {
 	sources: [
 		//'lib/index.js',
 		'lib/model.js',
-		//'lib/collection.js'
+		'lib/collection.js'
 	],
 
 	tests: [
 		// find matching test specs as above sources
-		'test/specs/*-test.js'
+		'test/specs/model-test.js'
+		//'test/specs/*-test.js'
 	],
 
 	//extensions: [require('buster-amd')]
