@@ -36,53 +36,59 @@ buster.testCase('Basic epic model creation with initial data >', {
 
 		this.initialEvents = false;
 
-		this.model = new Model(this.dataInitial, this.options);
-	},
+		this.getModel = function(){
+			return new Model(this.dataInitial, this.options);
+		};
 
-	tearDown: function(){
-		this.model.offAll();
 	},
 
 	'Expect a model to be created >': function(){
-		buster.assert.isTrue(this.model instanceof Model);
+		var model = this.getModel.call(this);
+		buster.assert.isTrue(model instanceof Model);
 	},
 
 	'Expect the _attributes object to contain the sent values >': function(){
 		var testVal = 123;
-		this.model.set('testing', testVal);
-		buster.assert.equals(testVal, this.model._attributes['testing']);
+		var model = this.getModel.call(this);
+		model.set('testing', testVal);
+		buster.assert.equals(testVal, model._attributes['testing']);
 	},
 
 	'Expect the model to have the default value if not overridden >': function(){
-		buster.assert.equals(this.model.get('name'), this.options.defaults.name);
+		var model = this.getModel.call(this);
+		buster.assert.equals(model.get('name'), this.options.defaults.name);
 	},
 
 	'Expect the model to have the default value overridden by model object >': function(){
-		buster.refute.equals(this.model.get('foo'), this.options.defaults.foo);
+		var model = this.getModel.call(this);
+		buster.refute.equals(model.get('foo'), this.options.defaults.foo);
 	},
 
 	'Expect a model not to fire initial change events on set >': function(){
+		var model = this.getModel.call(this);
 		buster.assert.isFalse(this.initialEvents);
 	},
 
 	'Expect a model change not to fire if values have not changed >': function(){
 		var spy = this.spy();
-		this.model.on('change', function(){
+		var model = this.getModel.call(this);
+		model.on('change', function(){
 			spy();
 		});
-		this.model.set(this.dataInitial);
+		model.set(this.dataInitial);
 		buster.refute.called(spy);
 	},
 
 	'Expect a model change on non-primitive values that serialize to the same not to fire >': function(){
 		var spy = this.spy();
-		this.model.set('obj', {
+		var model = this.getModel.call(this);
+		model.set('obj', {
 			foo: 'bar'
 		});
-		this.model.on('change', function(){
+		model.on('change', function(){
 			spy();
 		});
-		this.model.set('obj', {
+		model.set('obj', {
 			foo: 'bar'
 		});
 		buster.refute.called(spy);
@@ -91,50 +97,56 @@ buster.testCase('Basic epic model creation with initial data >', {
 
 	'Expect a model change to fire if values have changed >': function(done){
 		var self = this;
-		this.model.on('change:bar', function(val){
+		var model = this.getModel.call(this);
+		model.on('change:bar', function(val){
 			buster.assert.equals(val, self.dataAfter.bar);
 			done();
 		});
 
-		this.model.set(this.dataAfter);
+		model.set(this.dataAfter);
 	},
 
 	'Expect a model to fire change event for each property passed >': function(){
 		var spy = this.spy();
-		this.model.on('change', function(){
+		var model = this.getModel.call(this);
+		model.on('change', function(){
 			spy();
 		});
 
-		this.model.set(this.dataMany);
+		model.set(this.dataMany);
 		buster.refute.calledThrice(spy);
 	},
 
 	'Expect a key that is not on model to be null >': function(){
-		buster.assert.isNull(this.model.get('foobar'));
+		var model = this.getModel.call(this);
+		buster.assert.isNull(model.get('foobar'));
 	},
 
 	'Expect that setting to null removes from model >': function(){
-		this.model.set('foo', null);
-		buster.assert.isNull(this.model.get('foo'));
+		var model = this.getModel.call(this);
+		model.set('foo', null);
+		buster.assert.isNull(model.get('foo'));
 	},
 
 	'Expect .unset() removes from model >': function(){
-		this.model.unset('foo');
-		buster.assert.isNull(this.model.get('foo'));
+		var model = this.getModel.call(this);
+		model.unset('foo');
+		buster.assert.isNull(model.get('foo'));
 	},
 
 	'Expect .unset([array]) removes all keys from model >': function(){
-		var keys = Object.keys(this.dataMany),
+		var model = this.getModel.call(this);
+		var keys = _.keys(this.dataMany),
 			data;
 
 		// put some values in
-		this.model.set(this.dataMany);
+		model.set(this.dataMany);
 
 		// remove them
-		this.model.unset(keys);
+		model.unset(keys);
 
 		// see what's left, should be null,null,null so an empty array.
-		data = _.values(this.model.get(keys)).filter(function(el){
+		data = _.values(model.get(keys)).filter(function(el){
 			return el !== null;
 		});
 
@@ -143,87 +155,94 @@ buster.testCase('Basic epic model creation with initial data >', {
 
 
 	'Expect model.toJSON to return an object >': function(){
-		buster.assert(_.isObject(this.model.toJSON()));
+		var model = this.getModel.call(this);
+		buster.assert(_.isObject(model.toJSON()));
 	},
 
 	'Expect model.toJSON to return a dereferenced object >': function(){
-		var json = this.model.toJSON(),
+		var model = this.getModel.call(this);
+		var json = model.toJSON(),
 			testStr = 'testing';
 
 		json.foo = testStr;
-		buster.refute.equals(this.model.get('foo'), json.foo);
+		buster.refute.equals(model.get('foo'), json.foo);
 	},
 
 	'Expect model to fire a change passing all changed properties as an object >': function(){
 		var self = this;
-		this.model.on('change', function(changed){
-			buster.assert.equals(changed, Object.keys(self.dataMany));
+		var model = this.getModel.call(this);
+		var before = model.toJSON();
+		model.on('change', function(changed){
+			if (changed.length !== 3) {
+				console.log(before);
+			}
+			buster.assert.equals(changed, _.keys(self.dataMany));
 		});
 
-		this.model.set(this.dataMany);
+		model.set(this.dataMany);
 	},
 
 	'Expect model accessor `get` to fire instead of normal model get >': function(){
 		var spy = this.spy();
-
-		this.model.properties = _.merge({
+		var model = this.getModel.call(this);
+		model.properties = _.merge({
 			foo: {
 				get: function(){
 					spy();
 					return 'intercept';
 				}
 			}
-		}, this.model.properties);
+		}, model.properties);
 
-		this.model.get('foo');
+		model.get('foo');
 		buster.assert.calledOnce(spy);
 	},
 
 	'Expect model accessor `get` to prefer custom value over model value >': function(){
 		var newFoo = 'not old foo';
-
-		this.model.properties = _.merge({
+		var model = this.getModel.call(this);
+		model.properties = _.merge({
 			foo: {
 				get: function(){
 					return newFoo;
 				}
 			}
-		}, this.model.properties);
+		}, model.properties);
 
-		buster.assert.equals(this.model.get('foo'), newFoo);
+		buster.assert.equals(model.get('foo'), newFoo);
 	},
 
 	'Expect model accessor `set` to fire instead of model set, passing the value >': function(){
 		var spy = this.spy();
-
-		this.model.properties = _.merge({
+		var model = this.getModel.call(this);
+		model.properties = _.merge({
 			foo: {
 				set: spy
 			}
-		}, this.model.properties);
+		}, model.properties);
 
-		this.model.set('foo', 'bar');
+		model.set('foo', 'bar');
 		buster.assert.calledWith(spy, 'bar');
 	},
 
 	'Expect empty to fire the event and empty the model >': function(){
-
-		this.model.on('empty', function(){
+		var model = this.getModel.call(this);
+		model.on('empty', function(){
 			buster.assert.equals(this._attributes, {});
 		});
 
-		this.model.empty();
+		model.empty();
 	},
 
 	'Expect empty to fire the change event with all model properties >': function(){
+		var model = this.getModel.call(this);
+		var keys = _.keys(model.toJSON());
 
-		var keys = Object.keys(this.model.toJSON());
-
-		this.model.on('change', function(properties){
+		model.on('change', function(properties){
 			buster.assert.equals(properties, keys);
 		});
 
-		this.model.empty();
+		model.empty();
 	}
 
 });
@@ -260,63 +279,61 @@ buster.testCase('epic model validators >', {
 			}
 		});
 
-		this.model = new ModelProto(this.dataInitial);
-	},
-
-	tearDown: function(){
-		this.model.empty();
-		this.model.validationFailed = [];
-		this.model.offAll();
+		this.getModel = function(){
+			return new ModelProto(this.dataInitial);
+		};
 	},
 
 	'Expect model to set value when validation passes >': function(){
 		var spy = this.spy();
-
-		this.model.on('change:age', spy);
-		this.model.set(this.dataPass);
+		var model = this.getModel.call(this);
+		model.on('change:age', spy);
+		model.set(this.dataPass);
 
 		buster.assert.calledWith(spy, this.dataPass.age);
 	},
 
 	'Expect no errors to be fired when validation passes >': function(){
 		var spy = this.spy();
-
-		this.model.on('error', spy);
-		this.model.set(this.dataPass);
+		var model = this.getModel.call(this);
+		model.on('error', spy);
+		model.set(this.dataPass);
 
 		buster.refute.called(spy);
 	},
 
 	'Expect model not to set value when validation fails >': function(){
 		var spy = this.spy();
-
-		this.model.on('change:age', spy);
-		this.model.set(this.dataFail);
+		var model = this.getModel.call(this);
+		model.on('change:age', spy);
+		model.set(this.dataFail);
 
 		buster.refute.calledWith(spy, this.dataPass.age);
 	},
 
 	'Expect error to fire when validation fails >': function(){
 		var spy = this.spy();
-
-		this.model.on('error', spy);
-		this.model.set(this.dataFail);
+		var model = this.getModel.call(this);
+		model.on('error', spy);
+		model.set(this.dataFail);
 
 		buster.assert.calledOnce(spy);
 	},
 
 	'Expect error per key to fire when validation fails >': function(done){
 		var msg = this.errorMsg;
-		this.model.on('error:age', function(errorObj){
+		var model = this.getModel.call(this);
+		model.on('error:age', function(errorObj){
 			buster.assert.equals(msg, errorObj.error);
 			done();
 		});
-		this.model.set(this.dataFail);
+		model.set(this.dataFail);
 	},
 
 	'Expect error event to pass the failed validation and error msg >': function(done){
 		var msg = this.errorMsg;
-		this.model.on('error', function(errors){
+		var model = this.getModel.call(this);
+		model.on('error', function(errors){
 			var error = _.filter(errors, function(el){
 				return el.key === 'age';
 			})[0];
@@ -324,17 +341,15 @@ buster.testCase('epic model validators >', {
 			buster.assert.equals(error.error, msg);
 			done();
 		});
-		this.model.set(this.dataFail);
+		model.set(this.dataFail);
 	},
 
 	'Expect error event to pass all failed validation objects >': function(){
 		var self = this;
-
-		this.model.on('error', function(errors){
-
+		var model = this.getModel.call(this);
+		model.on('error', function(errors){
 			buster.assert.equals(errors.length, Object.keys(self.dataFail).length);
-
 		});
-		this.model.set(this.dataFail);
+		model.set(this.dataFail);
 	}
 });
