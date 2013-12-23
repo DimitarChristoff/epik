@@ -65,7 +65,7 @@ buster.testCase('Basic epic model creation with initial data >', {
 	},
 
 	'Expect a model not to fire initial change events on set >': function(){
-		var model = this.getModel.call(this);
+		this.getModel.call(this);
 		buster.assert.isFalse(this.initialEvents);
 	},
 
