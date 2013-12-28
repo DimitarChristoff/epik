@@ -55,7 +55,7 @@ define(['lib/index', 'lib/model-sync'], function(epic, model){
 			});
 		},
 		onFetch: function(){
-			console.log('fetched');
+			console.log('fetched', this.toJSON());
 		},
 		onFailure: function(response){
 			console.log('sync error occurred', response.status);
@@ -85,6 +85,10 @@ define(['lib/index', 'lib/model-sync'], function(epic, model){
 		urlRoot: 'api/users'
 	});
 
-	bob.fetch();
+	bob.on('save:once requestFailure', function(){
+		this.set('lastUpdated', +(new Date()));
+		this.fetch();
+	});
 
+	bob.save();
 });
