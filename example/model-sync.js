@@ -85,7 +85,8 @@ define(['lib/index', 'lib/model-sync'], function(epic, model){
 		urlRoot: 'api/users'
 	});
 
-	bob.on('save:once requestFailure', function(){
+	bob.on('requestFailure', function(){
+		console.count('here');
 		this.set('lastUpdated', +(new Date()));
 		this.fetch();
 	});
