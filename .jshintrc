@@ -1,7 +1,6 @@
 {
 	"node": true,
 	"browser": true,
-	"mootools": true,
 	"esnext": false,
 	"evil": false,
 	"bitwise": false,
@@ -10,7 +9,7 @@
 	"eqnull": true,
 	"immed": true,
 	"latedef": true,
-	"newcap": true,
+	"newcap": false,
 	"noarg": true,
 	"undef": true,
 	"unused": true,

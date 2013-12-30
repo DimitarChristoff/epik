@@ -15,23 +15,26 @@ config['Browser tests'] = {
 
 	sources: [
 		//'lib/index.js',
+		'lib/agent.js',
 		'lib/model.js',
-		'lib/collection.js'
+		'lib/model-sync.js',
+		'lib/collection.js',
 	],
 
 	tests: [
 		// find matching test specs as above sources
-		'test/specs/model-test.js'
+		'test/specs/model-test.js',
+		'test/specs/model-sync-test.js'
 		//'test/specs/*-test.js'
 	],
 
 	//extensions: [require('buster-amd')]
 
-//	resources: [
-//		// used as a static response json stub for model.sync
-//		'example/data/1234-5123/*',
-//		'example/data/collection/*'
-//	]
+	resources: [
+		// used as a static response json stub for model.sync
+		'example/api/users/*'
+		//'example/api/collection/*'
+	]
 };
 
 /*
