@@ -19,12 +19,14 @@ config['Browser tests'] = {
 		'lib/model.js',
 		'lib/model-sync.js',
 		'lib/collection.js',
+		'lib/collection-sync.js'
 	],
 
 	tests: [
 		// find matching test specs as above sources
-		'test/specs/model-test.js',
-		'test/specs/model-sync-test.js'
+		//'test/specs/model-test.js',
+		//'test/specs/model-sync-test.js',
+		'test/specs/collection-sync-test.js'
 		//'test/specs/*-test.js'
 	],
 
@@ -32,8 +34,8 @@ config['Browser tests'] = {
 
 	resources: [
 		// used as a static response json stub for model.sync
-		'example/api/users/*'
-		//'example/api/collection/*'
+		'example/api/users/*',
+		'example/api/collection/*'
 	]
 };
 

@@ -1,0 +1,50 @@
+var ModelSync = this.epic.model.sync,
+	CollectionSync = this.epic.collection.sync,
+	primish = this.primish,
+	buster = this.buster;
+
+buster.testRunner.timeout = 1000;
+
+buster.testCase('Basic epic empty collection via sync creation >', {
+	setUp: function() {
+
+		var testModel = primish({
+			extend: ModelSync
+		});
+
+		this.CollectionProto = primish({
+
+			extend: CollectionSync,
+
+			options: {
+				urlRoot: 'example/api/collection/response.json'
+			},
+
+			model: testModel
+		});
+
+		this.collection = new this.CollectionProto(null);
+	},
+
+	tearDown: function() {
+		this.collection.empty();
+		this.collection.offAll();
+	},
+
+	'Expect a collection to be created >': function() {
+		buster.assert.isTrue(this.collection instanceof CollectionSync);
+	},
+
+	'Expect a collection to have fetch >': function() {
+		buster.assert.isTrue(typeof this.collection.fetch === 'function');
+	},
+
+	'Expect models to fetch >': function(done) {
+		this.collection.on('fetch', function(){
+			buster.assert.equals(this.length, 10);
+			done();
+		});
+
+		this.collection.fetch();
+	}
+});

@@ -6,7 +6,7 @@ var Model = this.epic.model,
 
 buster.testRunner.timeout = 1000;
 
-buster.testCase('Basic Epitome empty collection creation >', {
+buster.testCase('Basic epic empty collection creation >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection,
@@ -249,7 +249,7 @@ buster.testCase('Basic Epitome collection with a model creation >', {
 });
 
 
-buster.testCase('Basic Epitome collection array methods >', {
+buster.testCase('Basic epic collection array methods >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection
