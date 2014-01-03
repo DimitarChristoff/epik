@@ -46,5 +46,14 @@ buster.testCase('Basic epic empty collection via sync creation >', {
 		});
 
 		this.collection.fetch();
+	},
+
+	'Expect failed fetch to fire an event >': function(done){
+		this.collection.request.url(this.collection.options.urlRoot + '404');
+		this.collection.on('requestFailure', function(){
+			buster.assert.equals(this.length, 0);
+			done();
+		});
+		this.collection.fetch();
 	}
 });

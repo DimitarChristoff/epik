@@ -25,7 +25,7 @@ config['Browser tests'] = {
 	tests: [
 		// find matching test specs as above sources
 		//'test/specs/model-test.js',
-		//'test/specs/model-sync-test.js',
+		'test/specs/model-sync-test.js',
 		'test/specs/collection-sync-test.js'
 		//'test/specs/*-test.js'
 	],
