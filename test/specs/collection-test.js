@@ -501,7 +501,7 @@ buster.testCase('Basic Epitome collection.find >', {
 			extend: Collection
 		});
 
-		this.models = [
+		var models = [
 			{
 				name: 'bob',
 				surname: 'roberts',
@@ -529,7 +529,11 @@ buster.testCase('Basic Epitome collection.find >', {
 			}
 		];
 
-		this.collection = new this.Collection(this.models);
+		this.collection = new this.Collection(models);
+	},
+
+	tearDown: function(){
+		this.collection.empty();
 	},
 
 	'Expect search by existence of a model attribute [attr] to return matching models >': function(){
@@ -601,7 +605,7 @@ buster.testCase('Basic Epitome collection.find >', {
 	},
 
 	'Expect search via .findOne to return a single model >': function(){
-		buster.assert.isTrue(instanceOf(this.collection.findOne('[name=bob]'), Model));
+		buster.assert.isTrue(this.collection.findOne('[name=bob]') instanceof Model);
 	},
 
 	'Expect search via .findOne when no match to return null >': function(){

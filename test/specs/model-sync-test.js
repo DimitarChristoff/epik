@@ -24,10 +24,6 @@ buster.testCase('epic model sync >', {
 		};
 
 		this.options = {
-			defaults: {
-				foo: 'not bar',
-				name: 'bob'
-			},
 			headers: {
 				'X-Requested-With': 'epic'
 			}
