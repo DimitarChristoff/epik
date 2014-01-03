@@ -10,6 +10,7 @@ config['Browser tests'] = {
 		'lib/components/primish/primish.js',
 		'lib/components/primish/emitter.js',
 		'lib/components/primish/options.js',
+		'lib/components/slicker/index.js',
 		'lib/index.js'
 	],
 
@@ -24,8 +25,9 @@ config['Browser tests'] = {
 
 	tests: [
 		// find matching test specs as above sources
-		//'test/specs/model-test.js',
+		'test/specs/model-test.js',
 		'test/specs/model-sync-test.js',
+		'test/specs/collection-test.js',
 		'test/specs/collection-sync-test.js'
 		//'test/specs/*-test.js'
 	],

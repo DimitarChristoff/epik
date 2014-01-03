@@ -4,19 +4,11 @@ var Model = this.epic.model,
 	primish = this.primish,
 	buster = this.buster;
 
-buster.testRunner.timeout = 1000;
-
 buster.testCase('Basic epic empty collection creation >', {
 	setUp: function(){
+		this.timeout = 1000;
 		this.Collection = primish({
-			extend: Collection,
-
-			foo: function(){
-
-			},
-			onChange: function(){
-				console.log('hai');
-			}
+			extend: Collection
 		});
 
 		this.collection = new this.Collection();
@@ -27,18 +19,17 @@ buster.testCase('Basic epic empty collection creation >', {
 	},
 
 	tearDown: function(){
-		this.collection.empty();
+		this.collection.offAll();
+		//this.collection.empty();
 		this.collection._listeners = {};
 		this.collection._subscribers = {};
-		this.collection.off('add');
-		this.collection.off('remove');
 	},
 
 	'Expect a collection to be created >': function(){
 		buster.assert.isTrue(this.collection instanceof Collection);
 	},
 
-	'Expect a collection to have legth of 0 >': function(){
+	'Expect a collection to have length of 0 >': function(){
 		buster.assert.equals(this.collection.length, 0);
 	},
 
@@ -85,7 +76,7 @@ buster.testCase('Basic epic empty collection creation >', {
 			hello: 'again'
 		});
 
-		buster.assert.equals(this.model.collections.length, 0);
+		buster.assert.equals(this.model._collections.length, 0);
 		buster.assert.equals(this.collection.length, 1);
 	},
 
@@ -95,7 +86,7 @@ buster.testCase('Basic epic empty collection creation >', {
 		};
 
 		this.collection.addModel(data);
-		buster.assert.isTrue(instanceOf(this.collection.getModelByCID(data.id), this.collection.model));
+		buster.assert.isTrue(this.collection.getModelByCID(data.id) instanceof this.collection.model);
 	},
 
 	'Expect adding a model to fire onReset >': function(){
@@ -118,6 +109,7 @@ buster.testCase('Basic epic empty collection creation >', {
 	'Expect removing models to collection to fire onRemove event >': function(){
 		var self = this;
 		this.collection.addModel(this.model);
+		this.collection.offAll();
 		this.collection.on('remove', function(model){
 			buster.assert.equals(model, self.model);
 		});
@@ -128,11 +120,15 @@ buster.testCase('Basic epic empty collection creation >', {
 		var model2 = new Model({
 				hai: 'mum'
 			});
+
 		this.collection.addModel(this.model);
 		this.collection.addModel(model2);
+
 		this.collection.on('reset', function(models){
+			buster.assert.equals(this.length, 0);
 			buster.assert.equals(models.length, 2);
 		});
+
 		this.collection.removeModel([this.model, model2]);
 	},
 
@@ -170,14 +166,14 @@ buster.testCase('Basic epic empty collection creation >', {
 });
 
 
-buster.testCase('Basic Epitome collection with a model creation >', {
+buster.testCase('Basic epic collection with a model creation >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection,
 
 			options: {
 				onChange: function(){
-					this.change.apply(this, arguments);
+					// this.change.apply(this, arguments);
 				}
 			}
 		});
@@ -192,8 +188,9 @@ buster.testCase('Basic Epitome collection with a model creation >', {
 	},
 
 	tearDown: function(){
-		this.collection.off('add');
-		this.collection.off('remove');
+		this.collection.offAll();
+		this.collection._listeners = {};
+		this.collection._subscribers = {};
 	},
 
 	'Expect models to be equal to number passed in constructor >': function(){
@@ -229,21 +226,25 @@ buster.testCase('Basic Epitome collection with a model creation >', {
 	},
 
 	'A model should be able to exist in 2 collections and the event emitter should work when removed from either one >': function(){
-		var c2 = new this.Collection(this.models),
-			spy = this.spy();
-		this.collection.on('change', spy);
-		c2.removeModel(this.model);
-		this.model.set('foo', 'bar');
-		buster.assert.called(spy);
+		var collection2 = new this.Collection(this.models);
+
+		this.collection.on('change', function(done){
+			buster.assert.isTrue(true);
+			done();
+		});
+
+		collection2.removeModel(this.model);
+		buster.assert.equals(this.model._collections.length, 1);
+		this.model.set('foo', 'bar' + _.uniqueId());
 	},
 
 	'Adding a model to a collection should include the collection instance in the model.collections array >': function(){
-		buster.assert.isTrue(this.model.collections.contains(this.collection));
+		buster.assert.isTrue(_.indexOf(this.model._collections, this.collection) !== -1);
 	},
 
 	'Removing a model from a collection should also remove the collection instance in the model.collections array >': function(){
 		this.collection.removeModel(this.model);
-		buster.refute.isTrue(this.model.collections.contains(this.collection));
+		buster.assert.equals(_.indexOf(this.model._collections, this.collection), -1);
 	}
 
 });
@@ -265,7 +266,7 @@ buster.testCase('Basic epic collection array methods >', {
 	},
 
 	tearDown: function(){
-		this.collection.off();
+		this.collection.offAll();
 	},
 
 	'Expect toJSON to return an array of all models\' dereferenced objects >': function(){
@@ -304,7 +305,7 @@ buster.testCase('Basic epic collection array methods >', {
 			return el.cid == cid;
 		});
 
-		buster.assert.equals(models.length, 1)
+		buster.assert.equals(models.length, 1);
 	},
 
 	'Expect Array method .contains to work on the collection >': function(){
@@ -378,7 +379,7 @@ buster.testCase('Basic epic collection array methods >', {
 	},
 
 	'Expect .empty() to remove all models from collection >': function(){
-		this.collection.empty();
+		// this.collection.reset();
 
 		this.collection.addModel({
 			id: 300,
@@ -491,7 +492,6 @@ buster.testCase('Basic epic collection array methods >', {
 
 		this.collection.reverse();
 	}
-
 });
 
 

@@ -4,10 +4,9 @@ var model = this.epic.model,
 	buster = this.buster,
 	sinon = this.sinon;
 
-buster.testRunner.timeout = 1000;
-
 buster.testCase('epic model sync >', {
 	setUp: function(){
+		this.timeout = 1000;
 		this.dataInitial = {
 			foo: 'bar',
 			id: '1.json',
@@ -122,13 +121,10 @@ buster.testCase('epic model sync >', {
 	},
 
 	'Expect a fetch to update our model properties to as per static response.json and fire change events >': function(done){
-		this.model.set({
-			'foo': _.uniqueId()
-		});
+		this.model.set('foo', null);
 
-		var oldFoo = this.model.get('foo');
 		this.model.on('change:foo', function(newValue){
-			buster.refute.equals(newValue, oldFoo);
+			buster.refute.equals(newValue, null);
 			done();
 		});
 
