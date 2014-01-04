@@ -1,11 +1,11 @@
-var Model = this.epic.model,
-	_ = this.epic._,
+var Model = this.epik.model,
+	_ = this.epik._,
 	primish = this.primish,
 	buster = this.buster;
 
 buster.testRunner.timeout = 1000;
 
-buster.testCase('Basic epic model creation with initial data >', {
+buster.testCase('Basic epik model creation with initial data >', {
 	setUp: function(){
 		var self = this;
 
@@ -255,7 +255,7 @@ buster.testCase('Basic epic model creation with initial data >', {
 });
 
 
-buster.testCase('epic model validators >', {
+buster.testCase('epik model validators >', {
 	setUp: function(){
 		this.dataInitial = {
 			name: 'Bob'

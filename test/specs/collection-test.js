@@ -1,10 +1,10 @@
-var Model = this.epic.model,
-	Collection = this.epic.collection,
-	_ = this.epic._,
+var Model = this.epik.model,
+	Collection = this.epik.collection,
+	_ = this.epik._,
 	primish = this.primish,
 	buster = this.buster;
 
-buster.testCase('Basic epic empty collection creation >', {
+buster.testCase('Basic epik empty collection creation >', {
 	setUp: function(){
 		this.timeout = 1000;
 		this.Collection = primish({
@@ -166,7 +166,7 @@ buster.testCase('Basic epic empty collection creation >', {
 });
 
 
-buster.testCase('Basic epic collection with a model creation >', {
+buster.testCase('Basic epik collection with a model creation >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection,
@@ -250,7 +250,7 @@ buster.testCase('Basic epic collection with a model creation >', {
 });
 
 
-buster.testCase('Basic epic collection array methods >', {
+buster.testCase('Basic epik collection array methods >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection

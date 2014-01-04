@@ -1,9 +1,9 @@
-var ModelSync = this.epic.model.sync,
-	CollectionSync = this.epic.collection.sync,
+var ModelSync = this.epik.model.sync,
+	CollectionSync = this.epik.collection.sync,
 	primish = this.primish,
 	buster = this.buster;
 
-buster.testCase('Basic epic empty collection via sync creation >', {
+buster.testCase('Basic epik empty collection via sync creation >', {
 	setUp: function() {
 		this.timeout = 1000;
 		var testModel = primish({

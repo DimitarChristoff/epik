@@ -9,9 +9,9 @@ require.config({
 	}
 });
 
-define(['lib/index', 'lib/collection-sync'], function(epic, collection){
+define(['lib/index', 'lib/collection-sync'], function(epik, collection){
 
-	var	primish = epic.primish;
+	var	primish = epik.primish;
 
 	var Persons = primish({
 

@@ -1,6 +1,6 @@
 var config = exports;
 
-config['Browser tests'] = {
+config['Epik browser tests'] = {
 	rootPath: '../',
 
 	environment: 'browser',
@@ -41,7 +41,7 @@ config['Browser tests'] = {
 	]
 };
 
-/*
+
 // tests disabled as buster-test with both groups right now does not proc.exit
 config['Node tests'] = {
 	rootPath: '../',
@@ -49,31 +49,23 @@ config['Node tests'] = {
 	environment: 'node',
 
 	libs: [
-		// server-only, no request or element.
-		'test/lib/mootools-core-1.4.5-server.js'
+		'lib/components/lodash/dist/lodash.js',
+		'lib/components/primish/primish.js',
+		'lib/components/primish/emitter.js',
+		'lib/components/primish/options.js',
+		'lib/components/slicker/index.js',
+		'lib/index.js'
 	],
 
 	sources: [
-		// core
-		'src/epitome.js',
-		// utils
-		'src/epitome-isequal.js',
-		// model core
-		'src/epitome-model.js',
-		// controller/collection
-		'src/epitome-collection.js',
-
-		// template
-		'src/epitome-template.js'
+		//'lib/index.js',
+		'lib/model.js',
+		'lib/collection.js'
 	],
 
 	tests: [
 		// find matching test specs as above sources
-		'test/tests/epitome-isequal-test.js',
-
-		'test/tests/epitome-model-test.js',
-
-		'test/tests/epitome-collection-test.js'
+		'test/specs/model-test.js',
+		'test/specs/collection-test.js'
 	]
 };
-*/

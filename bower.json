@@ -1,9 +1,16 @@
 {
-  "name": "epic",
+  "name": "epik",
   "version": "0.0.1",
   "main": [
     "lib/index.js",
-    "lib/model.js"
+    "lib/model.js",
+	"lib/model-sync.js",
+	"lib/collection.js",
+	"lib/collection-sync.js",
+	"lib/agent.js",
+	"lib/router.js",
+	"lib/storage.js",
+	"lib/require.config.js"
   ],
   "ignore": [
     "**/.*",

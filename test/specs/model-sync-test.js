@@ -1,10 +1,10 @@
-var model = this.epic.model,
-	_ = this.epic._,
+var model = this.epik.model,
+	_ = this.epik._,
 	primish = this.primish,
 	buster = this.buster,
 	sinon = this.sinon;
 
-buster.testCase('epic model sync >', {
+buster.testCase('epik model sync >', {
 	setUp: function(){
 		this.timeout = 1000;
 		this.dataInitial = {
@@ -25,7 +25,7 @@ buster.testCase('epic model sync >', {
 
 		this.options = {
 			headers: {
-				'X-Requested-With': 'epic'
+				'X-Requested-With': 'epik'
 			}
 		};
 
@@ -230,7 +230,7 @@ buster.testCase('epic model sync >', {
 			id: 1
 		}, this.options);
 
-		buster.assert.equals(this.model.request.header('X-Requested-With'), 'epic');
+		buster.assert.equals(this.model.request.header('X-Requested-With'), 'epik');
 	}
 
 });

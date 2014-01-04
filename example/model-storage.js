@@ -9,9 +9,9 @@ require.config({
 	}
 });
 
-define(['lib/index', 'lib/model', 'lib/storage'], function(epic, model, storage){
+define(['lib/index', 'lib/model', 'lib/storage'], function(epik, model, storage){
 
-	var	primish = epic.primish;
+	var	primish = epik.primish;
 
 	var Person = primish({
 
