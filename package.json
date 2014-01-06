@@ -23,14 +23,16 @@
     "slicker": "0.0.2",
     "primish": "~0.3.1",
     "lodash": "~2.4.1",
-    "buster-amd": "~0.3.1",
     "requirejs": "~2.1.9"
   },
   "devDependencies": {
-    "buster": "~0.7.6",
     "grunt": "~0.4.2",
+    "grunt-express": "~1.2.1",
     "socket.io": "~0.9.16",
-    "grunt-express-server": "~0.4.10"
+    "buster-amd": "~0.3.1",
+    "buster": "~0.7.6",
+    "grunt-express-server": "~0.4.10",
+    "matchdep": "~0.3.0"
   },
   "engines": {
     "node": "~0.8.26"
