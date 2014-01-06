@@ -32,7 +32,8 @@
     "buster-amd": "~0.3.1",
     "buster": "~0.7.6",
     "grunt-express-server": "~0.4.10",
-    "matchdep": "~0.3.0"
+    "matchdep": "~0.3.0",
+    "express": "~3.4.7"
   },
   "engines": {
     "node": "~0.8.26"
