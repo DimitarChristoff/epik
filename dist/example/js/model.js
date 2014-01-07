@@ -1,15 +1,14 @@
 require.config({
-
 	baseUrl: '../../',
-
 	paths: {
-		primish: 'lib/components/primish',
-		lodash: 'lib/components/lodash/dist/lodash',
-		slicker: 'lib/components/slicker/index'
+		components: 'lib/components',
+		primish: 'components/primish',
+		lodash: 'components/lodash/dist/lodash',
+		slicker: 'components/slicker/index'
 	}
 });
 
-define(['lib/index', 'person'], function(epik, Person){
+define(['lib/index', 'example/js/person'], function(epik, Person){
 
 	var	_ = epik._;
 

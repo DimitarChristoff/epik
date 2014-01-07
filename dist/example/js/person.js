@@ -3,8 +3,8 @@
 		define(['lib/index', 'lib/model-sync'], factory);
 	} else if (typeof module != 'undefined' && module.exports){
 		module.exports = factory(
-			require('../../lib/index'),
-			require('../../lib/model')
+			require('../../../lib/index'),
+			require('../../../lib/model')
 		);
 	} else {
 		this.Person = factory(

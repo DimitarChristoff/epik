@@ -8,11 +8,10 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 
 //app.use(express.static('dist/example'));
-console.log(path.resolve('lib'));
 app.use('/lib/', express.static(path.resolve('lib')));
 
 var users = {},
-	Person = require('../example/person');
+	Person = require('../example/js/person');
 
 app.get('/api/:resource/:id', function(req, res){
 	var id = req.params.id;
@@ -44,9 +43,13 @@ app.put('/api/:resource/:id', function(req, res){
 
 io.sockets.on('connection', function(socket){
 	// socket.emit('news', { hello: 'world' });
-	// socket.on('my other event', function (data) {
-	//	console.log(data);
-	// });
+	socket.on('demos:get', function (){
+		socket.emit('demos:get', [{
+			name: 'model',
+			title: 'demo of models'
+		}]);
+
+	});
 });
 
 module.exports = app;

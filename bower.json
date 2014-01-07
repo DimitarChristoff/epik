@@ -4,13 +4,13 @@
   "main": [
     "lib/index.js",
     "lib/model.js",
-	"lib/model-sync.js",
-	"lib/collection.js",
-	"lib/collection-sync.js",
-	"lib/agent.js",
-	"lib/router.js",
-	"lib/storage.js",
-	"lib/require.config.js"
+    "lib/model-sync.js",
+    "lib/collection.js",
+    "lib/collection-sync.js",
+    "lib/agent.js",
+    "lib/router.js",
+    "lib/storage.js",
+    "lib/require.config.js"
   ],
   "ignore": [
     "**/.*",
@@ -27,7 +27,9 @@
     "primish": "~0.3.1",
     "requirejs": "~2.1.9",
     "lodash": "~2.4.1",
-    "slicker": "~0.0.2"
+    "slicker": "~0.0.2",
+    "socket.io-client": "~0.9.16",
+    "require-handlebars-plugin": "~0.7.0"
   },
   "authors": [
     "DimitarChristoff <christoff@gmail.com>"

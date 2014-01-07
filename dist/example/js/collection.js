@@ -1,11 +1,10 @@
 require.config({
-
 	baseUrl: '../../',
-
 	paths: {
-		primish: 'lib/components/primish',
-		lodash: 'lib/components/lodash/dist/lodash',
-		slicker: 'lib/components/slicker/index'
+		components: 'lib/components',
+		primish: 'components/primish',
+		lodash: 'components/lodash/dist/lodash',
+		slicker: 'components/slicker/index'
 	}
 });
 

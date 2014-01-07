@@ -1,32 +1,21 @@
 require.config({
-
 	baseUrl: '../../',
-
 	paths: {
-		primish: 'lib/components/primish',
-		lodash: 'lib/components/lodash/dist/lodash',
-		slicker: 'lib/components/slicker/index'
+		components: 'lib/components',
+		primish: 'components/primish',
+		lodash: 'components/lodash/dist/lodash',
+		slicker: 'components/slicker/index'
 	}
 });
 
-define(['lib/index', 'lib/model', 'lib/storage'], function(epik, model, storage){
+define(['lib/index', 'lib/model', 'lib/storage', 'example/js/person'], function(epik, model, storage, Person){
 
-	var	primish = epik.primish;
+	// get session storage from factory
+	var sessionStorage = storage.sessionStorage();
 
-	var Person = primish({
+	// mix it into existing protoype.
+	Person.implement(new sessionStorage());
 
-		extend: model,
-
-		implement: [storage.sessionStorage()],
-
-		options: {
-			defaults: {
-				name: 'Robert',
-				surname: 'Roberts',
-				age: 30
-			}
-		}
-	});
 
 	var bob = new Person({
 		id: 'bob'
