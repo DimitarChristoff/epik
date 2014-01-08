@@ -199,7 +199,9 @@ buster.testCase('Basic epik collection with a model creation >', {
 
 	'Expect onChange on a model to fire for collection >': function(){
 		var self = this;
+		this.collection.offAll();
 		this.collection.on('change', function(model, props){
+			console.log(arguments);
 			buster.assert.equals(model, self.model);
 			buster.assert.equals(_.indexOf(props, 'foo'), 0);
 		});

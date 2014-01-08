@@ -74,6 +74,7 @@ define(function(require){
 		element: document.getElementById('menu'),
 		collection: new Examples([]),
 		'onCollection:reset': function(){
+			console.log('here');
 			this.router || (this.router = createRouter(this.collection.toJSON()));
 			this.render();
 		}
