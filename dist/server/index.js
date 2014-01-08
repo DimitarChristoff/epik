@@ -4,56 +4,69 @@ var express = require('express'),
 	io = require('socket.io').listen(server),
 	path = require('path');
 
+// var io = require('socket.io').listen(8080);
+
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 
 //app.use(express.static('dist/example'));
 app.use('/lib/', express.static(path.resolve('lib')));
+app.use('/socket.io/', express.static(path.resolve('lib/components/socket.io-client/dist/')));
 
-var users = {},
-	Person = require('../example/js/person');
+// factory of restful model resources
+var resources = {},
+	constructors = {
+		users: require('../example/js/person')
+	};
 
 app.get('/api/:resource/:id', function(req, res){
-	var id = req.params.id;
-	if (!users[id]){
-		users[id] = new Person({
-			id: id
-		}) ;
-	}
-	res.send(users[id].toJSON());
+	var id = req.params.id,
+		resource = req.params.resource;
+
+	resources[resource] || (resources[resource] = {});
+	resources[resource][id] || (resources[resource][id] = new constructors[resource]({
+		id: id
+	}));
+
+	res.send(resources[resource][id].toJSON());
 });
 
 app.put('/api/:resource/:id', function(req, res){
-	var id = req.params.id[0];
-	if (!users[id]){
-		users[id] = new Person({
-			id: id
-		}) ;
-	}
-	console.log(res);
-	users[id].set(req.body);
-	res.send(users[id].toJSON());
+	var id = req.params.id,
+		resource = req.params.resource;
+
+	resources[resource] || (resources[resource] = {});
+	resources[resource][id] || (resources[resource][id] = new constructors[resource]({
+		id: id
+	}));
+
+	resources[resource][id].set(req.body);
+	res.send(resources[resource][id].toJSON());
 });
-//
-//app.post('api/:resource/:id', function(req, res){
-//	res.send({message:'ok'});
-//});
+
 
 
 
 io.sockets.on('connection', function(socket){
-	// socket.emit('news', { hello: 'world' });
-	socket.on('demos:get', function (){
-		socket.emit('demos:get', [{
-			name: 'model',
-			title: 'demo of models'
-		}]);
+	var glob = require('glob');
 
+	socket.on('demos:get', function(){
+		glob('dist/example/*.html', function(er, files){
+			files.sort();
+			files = files.map(function(file){
+				file = path.basename(file);
+				return {
+					name: file,
+					title: path.basename(file, '.html')
+				};
+			});
+			socket.emit('demos:get', files);
+		});
 	});
 });
 
-module.exports = app;
-/*// delegates user() function
- exports.use = function() {
- app.use.apply(app, arguments);
- };*/
+exports = module.exports = server;
+// delegates user() function
+exports.use = function(){
+	app.use.apply(app, arguments);
+};

@@ -1,11 +1,12 @@
 require.config({
 	baseUrl: '../../',
 	paths: {
+		util: 'example/util/',
 		components: 'lib/components',
 		primish: 'components/primish',
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
-		io: 'components/socket.io-client/dist/socket.io.min',
+		io: 'components/socket.io-client/dist/socket.io',
 		hbs: 'components/require-handlebars-plugin/hbs'
 	},
 	hbs: { // optional
@@ -17,28 +18,25 @@ require.config({
 });
 
 define(function(require){
-	var io = require('io'),
-		epik = require('lib/index'),
+	var transport = new (require('util/transport'))(),
+		primish = require('primish/primish'),
 		collection = require('lib/collection'),
-		menuTpl = require('hbs!example/menu'),
-		primish = epik.primish,
-		Examples = primish({
-			extend: collection
-		}),
-		examples = new Examples([], {
-			onReset: function(){
-				var menu = document.getElementById('menu'),
-					examples = this.toJSON();
+		Menu = require('util/menu-vc');
 
-				menu.innerHTML = menuTpl(examples);
-			}
-		}),
-		socket = io.connect('ws://' + location.host);
-
-	socket.on('connect', function(){
-		socket.on('demos:get', function(demos){
-			examples.reset(demos);
-		});
-		socket.emit('demos:get');
+	var Examples = primish({
+		extend: collection
 	});
+
+	var menu = new Menu({
+		element: document.getElementById('menu'),
+		collection: new Examples(),
+		'onCollection:reset': function(){
+			this.render();
+		}
+	});
+
+	transport.subscribe('demos:get', function(demos){
+		menu.collection.reset(demos);
+	});
+	transport.send('demos:get');
 });
