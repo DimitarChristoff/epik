@@ -15,8 +15,8 @@ require.config({
 		i18n: false,
 		templateExtension: 'hbs',
 		partialsUrl: ''
-	},
-	urlArgs: 'burst=' + (+new Date())
+	}
+	// urlArgs: 'burst=' + (+new Date())
 });
 
 define(function(require){
@@ -46,6 +46,9 @@ define(function(require){
 			},
 			onUndefined: function(){
 				this.navigate('');
+			},
+			onIndex: function(){
+				console.log('welcome');
 			}
 		};
 
@@ -58,10 +61,12 @@ define(function(require){
 		var prefix = '#!';
 
 		_.forEach(routes, function(route){
+			if (route.title === 'index')
+				return;
+
 			obj.routes[prefix + route.title] = route.title;
 			obj['on' + capitalize(route.title)] = function(){
 				require(['example/js/' + route.title], function(example){
-					console.info('ready ' + route.title);
 					typeof example === 'function' && example();
 				});
 			};
@@ -74,7 +79,6 @@ define(function(require){
 		element: document.getElementById('menu'),
 		collection: new Examples([]),
 		'onCollection:reset': function(){
-			console.log('here');
 			this.router || (this.router = createRouter(this.collection.toJSON()));
 			this.render();
 		}
