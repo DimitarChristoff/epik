@@ -2,21 +2,23 @@
 <html>
 <head>
 	<title>Epik examples</title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.11.0/css/semantic.min.css"/>
-	<style>
-		* {
-			font-family: arial, helvetica, sans serif;
-		}
-		#menu li {
-			display: inline-block;
-		}
-	</style>
+	<link rel="stylesheet" href="css/examples.css"/>
 </head>
 <body>
 <script src="../lib/components/requirejs/require.js" data-main="js/index"></script>
 <menu id="menu" class="ui menu inverted">loading demo list...</menu>
 <div class="main container" id="main">
-	demo list is built automatically from all .html files in the example directory.
+	<div class="ui info message">
+		<div class="header">
+			Examples list
+		</div>
+		<ul class="list">
+			<li>The demo list is built automatically from all *.js files in the `example/js/` directory and sent to the menu-view controller through a socket.io connection.</li>
+			<li>The router demo will break the example demo, see <a href="router.html">router.html</a> instead
+			<li>Open your developer console to look at what is happening</li>
+		</ul>
+	</div>
+	<div id="content"></div>
 </div>
 </body>
 </html>

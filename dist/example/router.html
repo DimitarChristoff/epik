@@ -2,15 +2,17 @@
 <html>
 <head>
 	<title>router test</title>
+	<link rel="stylesheet" href="css/examples.css"/>
 </head>
 <body>
 
 <script src="../lib/components/requirejs/require.js" data-main="js/router"></script>
-<a href="#!test1/foo/1">one</a>
-<a href="#!test2/bar/2">two</a>
-<a href="#!help">help</a>
-<a href="#!error">error</a>
-
+<menu id="menu" class="ui menu inverted">
+<a class="item" href="#!test1/foo/1">one</a>
+<a class="item" href="#!test2/bar/2">two</a>
+<a class="item" href="#!help">help</a>
+<a class="item" href="#!error">error</a>
+</menu>
 <div id="main"></div>
 </body>
 </html>

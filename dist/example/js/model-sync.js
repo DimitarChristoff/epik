@@ -1,66 +1,57 @@
-require.config({
-	baseUrl: '../../',
-	paths: {
-		components: 'lib/components',
-		primish: 'components/primish',
-		lodash: 'components/lodash/dist/lodash',
-		slicker: 'components/slicker/index'
-	}
-});
+define(function(require){
+	return function(){
+		var epik = require('lib/index'),
+			Person = require('example/util/person'),
+			_ = epik._;
 
-define(['lib/index', 'example/js/person'], function(epik, Person){
+		var bob = new Person({
+			job: 'accountant',
+			id: 1
+		}, {
+			urlRoot: '/api/users',
+			onChange: function(keys){
+				console.log(keys);
+			},
+			'onChange:one': function(value){
+				console.log('one changed to ' + value);
+			},
+			onEmpty: function(){
+				console.log('emptied', this.toJSON());
+			},
+			onError: function(errors){
+				console.warn('WARNING: validation errors have occurred');
+				_.forEach(errors, function(error){
+					console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
+				});
+			},
+			onFetch: function(){
+				console.log('fetched', this.toJSON());
+			},
+			onFailure: function(response){
+				console.log('sync error occurred', response.status);
+			}
+		});
 
-	var _ = epik._;
+		console.log(bob.toJSON());
 
-	var bob = new Person({
-		job: 'accountant',
-		id: 1
-	}, {
-		urlRoot: '/api/users',
-		onChange: function(keys){
-			console.log(keys);
-		},
-		'onChange:one': function(value){
-			console.log('one changed to ' + value);
-		},
-		onEmpty: function(){
-			console.log('emptied', this.toJSON());
-		},
-		onError: function(errors){
-			console.warn('WARNING: validation errors have occurred');
-			_.forEach(errors, function(error){
-				console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
+		bob.set();
+
+		bob.set('name', 'Bobby');
+
+		bob.on('fetch:once', function(){
+			this.set({
+				lastUpdated: +(new Date()),
+				age: this.get('age') + 1,
 			});
-		},
-		onFetch: function(){
-			console.log('fetched', this.toJSON());
-		},
-		onFailure: function(response){
-			console.log('sync error occurred', response.status);
-		}
-	});
 
-	console.log(bob.toJSON());
+			this.on('save:once', function(){
+				console.log('saved, getting from server again...');
+				this.fetch();
+			});
+			this.save();
 
-	bob.set();
-
-	bob.set('name', 'Bobby');
-
-	bob.on('fetch:once', function(){
-		this.set({
-			lastUpdated: +(new Date()),
-			age: this.get('age') + 1,
 		});
 
-		this.on('save:once', function(){
-
-			console.log('saved');
-			this.fetch();
-		});
-		this.save();
-
-	});
-
-
-	bob.fetch();
+		bob.fetch();
+	};
 });

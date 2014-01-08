@@ -16,7 +16,7 @@ app.use('/socket.io/', express.static(path.resolve('lib/components/socket.io-cli
 // factory of restful model resources
 var resources = {},
 	constructors = {
-		users: require('../example/js/person')
+		users: require('../example/util/person')
 	};
 
 app.get('/api/:resource/:id', function(req, res){
@@ -51,13 +51,13 @@ io.sockets.on('connection', function(socket){
 	var glob = require('glob');
 
 	socket.on('demos:get', function(){
-		glob('dist/example/*.html', function(er, files){
+		glob('dist/example/js/*.js', function(er, files){
 			files.sort();
 			files = files.map(function(file){
 				file = path.basename(file);
 				return {
 					name: file,
-					title: path.basename(file, '.html')
+					title: path.basename(file, '.js')
 				};
 			});
 			socket.emit('demos:get', files);

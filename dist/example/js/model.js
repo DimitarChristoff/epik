@@ -1,53 +1,46 @@
-require.config({
-	baseUrl: '../../',
-	paths: {
-		components: 'lib/components',
-		primish: 'components/primish',
-		lodash: 'components/lodash/dist/lodash',
-		slicker: 'components/slicker/index'
-	}
-});
+define(function(require){
+	return function(){
+		var epik = require('lib/index'),
+			Person = require('example/util/person'),
+			_ = epik._;
 
-define(['lib/index', 'example/js/person'], function(epik, Person){
+		var bob = new Person({
+			job: 'accountant',
+		}, {
+			onChange: function(keys){
+				console.log(keys);
+			},
+			'onChange:one': function(value){
+				console.log('one changed to ' + value);
+			},
+			onEmpty: function(){
+				console.log('emptied', this.toJSON());
+			},
+			onError: function(errors){
+				console.warn('WARNING: validation errors have occurred');
+				_.forEach(errors, function(error){
+					console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
+				});
+			}
+		});
 
-	var	_ = epik._;
+		console.log(bob.get('id'));
+		console.log(bob.toJSON());
 
-	var bob = new Person({
-		job: 'accountant',
-	}, {
-		onChange: function(keys){
-			console.log(keys);
-		},
-		'onChange:one': function(value){
-			console.log('one changed to ' + value);
-		},
-		onEmpty: function(){
-			console.log('emptied', this.toJSON());
-		},
-		onError: function(errors){
-			console.warn('WARNING: validation errors have occurred');
-			_.forEach(errors, function(error){
-				console.log('rejected ' + error.key + ' => ' + error.value + ' hint: ' + error.error);
-			});
-		}
-	});
+		bob.set({
+			age: bob.get('age') + 1,
+			name: 'Bob'
+		});
 
-	console.log(bob.get('id'));
-	console.log(bob.toJSON());
+		bob.set('name', 'Bobby');
 
-	bob.set({
-		age: bob.get('age') + 1,
-		name: 'Bob'
-	});
+		console.log(bob.get(['name', 'surname', 'age']));
 
-	bob.set('name', 'Bobby');
-
-	console.log(bob.get(['name', 'surname', 'age']));
-
-	bob.set({
-		age: 31.5,
-		name: 'bob'
-	});
-	bob.empty();
+		bob.set({
+			age: 31.5,
+			name: 'bob'
+		});
+		bob.empty();
+	};
 
 });

@@ -1,36 +1,24 @@
-require.config({
+define(function(require){
+	return function(){
+		var epik = require('lib/index'),
+			collection = require('lib/collection-sync'),
+			primish = epik.primish;
 
-	baseUrl: '../../',
+		var Persons = primish({
 
-	paths: {
-		primish: 'lib/components/primish',
-		lodash: 'lib/components/lodash/dist/lodash',
-		slicker: 'lib/components/slicker/index'
-	}
-});
+			extend: collection,
 
-define(['lib/index', 'lib/collection-sync'], function(epik, collection){
+			options: {
+				urlRoot: 'api/collection/response.json'
+			}
+		});
 
-	var	primish = epik.primish;
+		var peeps = new Persons(null, {
+			onFetch: function(){
+				console.log(this.toJSON());
+			}
+		});
 
-	var Persons = primish({
-
-		extend: collection,
-
-		options: {
-			urlRoot: 'api/collection/response.json'
-		}
-	});
-
-	var peeps = new Persons(null, {
-		onFetch: function(){
-			console.log(this.toJSON());
-		}
-	});
-
-
-	peeps.fetch();
-
-	//console.log(peeps, peeps.toJSON());
-
+		peeps.fetch();
+	};
 });
