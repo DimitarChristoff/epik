@@ -4,12 +4,8 @@ define(function(require){
 			collection = require('lib/collection'),
 			primish = epik.primish;
 
-		var	primish = epik.primish;
-
 		var Persons = primish({
-
 			extend: collection
-
 		});
 
 		var peeps = new Persons([{
@@ -20,11 +16,10 @@ define(function(require){
 			surname: 'Boberts'
 		}]);
 
-
 		var one = peeps.at(0);
 
-		peeps.forEach(function(model){
-			console.log(model);
+		peeps.forEach(function(model, index){
+			console.log(index, model);
 		});
 
 		peeps.on('change', function(model, etc) {
