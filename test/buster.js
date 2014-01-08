@@ -36,8 +36,8 @@ config['Epik browser tests'] = {
 
 	resources: [
 		// used as a static response json stub for model.sync
-		'example/api/users/*',
-		'example/api/collection/*'
+		'dist/example/api/users/*',
+		'dist/example/api/collection/*'
 	]
 };
 

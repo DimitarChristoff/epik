@@ -10,7 +10,7 @@ buster.testCase('epik model sync >', {
 		this.dataInitial = {
 			foo: 'bar',
 			id: '1.json',
-			urlRoot: 'example/api/users/'
+			urlRoot: 'dist/example/api/users/'
 		};
 
 		this.dataAfter = {

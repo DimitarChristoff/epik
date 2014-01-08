@@ -89,7 +89,7 @@ buster.testCase('Basic epik empty collection creation >', {
 		buster.assert.isTrue(this.collection.getModelByCID(data.id) instanceof this.collection.model);
 	},
 
-	'Expect adding a model to fire onReset >': function(){
+	'// Expect adding a model to fire onReset >': function(){
 		var data = {
 			id: 'hello'
 		}, spy = this.spy();

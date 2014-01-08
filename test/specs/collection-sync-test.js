@@ -15,7 +15,7 @@ buster.testCase('Basic epik empty collection via sync creation >', {
 			extend: CollectionSync,
 
 			options: {
-				urlRoot: 'example/api/collection/response.json'
+				urlRoot: 'dist/example/api/collection/response.json'
 			},
 
 			model: testModel

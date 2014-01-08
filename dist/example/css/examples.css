@@ -1,5 +1,5 @@
 @import "semantic.min.css";
-@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower&text=epik);
 
 * {
 	font-family: arial, helvetica, sans serif;
@@ -13,6 +13,19 @@ html, body {
 	height: 100%;
 }
 
+.absolute-center {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.logo {
+	height: 300px;
+	width: 300px;
+}
 h1 {
 	font-family: 'Indie Flower', cursive;
 	font-size: 150px;
