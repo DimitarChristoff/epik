@@ -6,10 +6,10 @@ require.config({
 		primish: 'components/primish',
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
-		io: 'components/socket.io-client/dist/socket.io',
+		io: '/socket.io/socket.io',
 		hbs: 'components/require-handlebars-plugin/hbs'
 	},
-	hbs: { // optional
+	hbs: {
 		helpers: true,
 		i18n: false,
 		templateExtension: 'hbs',
@@ -18,6 +18,7 @@ require.config({
 });
 
 define(function(require){
+
 	var transport = new (require('util/transport'))(),
 		primish = require('primish/primish'),
 		collection = require('lib/collection'),

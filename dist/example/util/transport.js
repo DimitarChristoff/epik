@@ -4,6 +4,7 @@ define(function(require){
 	var primish = require('primish/primish'),
 		options = require('primish/options'),
 		emitter = require('primish/emitter'),
+		_ = require('lib/index')._,
 		io = require('io');
 
 	return primish({
@@ -18,16 +19,8 @@ define(function(require){
 		constructor: function(options){
 			this.setOptions(options);
 			this.socket = this.options.adapter.connect('ws://' + this.options.host);
-
 			this.attachEvents();
 
-			// this is a singleton. only one instance is allowed
-			// memoize the AMD definition for self
-			// var self = this;
-
-			/*define('transport', function(){
-			 return self;
-			 });*/
 			this.subscriptions = [];
 		},
 
@@ -46,6 +39,7 @@ define(function(require){
 			this.socket.on('reconnect', function(){
 				self.trigger('reconnect');
 			});
+			return this;
 		},
 
 		send: function(message){
@@ -54,11 +48,14 @@ define(function(require){
 				message: message,
 				ts: +new Date()
 			});
+
+			return this;
 		},
 
 		subscribe: function(message, callback){
 			this.subscriptions.push(message);
 			this.socket.on(message, callback);
+			return this;
 		},
 
 		unsubscribe: function(message, callback){
@@ -67,15 +64,17 @@ define(function(require){
 			callback && args.push(callback);
 
 			this.socket[callback? 'removeListener' : 'removeAllListeners'].apply(this.socket, args);
+			return this;
 		},
 
 		unsubscribeAll: function(){
 			// loop though all subscriptions and remove them.
 			var socket = this.socket;
-			this.subscriptions.forEach(function(el){
+			_.forEach(this.subscriptions, function(el){
 				socket.removeAllListeners(el);
 			});
 			this.subscriptions = [];
+			return this;
 		}
 	});
 });
