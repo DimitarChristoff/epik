@@ -78,14 +78,14 @@ define(function(require){
 	var menu = new Menu({
 		element: document.getElementById('menu'),
 		collection: new Examples([]),
-		'onCollection:reset': function(){
+		'onCollection:set': function(){
 			this.router || (this.router = createRouter(this.collection.toJSON()));
 			this.render();
 		}
 	});
 
 	transport.subscribe('demos:get', function(demos){
-		menu.collection.reset(demos);
+		menu.collection.set(demos);
 	});
 	transport.send('demos:get');
 });

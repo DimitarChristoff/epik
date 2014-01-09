@@ -39,20 +39,20 @@ buster.testCase('Basic epik empty collection creation >', {
 			buster.assert.equals(model, self.model);
 		});
 
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
 	},
 
 	'Expect not to be able to add the same model twice to the collection >': function(){
-		this.collection.addModel(this.model);
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
+		this.collection.add(this.model);
 		buster.assert.equals(this.collection.length, 1);
 	},
 
 	'Expect adding a model with the same cid twice to fire an add:error event >': function(){
 		var spy = this.spy();
 		this.collection.on('add:error', spy);
-		this.collection.addModel(this.model);
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
+		this.collection.add(this.model);
 		buster.assert.calledWith(spy, this.model);
 	},
 
@@ -63,16 +63,16 @@ buster.testCase('Basic epik empty collection creation >', {
 			});
 
 		this.model.set('id', 'hello');
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
 		this.collection.on('add', spy);
-		this.collection.addModel(fakeModel, true);
+		this.collection.add(fakeModel, true);
 		buster.assert.calledWith(spy, fakeModel);
 	},
 
 	'Expect reset to empty collection first and then add new models >': function(){
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
 
-		this.collection.reset({
+		this.collection.set({
 			hello: 'again'
 		});
 
@@ -85,35 +85,35 @@ buster.testCase('Basic epik empty collection creation >', {
 			id: 'hello'
 		};
 
-		this.collection.addModel(data);
+		this.collection.add(data);
 		buster.assert.isTrue(this.collection.getModelByCID(data.id) instanceof this.collection.model);
 	},
 
-	'// Expect adding a model to fire onReset >': function(){
+	'Expect adding a model to fire onReset >': function(){
 		var data = {
 			id: 'hello'
 		}, spy = this.spy();
 
 		this.collection.on('reset', spy);
-		this.collection.addModel(data);
+		this.collection.add(data);
 		buster.assert.called(spy);
 	},
 
 	'Expect removing a model to fire onReset >': function(){
 		var spy = this.spy();
 		this.collection.on('reset', spy);
-		this.collection.removeModel(this.model);
+		this.collection.remove(this.model);
 		buster.assert.called(spy);
 	},
 
 	'Expect removing models to collection to fire onRemove event >': function(){
 		var self = this;
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
 		this.collection.offAll();
 		this.collection.on('remove', function(model){
 			buster.assert.equals(model, self.model);
 		});
-		this.collection.removeModel(this.model);
+		this.collection.remove(this.model);
 	},
 
 	'Expect to be able to remove multiple models at the same time >': function(){
@@ -121,27 +121,27 @@ buster.testCase('Basic epik empty collection creation >', {
 				hai: 'mum'
 			});
 
-		this.collection.addModel(this.model);
-		this.collection.addModel(model2);
+		this.collection.add(this.model);
+		this.collection.add(model2);
 
 		this.collection.on('reset', function(models){
 			buster.assert.equals(this.length, 0);
 			buster.assert.equals(models.length, 2);
 		});
 
-		this.collection.removeModel([this.model, model2]);
+		this.collection.remove([this.model, model2]);
 	},
 
 	'Expect to be able to add models to the collection >': function(){
 		var models = this.collection.length;
-		this.collection.addModel(this.model);
+		this.collection.add(this.model);
 		buster.assert.equals(this.collection.length, models + 1);
 	},
 
 	'Expect to be able to remove models from the collection >': function(){
 		var modelsCount = this.collection._models.length;
-		this.collection.addModel(this.model);
-		this.collection.removeModel(this.model);
+		this.collection.add(this.model);
+		this.collection.remove(this.model);
 		buster.assert.equals(this.collection.length, modelsCount);
 	},
 
@@ -150,7 +150,7 @@ buster.testCase('Basic epik empty collection creation >', {
 			id: 'hello'
 		});
 
-		this.collection.addModel(fakeModel);
+		this.collection.add(fakeModel);
 		buster.assert.equals(fakeModel, this.collection.getModelById(fakeModel.get('id')));
 	},
 
@@ -159,7 +159,7 @@ buster.testCase('Basic epik empty collection creation >', {
 			id: 'hello'
 		});
 
-		this.collection.addModel(fakeModel);
+		this.collection.add(fakeModel);
 		buster.assert.equals(fakeModel, this.collection.getModelByCID(fakeModel.get('id')));
 	}
 
@@ -222,7 +222,7 @@ buster.testCase('Basic epik collection with a model creation >', {
 			id: 'hai'
 		});
 
-		this.collection.addModel(temp);
+		this.collection.add(temp);
 		temp.destroy();
 		buster.refute.equals(temp, this.collection.getModelById('hai'));
 	},
@@ -235,7 +235,7 @@ buster.testCase('Basic epik collection with a model creation >', {
 			done();
 		});
 
-		collection2.removeModel(this.model);
+		collection2.remove(this.model);
 		buster.assert.equals(this.model._collections.length, 1);
 		this.model.set('foo', 'bar' + _.uniqueId());
 	},
@@ -245,7 +245,7 @@ buster.testCase('Basic epik collection with a model creation >', {
 	},
 
 	'Removing a model from a collection should also remove the collection instance in the model.collections array >': function(){
-		this.collection.removeModel(this.model);
+		this.collection.remove(this.model);
 		buster.assert.equals(_.indexOf(this.model._collections, this.collection), -1);
 	}
 
@@ -299,7 +299,7 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect Array method .filter to work on the collection >': function(){
 		var cid = 'testsftw';
 
-		this.collection.addModel({
+		this.collection.add({
 			id: cid
 		});
 
@@ -325,17 +325,17 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect Array method .reverse to reverse the order of models in the collection >': function(){
 		this.collection.empty();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'A'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 400,
 			name: 'C'
 		});
@@ -352,17 +352,17 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect .sort("key") to sort the collection by that model property >': function(){
 		this.collection.empty();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'A'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 400,
 			name: 'C'
 		});
@@ -383,17 +383,17 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect .empty() to remove all models from collection >': function(){
 		// this.collection.reset();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'A'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 400,
 			name: 'C'
 		});
@@ -406,19 +406,19 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect .sort("key1,key2") to sort the collection by both model properties >': function(){
 		this.collection.empty();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'B',
 			type: 'one'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B',
 			type: 'two'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 10,
 			name: 'A',
 			type: 'one'
@@ -441,17 +441,17 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect .sort("key:desc") to sort the collection by that model property in reverse >': function(){
 		this.collection.empty();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'A'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 400,
 			name: 'C'
 		});
@@ -468,17 +468,17 @@ buster.testCase('Basic epik collection array methods >', {
 	'Expect .reverse to sort the array in reverse and fire a sort event >': function(done){
 		this.collection.empty();
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 300,
 			name: 'A'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 200,
 			name: 'B'
 		});
 
-		this.collection.addModel({
+		this.collection.add({
 			id: 400,
 			name: 'C'
 		});
