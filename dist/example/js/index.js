@@ -61,7 +61,7 @@ define(function(require){
 		var prefix = '#!';
 
 		_.forEach(routes, function(route){
-			if (route.title === 'index')
+			if (route.title === 'index' || route.title === 'router')
 				return;
 
 			obj.routes[prefix + route.title] = route.title;
