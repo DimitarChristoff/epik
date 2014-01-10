@@ -1,4 +1,4 @@
-<main class="ui three column grid">
+<main class="ui two column grid">
 	<section class="column">
 		<div class="ui yellow message">This is an example of a view bound to a model via rivets.js</div>
 
@@ -23,11 +23,14 @@
 	</section>
 	<aside class="column ui inverted">
 		<div class="ui yellow message">Current validated model data</div>
+		<div style="background-color: rgba(51, 51, 51, .7); padding: 15px; display: block;">
 
 		<div>Name: <span rv-text="person#name"></span></div>
 		<div>Surname: <span rv-text="person#surname"></span></div>
 		<div>Age: <span rv-text="person#age"></span></div>
 		<div>Occupation: <span rv-text="person#occupation"></span></div>
+		</div>
+
 	</aside>
 </main>
 

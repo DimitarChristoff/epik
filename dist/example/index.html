@@ -5,10 +5,15 @@
 	<link rel="stylesheet" href="css/examples.css"/>
 </head>
 <body>
-<script src="../lib/components/requirejs/require.js" data-main="js/index"></script>
 <menu id="menu" class="ui menu inverted"><div class="item">loading demo list...</div></menu>
-<div class="main container" id="main">
-	<div class="ui info message">
+<div class="ui main container" id="main">
+	<div id="content">
+		<div class="logo">
+			<h1>epik. lightweight mvc</h1>
+		</div>
+		<div id="example">
+		</div>
+	<div class="ui message">
 		<div class="header">
 			Examples list
 		</div>
@@ -18,12 +23,8 @@
 			<li>Open your developer console to look at what is happening</li>
 		</ul>
 	</div>
-	<div id="content">
-		<div id="example"></div>
-		<div class="absolute-center logo">
-			<h1>epik</h1>
-		</div>
-	</div>
+
 </div>
+<script src="../lib/components/requirejs/require.js" data-main="js/index"></script>
 </body>
 </html>
