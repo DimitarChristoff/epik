@@ -41,7 +41,7 @@ define(function(require){
 				var bound = this.bound = {
 					person: this.model,
 					error: {
-						message:null
+						messages: null
 					}
 				};
 
@@ -49,12 +49,12 @@ define(function(require){
 
 				// crude error messages on the form
 				this.model.on('change', function(){
-					bound.error.message = null;
+					bound.error.messages = null;
 				});
 				this.model.on('error', function(error){
-					bound.error.message = (_.map(error, function(e){
+					bound.error.messages = _.map(error, function(e){
 						return '"' + e.key + '" failed (' + e.value + '), ' + e.error;
-					})).join('<br/>');
+					});
 				});
 			}
 		});

@@ -21,7 +21,7 @@
 				<input placeholder="eg. builder" type="text" rv-value="person#occupation"/>
 			</div>
 		</div>
-		<div class="ui message error" rv-show="error.message">{error.message}</div>
+		<div class="ui message error" rv-show="error.messages"><div rv-each-message="error.messages">{message}</div></div>
 
 	</section>
 	<aside class="column ui inverted">
@@ -35,9 +35,10 @@
 		</div>
 
 		<div class="ui info message">The person view is exposed on the window object.
-			Try in your console: <br/><br/>
-			<code class="bold">pv.model.set('surname', 'Something Else');</code><br/><br/>
-			Both sides of the form will update.
+			Try in your console (form will update)<br/><br/>
+			<code>pv.model.set('surname', 'Something Else');</code><br/><br/>
+			Trigger validation errors: <br/><br/>
+			<code>pv.model.set('age':'unknown');</code><br/><br/>
 		</div>
 	</aside>
 </main>
