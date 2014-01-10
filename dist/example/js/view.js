@@ -1,6 +1,7 @@
 define(function(require){
 	return function(){
 		var epik = require('lib/index'),
+			_ = epik._,
 			primish = epik.primish,
 			Person = require('example/util/person'),
 			view = require('lib/view'),
@@ -33,8 +34,27 @@ define(function(require){
 			constructor: function(options){
 				this.parent('constructor', options);
 				this.element.innerHTML = this.options.template;
-				rivets.bind(this.element, {
-					person: this.model
+				this.attachEvents();
+			},
+
+			attachEvents: function(){
+				var bound = this.bound = {
+					person: this.model,
+					error: {
+						message:null
+					}
+				};
+
+				rivets.bind(this.element, this.bound);
+
+				// crude error messages on the form
+				this.model.on('change', function(){
+					bound.error.message = null;
+				});
+				this.model.on('error', function(error){
+					bound.error.message = (_.map(error, function(e){
+						return '"' + e.key + '" failed (' + e.value + '), ' + e.error;
+					})).join('<br/>');
 				});
 			}
 		});
