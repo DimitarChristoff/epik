@@ -29,7 +29,8 @@
     "lodash": "~2.4.1",
     "slicker": "~0.0.2",
     "socket.io-client": "~0.9.16",
-    "require-handlebars-plugin": "~0.7.0"
+    "require-handlebars-plugin": "~0.7.0",
+    "rivets": "~0.6.5"
   },
   "authors": [
     "DimitarChristoff <christoff@gmail.com>"
