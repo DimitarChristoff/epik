@@ -27,7 +27,7 @@
 
 		validators: {
 			age: function(value){
-				return parseInt(value, 10) == value ? true : 'Age needs to be an integer';
+				return parseInt(value, 10) == value && value >= 0 ? true : 'Age needs to be a positive integer';
 			},
 			name: function(value){
 				return (value.charAt(0).toLowerCase() !== value.charAt(0)) || 'Name needs to be capitalized';
