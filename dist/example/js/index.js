@@ -8,7 +8,8 @@ require.config({
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
 		io: '/socket.io/socket.io',
-		hbs: 'components/require-handlebars-plugin/hbs'
+		hbs: 'components/require-handlebars-plugin/hbs',
+		text: 'example/util/text'
 	},
 	hbs: {
 		helpers: true,

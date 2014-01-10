@@ -2,10 +2,7 @@ define(function(require){
 
 	var view = require('lib/view'),
 		primish = require('lib/index').primish,
-		tpl = require('hbs!example/templates/menu'),
 		rivets = require('components/rivets/dist/rivets');
-
-	tpl = '<a rv-each-item="examples:" class="item menu-item" rv-href="item.route">{item.title}</a></div>';
 
 	rivets.adapters[':'] = {
 		subscribe: function(obj, keypath, callback){
@@ -29,11 +26,11 @@ define(function(require){
 	return primish({
 		extend: view,
 		options: {
-			template: tpl
+			template: '<a rv-each-item="examples:" class="item menu-item" rv-href="item.route">{item.title}</a></div>'
 		},
 		constructor: function(options){
 			this.parent('constructor', options);
-			this.element.innerHTML = tpl;
+			this.element.innerHTML = this.options.template;
 			rivets.bind(this.element, {examples: this.collection});
 		}
 	});
