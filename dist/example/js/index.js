@@ -40,8 +40,8 @@ define(function(require){
 			},
 			onBefore: function(id){
 				menu.render();
-				document.querySelector('.menu-' + id).className += ' active';
-				console.clear();
+				//document.querySelector('.menu-' + id).className += ' active';
+				//console.clear();
 				console.info('loaded ' + id);
 			},
 			onUndefined: function(){

@@ -56,6 +56,7 @@ io.sockets.on('connection', function(socket){
 			files = files.map(function(file){
 				file = path.basename(file);
 				return {
+					route: '#!' + path.basename(file, '.js'),
 					name: file,
 					title: path.basename(file, '.js')
 				};
