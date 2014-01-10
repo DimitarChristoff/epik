@@ -39,7 +39,7 @@ define(function(require){
 			}
 		});
 
-		new PersonView({
+		window.pv = new PersonView({
 			element: document.getElementById('example'),
 			model: new Person({
 				name: 'Epik'
