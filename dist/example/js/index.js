@@ -40,9 +40,12 @@ define(function(require){
 				'': 'index'
 			},
 			onBefore: function(id){
-				menu.render();
-				//document.querySelector('.menu-' + id).className += ' active';
-				//console.clear();
+				var active = document.querySelector('.menu-item.active');
+				active && (active.className = active.className.replace('active', ''));
+				active = document.querySelector('#' + id);
+				active && (active.className += ' active');
+				document.getElementById('example').innerHTML = '<h2>'+ id +'</h2>';
+				console.clear();
 				console.info('loaded ' + id);
 			},
 			onUndefined: function(){

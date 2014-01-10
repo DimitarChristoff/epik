@@ -26,7 +26,7 @@ define(function(require){
 	return primish({
 		extend: view,
 		options: {
-			template: '<a rv-each-item="examples:" class="item menu-item" rv-href="item.route">{item.title}</a></div>'
+			template: '<a rv-each-item="examples:" class="item menu-item" rv-id="item.title" rv-href="item.route">{item.title}</a></div>'
 		},
 		constructor: function(options){
 			this.parent('constructor', options);
