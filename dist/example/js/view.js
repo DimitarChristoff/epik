@@ -6,7 +6,7 @@ define(function(require){
 			Person = require('example/util/person'),
 			view = require('lib/view'),
 			template = require('text!example/templates/person.tpl'),
-			rivets = require('rivets');
+			rivets = require('rivets-adapter');
 
 		var PersonView = primish({
 			extend: view,
