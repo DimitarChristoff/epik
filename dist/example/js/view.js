@@ -38,23 +38,27 @@ define(function(require){
 			},
 
 			attachEvents: function(){
-				var bound = this.bound = {
-					person: this.model,
-					error: {
-						messages: null
-					}
-				};
+				var model = this.model,
+					el = this.element.querySelector('div.form'),
+					classError = 'form ui';
 
-				rivets.bind(this.element, this.bound);
+				rivets.bind(this.element, {
+					person: this.model
+				});
 
 				// crude error messages on the form
-				this.model.on('change', function(){
-					bound.error.messages = null;
-				});
-				this.model.on('error', function(error){
-					bound.error.messages = _.map(error, function(e){
-						return '"' + e.key + '" failed (' + e.value + '), ' + e.error;
+				this.model.on('change', function(changed){
+					_.forEach(changed, function(key){
+						key.indexOf('-error') === -1 && model.set(key + '-error', null);
 					});
+					el.className = classError;
+				});
+
+				this.model.on('error', function(error){
+					_.forEach(error, function(e){
+						model.set(e.key + '-error', e.error);
+					});
+					el.className = classError + ' error';
 				});
 			}
 		});

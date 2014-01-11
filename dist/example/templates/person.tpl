@@ -3,35 +3,38 @@
 		<div class="ui yellow message">This is an example of a view bound to a model via rivets.js.
 		</div>
 
-		<div class="form ui inverted" style="background-color: rgba(51, 51, 51, .7); padding: 15px; display: block;text-align:right">
-			<div class="inline field">
+		<div class="form ui" style="background-color: rgba(255, 255, 255, .9); padding: 15px;">
+			<div class="field">
 				<label>Name</label>
 				<input placeholder="eg. Bob" type="text" rv-value="person#name"/>
+				<div class="ui red pointing above ui label" rv-show="person#name-error" rv-text="person#name-error"></div>
 			</div>
-			<div class="inline field">
+			<div class="field">
 				<label>Surname</label>
-				<input placeholder="eg. Roberts" type="text" rv-value="person#surname"/>
+				<input placeholder="eg. Roberts" type="text" rv-value="person#surname" rv-class=""/>
+				<div class="ui red pointing above ui label" rv-show="person#surname-error" rv-text="person#surname-error"></div>
 			</div>
-			<div class="inline field">
+			<div class="field">
 				<label>Age</label>
 				<input placeholder="eg. 32" type="text" rv-value="person#age"/>
+				<div class="ui red pointing above ui label" rv-show="person#age-error" rv-text="person#age-error"></div>
 			</div>
-			<div class="inline field">
+			<div class="field">
 				<label>Occupation</label>
 				<input placeholder="eg. builder" type="text" rv-value="person#occupation"/>
 			</div>
 		</div>
-		<div class="ui message error" rv-show="error.messages"><div rv-each-message="error.messages">{message}</div></div>
-
 	</section>
 	<aside class="column ui inverted">
 		<div class="ui yellow message">Current validated model data</div>
-		<div style="background-color: rgba(51, 51, 51, .7); padding: 15px; display: block;">
+		<div class="ui warning message" style="background-color: rgba(51, 51, 51, .7); padding: 15px; display: block;">
 
-			<div>Name: <span rv-text="person#name"></span></div>
-			<div>Surname: <span rv-text="person#surname"></span></div>
-			<div>Age: <span rv-text="person#age"></span></div>
-			<div>Occupation: <span rv-text="person#occupation"></span></div>
+			<ul class="list">
+				<li>Name: <span class="vals" rv-text="person#name"></span></li>
+				<li>Surname: <span class="vals" rv-text="person#surname"></span></li>
+				<li>Age: <span class="vals" rv-text="person#age"></span></li>
+				<li>Occupation: <span class="vals" rv-text="person#occupation"></span></li>
+			</ul>
 		</div>
 
 		<div class="ui info message">The person view is exposed on the window object.
