@@ -7,6 +7,7 @@ require.config({
 		primish: 'components/primish',
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
+		rivets: 'components/rivets/dist/rivets',
 		io: '/socket.io/socket.io',
 		hbs: 'components/require-handlebars-plugin/hbs',
 		text: 'example/util/text'

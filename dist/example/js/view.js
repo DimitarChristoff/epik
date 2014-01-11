@@ -6,25 +6,7 @@ define(function(require){
 			Person = require('example/util/person'),
 			view = require('lib/view'),
 			template = require('text!example/templates/person.tpl'),
-			rivets = require('components/rivets/dist/rivets');
-
-
-		rivets.adapters['#'] = {
-			subscribe: function(obj, keypath, callback){
-				obj.on('change:'+keypath, function(){
-					callback();
-				});
-			},
-			unsubscribe: function(obj, keypath, callback){
-				obj.off('change:'+keypath, callback);
-			},
-			read: function(obj, keypath){
-				return obj.get(keypath);
-			},
-			publish: function(obj, keypath, value){
-				obj.set(keypath, value);
-			}
-		};
+			rivets = require('rivets');
 
 		var PersonView = primish({
 			extend: view,
