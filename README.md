@@ -96,3 +96,10 @@ define(function(require){
 	}, 1500);
 });
 ```
+
+Any change of the model will fire events which the adapter is listening for and will automatically update the view
+for the relevant bound nodes. Conversely, changes from the DOM via conventional `onChange` events will be exported
+to the model's `.set()` method (subject to validation rules).
+
+Collections are similarly implemented. Notice the use of `ep-` as opposed to `rv-` and the `#` call to pass through
+the epik adapter (the rivets default PJSO one is `.` and it can still be used)

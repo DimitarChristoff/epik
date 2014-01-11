@@ -1,7 +1,6 @@
 <main class="ui two column grid">
 	<section class="column">
-		<div class="ui yellow message">This is an example of a view bound to a model via rivets.js.
-		</div>
+		<div class="ui yellow message">Example of a bi-directional model binding via <code>rivets.js</code></div>
 
 		<div class="form ui" style="background-color: rgba(255, 255, 255, .9); padding: 15px;">
 			<div class="field">
