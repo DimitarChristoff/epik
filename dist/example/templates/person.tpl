@@ -42,8 +42,8 @@
 			<code>pv.model.set('surname', 'Something Else');</code><br/><br/>
 			Trigger validation errors: <br/>
 			<pre class="instructive">pv.model.set({
-	age: 'unknown',
-	name: 'bob'
+    age: 'unknown',
+    name: 'bob'
 });</pre>
 		</div>
 	</aside>
