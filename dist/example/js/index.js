@@ -82,7 +82,7 @@ define(function(require){
 	};
 
 	var menu = new Menu({
-		element: document.getElementById('menu'),
+		element: document.querySelector('#menu .container'),
 		collection: new Examples([]),
 		'onCollection:set': function(){
 			this.router || (this.router = createRouter(this.collection.toJSON()));

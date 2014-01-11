@@ -2,26 +2,44 @@
 	<section class="column">
 		<div class="ui yellow message">Example of a bi-directional model binding via <code>rivets.js</code></div>
 
-		<div class="form ui" style="background-color: rgba(255, 255, 255, .9); padding: 15px;">
+		<div class="form ui segment" ep-class-warning="errors">
 			<div class="field">
 				<label>Name</label>
-				<input placeholder="eg. Bob" type="text" ep-value="person#name"/>
+				<div class="ui labeled input" ep-class-error="person#name-error">
+					<input placeholder="eg. Bob" type="text" ep-value="person#name"/>
+					<div class="ui corner label">
+						<i class="asterisk icon"></i>
+					</div>
+				</div>
 				<div class="ui red pointing above ui label" ep-show="person#name-error" ep-text="person#name-error"></div>
 			</div>
 			<div class="field">
 				<label>Surname</label>
-				<input placeholder="eg. Roberts" type="text" ep-value="person#surname" ep-class=""/>
+				<div class="ui labeled input" ep-class-error="person#surname-error">
+					<input placeholder="eg. Roberts" type="text" ep-value="person#surname"/>
+					<div class="ui corner label">
+						<i class="asterisk icon"></i>
+					</div>
+				</div>
 				<div class="ui red pointing above ui label" ep-show="person#surname-error" ep-text="person#surname-error"></div>
 			</div>
 			<div class="field">
 				<label>Age</label>
-				<input placeholder="eg. 32" type="text" ep-value="person#age"/>
+				<div class="ui labeled input" ep-class-error="person#age-error">
+					<input placeholder="eg. 32" type="text" ep-value="person#age"/>
+					<div class="ui corner label">
+						<i class="asterisk icon"></i>
+					</div>
+				</div>
 				<div class="ui red pointing above ui label" ep-show="person#age-error" ep-text="person#age-error"></div>
 			</div>
 			<div class="field">
 				<label>Occupation</label>
 				<input placeholder="eg. builder" type="text" ep-value="person#occupation"/>
 			</div>
+		</div>
+		<div class="ui error message" ep-show="errors">
+			<div class="header">We noticed some issues</div>
 		</div>
 	</section>
 	<aside class="column ui inverted">

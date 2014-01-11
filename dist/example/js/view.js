@@ -21,26 +21,31 @@ define(function(require){
 
 			attachEvents: function(){
 				var model = this.model,
-					el = this.element.querySelector('div.form'),
-					classError = 'form ui';
+					bound = {
+						person: this.model,
+						// global errors flag helps with view
+						errors: false
+					};
 
-				rivets.bind(this.element, {
-					person: this.model
-				});
+				rivets.bind(this.element, bound);
 
-				// crude error messages on the form
 				this.model.on('change', function(changed){
+					// find at least one error
+					var hasErrors = false;
 					_.forEach(changed, function(key){
-						key.indexOf('-error') === -1 && model.set(key + '-error', null);
+						var isError = key.indexOf('-error') === -1;
+						hasErrors || isError && (hasErrors = true);
+						isError && model.set(key + '-error', null);
 					});
-					el.className = classError;
+					// if no errors, let view know.
+					hasErrors || (bound.errors = false);
 				});
 
 				this.model.on('error', function(error){
 					_.forEach(error, function(e){
 						model.set(e.key + '-error', e.error);
 					});
-					el.className = classError + ' error';
+					bound.errors = true;
 				});
 			}
 		});
