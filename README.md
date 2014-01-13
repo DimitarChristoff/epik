@@ -22,6 +22,17 @@ $ buster-static
 ...
 ```
 
+Examples - run a grunt express server with socket.io etc. Install grunt if you don't have it, then run from root of the repo.
+
+```sh
+$ npm install -g grunt-cli
+$ grunt
+```
+
+Then open your browser and go to http://locahost:8000/example/
+
+
+
 ## Getting started
 
 Via bower:
@@ -33,14 +44,6 @@ For node:
 ```sh
 $ npm install epik --save
 ```
-
-Grunt express server to run examples via socket.io etc.
-```sh
-$ npm install -g grunt-cli
-$ grunt
-```
-
-Then open your browser and go to http://locahost:8000/example/
 
 
 ## View
