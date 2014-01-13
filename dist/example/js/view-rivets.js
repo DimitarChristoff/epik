@@ -29,7 +29,7 @@ define(function(require){
 
 				rivets.bind(this.element, bound);
 
-				this.model.on('change', function(changed){
+				this.on('model:change', function(changed){
 					// find at least one error
 					var hasErrors = false;
 					_.forEach(changed, function(key){
