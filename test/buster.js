@@ -11,6 +11,7 @@ config['Epik browser tests'] = {
 		'lib/components/primish/emitter.js',
 		'lib/components/primish/options.js',
 		'lib/components/slicker/index.js',
+		'lib/components/jquery/jquery.js',
 		'lib/index.js'
 	],
 
@@ -20,7 +21,8 @@ config['Epik browser tests'] = {
 		'lib/model.js',
 		'lib/model-sync.js',
 		'lib/collection.js',
-		'lib/collection-sync.js'
+		'lib/collection-sync.js',
+		'lib/view.js'
 	],
 
 	tests: [
@@ -28,7 +30,8 @@ config['Epik browser tests'] = {
 		'test/specs/model-test.js',
 		'test/specs/model-sync-test.js',
 		'test/specs/collection-test.js',
-		'test/specs/collection-sync-test.js'
+		'test/specs/collection-sync-test.js',
+		'test/specs/view-test.js'
 		//'test/specs/*-test.js'
 	],
 
