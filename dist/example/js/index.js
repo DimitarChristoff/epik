@@ -8,6 +8,7 @@ require.config({
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
 		rivets: 'components/rivets/dist/rivets',
+		jquery: 'components/jquery/jquery',
 		'rivets-adapter': 'lib/plugins/rivets-adapter',
 		io: '/socket.io/socket.io',
 		hbs: 'components/require-handlebars-plugin/hbs',
