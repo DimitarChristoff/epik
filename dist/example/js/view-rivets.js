@@ -19,6 +19,11 @@ define(function(require){
 				this.attachEvents();
 			},
 
+			destroy: function(){
+				this.rv.unbind();
+				this.parent('destroy');
+			},
+
 			attachEvents: function(){
 				var model = this.model,
 					bound = {
@@ -27,7 +32,7 @@ define(function(require){
 						errors: false
 					};
 
-				rivets.bind(this.element, bound);
+				this.rv = rivets.bind(this.element, bound);
 
 				this.on('model:change', function(changed){
 					// find at least one error
