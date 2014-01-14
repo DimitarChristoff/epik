@@ -33,7 +33,7 @@ define(function(require){
 						errors: false
 					};
 
-				this.bindRivets(this.element, bound);
+				this.bindRivets(bound);
 
 				this.on('model:change', function(changed){
 					// find at least one error

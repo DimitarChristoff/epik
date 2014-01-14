@@ -286,6 +286,8 @@ define(function(require){
 		rivets = require('epik/plugins/rivets-adapter');
 
 	var MyView = primish({
+		// mixin the rivets class
+		implement: [rivets],
 		extend: View,
 		options: {
 			template: ''
@@ -293,9 +295,13 @@ define(function(require){
 		constructor: function(options){
 			this.parent('constructor', options);
 			this.element.innerHTML = this.options.template;
-			rivets.bind(this.element, {
+			this.bindRivets(this.element, {
 				person: this.model
 			});
+		},
+		destroy: function(){
+			this.unbindRivets();
+			this.parent('destroy');
 		}
 	});
 
@@ -324,3 +330,16 @@ Collections are similarly implemented. Notice the use of `ep-` as opposed to `rv
 the epik adapter (the rivets default PJSO one is `.` and it can still be used)
 
 The full spectrum of Rivets.js API will work as expected.
+
+### bindRivets
+
+Sugar that passes an object to be bound to `this.element`. Optionally, you can pass a different element as the first
+argument. Creates a `boundRivets` property on the object, containing reference to the current rivet context instance
+
+### unbindRivets
+
+Used as a destructor to unbind existing events from `this.boundRivets`
+
+### syncRivets
+
+A method that calls `rivets.sync()` to force manual processing, like `$digest`
