@@ -24,12 +24,17 @@ buster.testCase('Basic epik view test >', {
 				extend: View,
 
 				options: {
-					template: 'This is a <%=name%> <%=type%> render app <button></button>',
+					template: 'This is a <%=name%> <%=type%> render app <button>click</button><a href="#">link</a>',
 					element: this.element,
 					events: {
 						click: 'handleClick',
-						'click button': 'handleDelegated'
+						'click button': 'handleDelegated',
+						'click a': 'clicker'
 					}
+				},
+
+				clicker: function(){
+
 				},
 
 				render: function(){
@@ -92,6 +97,26 @@ buster.testCase('Basic epik view test >', {
 		this.view.on('handleClick', spy);
 		this.view.$element.click();
 		buster.assert.called(spy);
+	},
+
+	'Expect the events on the element to call method on class instance if available >': function(){
+		var spy = this.spy(this.view, 'clicker');
+		var event = $.Event('click');
+		event.target = this.view.$element.find('a')[0];
+
+		this.view.$element.trigger(event);
+		buster.assert.called(spy);
+	},
+
+	'Expect the events on the element to call method if available and not raise an event >': function(){
+		var spy = this.spy();
+		this.view.on('clicker', spy);
+		var event = $.Event('click');
+		event.target = this.view.$element.find('a')[0];
+
+		this.view.$element.trigger(event);
+		buster.refute.called(spy);
+
 	},
 
 	'Expect the delegated events on children of element to bubble to class instance >': function(){
