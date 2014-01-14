@@ -82,12 +82,11 @@ define(function(require){
 		return new Router(obj);
 	};
 
-	var menu = new Menu({
+	var menu = window.menu = new Menu({
 		element: document.querySelector('#menu .container'),
 		collection: new Examples([]),
 		'onCollection:set': function(){
 			this.router || (this.router = createRouter(this.collection.toJSON()));
-			this.render();
 		}
 	});
 

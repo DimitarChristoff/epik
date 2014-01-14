@@ -9,6 +9,7 @@ define(function(require){
 			rivets = require('rivets-adapter');
 
 		var PersonView = primish({
+			implement: rivets,
 			extend: view,
 			options: {
 				template: template
@@ -20,7 +21,7 @@ define(function(require){
 			},
 
 			destroy: function(){
-				this.rv.unbind();
+				this.unbindRivets();
 				this.parent('destroy');
 			},
 
@@ -32,7 +33,7 @@ define(function(require){
 						errors: false
 					};
 
-				this.rv = rivets.bind(this.element, bound);
+				this.bindRivets(this.element, bound);
 
 				this.on('model:change', function(changed){
 					// find at least one error

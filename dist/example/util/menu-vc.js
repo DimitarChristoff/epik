@@ -6,6 +6,7 @@ define(function(require){
 		template = require('text!example/templates/menu.tpl');
 
 	return primish({
+		implement: rivets,
 		extend: view,
 		options: {
 			template: template
@@ -13,7 +14,7 @@ define(function(require){
 		constructor: function(options){
 			this.parent('constructor', options);
 			this.element.innerHTML = this.options.template;
-			rivets.bind(this.element, {examples: this.collection});
+			this.bindRivets(this.element, {examples: this.collection});
 		}
 	});
 });
