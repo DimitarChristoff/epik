@@ -1,6 +1,6 @@
 {
   "name": "epik",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "main": [
     "lib/index.js",
     "lib/model.js",
@@ -25,11 +25,9 @@
   ],
   "dependencies": {
     "primish": "~0.3.1",
-    "requirejs": "~2.1.9",
+    "requirejs": "~2.1.10",
     "lodash": "~2.4.1",
     "slicker": "~0.0.2",
-    "socket.io-client": "~0.9.16",
-    "require-handlebars-plugin": "~0.7.0",
     "rivets": "~0.6.5",
     "jquery": "1.10.2"
   },
