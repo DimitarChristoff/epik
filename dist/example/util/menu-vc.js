@@ -14,9 +14,7 @@ define(function(require){
 		constructor: function(options){
 			this.parent('constructor', options);
 			this.element.innerHTML = this.options.template;
-			this.bindRivets({
-				examples: this.collection
-			});
+			this.bindRivets(this);
 		}
 	});
 });
