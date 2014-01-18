@@ -29,7 +29,7 @@ module.exports = function(grunt){
 			bare: {
 				options: {
 					optimize: 'uglify2',
-					out: './dist/build/epic-min.js',
+					out: './lib/epic-min.js',
 					// name: 'epik',
 					// build all cept for components
 					include: [
