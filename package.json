@@ -34,7 +34,8 @@
     "grunt-express-server": "~0.4.10",
     "matchdep": "~0.3.0",
     "express": "~3.4.7",
-    "glob": "~3.2.7"
+    "glob": "~3.2.7",
+    "grunt-contrib-requirejs": "~0.4.1"
   },
   "engines": {
     "node": "~0.8.26"

@@ -25,6 +25,45 @@ module.exports = function(grunt){
 			'dist/docs': ['<%= output%>']
 		},
 
+		requirejs: {
+			compile: {
+				options: {
+					optimize: 'uglify2',
+					out: './dist/build/epic-min.js',
+					// name: 'epik',
+					// build all cept for components
+					include: [
+						'lib/index',
+						'lib/agent',
+						'lib/model',
+						'lib/model-sync',
+						'lib/storage',
+						'lib/collection',
+						'lib/collection-sync',
+						'lib/view',
+						'lib/plugins/rivets-adapter',
+						'lib/router'
+					],
+					exclude: [
+						'lodash',
+						'slicker',
+						'jquery',
+						'rivets',
+						'primish/primish',
+						'primish/options',
+						'primish/emitter'
+					],
+					paths: {
+						primish: 'lib/components/primish',
+						lodash: 'lib/components/lodash/dist/lodash',
+						slicker: 'lib/components/slicker/index',
+						jquery: 'lib/components/jquery/jquery',
+						rivets: 'lib/components/rivets/dist/rivets'
+					}
+				}
+			}
+		},
+
 		// builds the docs via grunt-doctor-md task.
 		doctor: {
 			default_options: {
@@ -80,5 +119,7 @@ module.exports = function(grunt){
 
 	//require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 	grunt.loadNpmTasks('grunt-express');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.registerTask('default', ['express', 'express-keepalive']);
+	grunt.registerTask('build', ['requirejs']);
 };

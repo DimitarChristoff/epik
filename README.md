@@ -334,7 +334,7 @@ The full spectrum of Rivets.js API will work as expected.
 ### bindRivets
 
 Sugar that passes an object to be bound to `this.element`. Optionally, you can pass a different element as the first
-argument. Creates a `boundRivets` property on the object, containing reference to the current rivet context instance
+argument. Creates a `this.boundRivets` property on the object, containing reference to the current rivet view context instance
 
 ### unbindRivets
 
@@ -342,4 +342,4 @@ Used as a destructor to unbind existing events from `this.boundRivets`
 
 ### syncRivets
 
-A method that calls `rivets.sync()` to force manual processing, like `$digest`
+A method that calls `rivets.sync()` on the bound view to force manual processing, like `$digest`

@@ -1,9 +1,9 @@
-require.config({
+({
 	paths: {
-		components: 'lib/components',
-		primish: 'components/primish',
-		lodash: 'components/lodash/dist/lodash',
-		slicker: 'components/slicker/index',
-		jquery: 'components/jquery/jquery'
+		primish: 'lib/components/primish',
+		lodash: 'lib/components/lodash/dist/lodash',
+		slicker: 'lib/components/slicker/index',
+		jquery: 'lib/components/jquery/jquery',
+		rivets: 'lib/components/rivets/dist/rivets'
 	}
-});
+})
