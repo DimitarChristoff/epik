@@ -29,7 +29,7 @@ module.exports = function(grunt){
 			bare: {
 				options: {
 					optimize: 'uglify2',
-					out: './lib/epic-min.js',
+					out: './lib/epik-min.js',
 					// name: 'epik',
 					// build all cept for components
 					include: [
@@ -65,7 +65,7 @@ module.exports = function(grunt){
 			all: {
 				options: {
 					optimize: 'uglify2',
-					out: './dist/build/epic-full-min.js',
+					out: './dist/build/epik-full-min.js',
 					// name: 'epik',
 					// build all including components
 					include: [
