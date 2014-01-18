@@ -26,7 +26,7 @@ module.exports = function(grunt){
 		},
 
 		requirejs: {
-			compile: {
+			bare: {
 				options: {
 					optimize: 'uglify2',
 					out: './dist/build/epic-min.js',
@@ -52,6 +52,33 @@ module.exports = function(grunt){
 						'primish/primish',
 						'primish/options',
 						'primish/emitter'
+					],
+					paths: {
+						primish: 'lib/components/primish',
+						lodash: 'lib/components/lodash/dist/lodash',
+						slicker: 'lib/components/slicker/index',
+						jquery: 'lib/components/jquery/jquery',
+						rivets: 'lib/components/rivets/dist/rivets'
+					}
+				}
+			},
+			all: {
+				options: {
+					optimize: 'uglify2',
+					out: './dist/build/epic-full-min.js',
+					// name: 'epik',
+					// build all including components
+					include: [
+						'lib/index',
+						'lib/agent',
+						'lib/model',
+						'lib/model-sync',
+						'lib/storage',
+						'lib/collection',
+						'lib/collection-sync',
+						'lib/view',
+						'lib/plugins/rivets-adapter',
+						'lib/router'
 					],
 					paths: {
 						primish: 'lib/components/primish',
@@ -121,5 +148,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-express');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.registerTask('default', ['express', 'express-keepalive']);
-	grunt.registerTask('build', ['requirejs']);
+	grunt.registerTask('build', ['requirejs:bare']);
+	grunt.registerTask('build:all', ['requirejs:all']);
+
 };
