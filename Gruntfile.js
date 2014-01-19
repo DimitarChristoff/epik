@@ -42,11 +42,11 @@ module.exports = function(grunt){
 						'lib/collection-sync',
 						'lib/view',
 						'lib/plugins/rivets-adapter',
-						'lib/router'
+						'lib/router',
+						'slicker'
 					],
 					exclude: [
 						'lodash',
-						'slicker',
 						'jquery',
 						'rivets',
 						'primish/primish',
