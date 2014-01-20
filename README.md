@@ -102,6 +102,7 @@ define(function(require){
 If you use the FULL build from `dist/build/epik-full-min.js`, you would also have to add to the bundles config to let
 requirejs know it will resolve rivets.js, jquery, lodash and primish as well:
 
+```javascript
 require.config({
 	paths: {
 		epik: '../bower_components/epik/lib',
