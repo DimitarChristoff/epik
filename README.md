@@ -5,33 +5,6 @@ epitome 2 for primish and lodash, no depenency on mootools
 
 > this is an experiment. if you like primish, mootools and epitome, feel free to contribute. otherwise, don't use.
 
-## Contributing
-
-Whilst this is being ported, you can help. Fork the repo or ask for commit access.
-
-```sh
-$ git clone git@github.com:DimitarChristoff/epik.git
-...
-$ cd epik/
-$ npm i
-...
-$ bower install
-...
-$ cd test/
-$ buster-static
-...
-```
-
-Examples - run a grunt express server with socket.io etc. Install grunt if you don't have it, then run from root of the repo.
-
-```sh
-$ npm install -g grunt-cli
-$ grunt
-```
-
-Then open your browser and go to http://locahost:8000/example/
-
-
 
 ## Getting started
 
@@ -45,6 +18,137 @@ For node:
 $ npm install epik --save
 ```
 
+### AMD configuration
+
+You can use epik in a number of ways.
+
+In development, you can let requirejs fetch all dependencies as needed. A typical require.config looks like this:
+
+```javascript
+require.config({
+	paths: {
+			epik: '../bower_components/epik/lib',
+			'rivets-adapter': '../bower_components/epik/lib/plugins/rivets-adapter',
+			primish: '../bower_components/primish',
+			lodash: '../bower_components/lodash/dist/lodash',
+			slicker: '../bower_components/slicker/index',
+			rivets: '../bower_components/rivets/dist/rivets',
+			jquery: '../bower_components/jquery/jquery'
+		}
+	});
+});
+```
+
+The above is applicable after a `bower install epik --save` and will dynamically load any components as needed.
+Obviously, you may have a different config for `jquery`, `lodash` and `rivets` so reflect them as needed - epik will require
+them via the root level ids of `jquery`, `lodash` and `rivets` respectively.
+
+If you prefer, you can use the builds of epik instead. There are two builds shipped - a minimum one, which includes only
+the epik files (and `slicker`) and a full one, which includes ALL dependencies, `lodash`, `rivets` and `jquery` into the
+build.
+
+There are module ids set so you can use the RequireJS 2.1.9 feature [bundles](http://requirejs.org/docs/api.html#config-bundles) and
+define where to find the resolved modules.
+
+An example config using the minified built epik would look like this:
+```javascript
+require.config({
+	paths: {
+		epik: '../bower_components/epik/lib',
+		primish: '../bower_components/primish',
+		lodash: '../bower_components/lodash/dist/lodash',
+		rivets: '../bower_components/rivets/dist/rivets',
+		jquery: '../bower_components/jquery/jquery'
+	},
+	bundles: {
+		'epik/epik-min': [
+			'epik/index',
+			'epik/model',
+			'epik/model-sync',
+			'epik/collection',
+			'epik/collection-sync',
+			'epik/agent',
+			'epik/storage',
+			'epik/router',
+			'epik/view',
+			'epik/plugins/rivets-adapter',
+			'slicker'
+		]
+	}
+});
+```
+
+Once that is setup, requests for `epik/model` on an empty require module factory will get the minified built version and
+prime the factory against the module IDs defined above. You should only see a single HTTP request in your console for
+`epik-min.js`. Notice `slicker` is bundled already and the rivets adapter is with the id of `epik/plugins/rivets-adapter`.
+
+Usage in both cases remains the same.
+```javascript
+require.config({ ... }});
+
+define(function(require){
+
+	var primish = require('primish/primish'),
+		Model = require('epik/model-sync');
+
+	var User = primish({
+		extend: Model
+	});
+
+	// ...
+});
+```
+
+If you use the FULL build from `dist/build/epik-full-min.js`, you would also have to add to the bundles config to let
+requirejs know it will resolve rivets.js, jquery, lodash and primish as well:
+
+require.config({
+	paths: {
+		epik: '../bower_components/epik/lib',
+		primish: '../bower_components/primish',
+		lodash: '../bower_components/lodash/dist/lodash',
+		rivets: '../bower_components/rivets/dist/rivets',
+		jquery: '../bower_components/jquery/jquery'
+	},
+	bundles: {
+		'epik/epik-min': [
+			'epik/index',
+			'epik/model',
+			'epik/model-sync',
+			'epik/collection',
+			'epik/collection-sync',
+			'epik/agent',
+			'epik/storage',
+			'epik/router',
+			'epik/view',
+			'epik/plugins/rivets-adapter',
+			'slicker',
+			'jquery',
+			'lodash',
+			'rivets',
+			'primish/primish',
+			'primish/emitter',
+			'primish/options'
+		]
+	}
+});
+```
+
+## Model
+
+tbc
+
+## Model Sync
+
+tbc
+
+## Collection
+
+tbc
+
+## Collection Sync
+
+tbc
 
 ## View
 
@@ -343,3 +447,34 @@ Used as a destructor to unbind existing events from `this.boundRivets`
 ### syncRivets
 
 A method that calls `rivets.sync()` on the bound view to force manual processing, like `$digest`
+
+
+
+## Contributing
+
+Whilst this is being ported, you can help. Fork the repo or ask for commit access.
+
+```sh
+$ git clone git@github.com:DimitarChristoff/epik.git
+...
+$ cd epik/
+$ npm i
+...
+$ bower install
+...
+$ cd test/
+$ buster-static
+...
+```
+
+Examples - run a grunt express server with socket.io etc. Install grunt if you don't have it, then run from root of the repo.
+
+```sh
+$ npm install -g grunt-cli
+$ grunt
+$ grunt build
+$ grunt requirejs
+```
+
+The web server is on port 8000 - visit [http://locahost:8000/example/](http://locahost:8000/example/) to view live examples
+
