@@ -105,7 +105,7 @@ module.exports = function(grunt){
 					travis: 'http://travis-ci.org/DimitarChristoff/epik',
 					images: 'dist/images',
 					logo: 'images/epitome-logo-small.png',
-					disqus: 'epitome-mvc'
+					//disqus: 'epitome-mvc'
 				},
 				files: {
 					'<%= output%>/index.html': './README.md'
@@ -116,9 +116,16 @@ module.exports = function(grunt){
 					doctor: {
 						files: [{
 							dest: '<%= output%>/js/',
-							src: ['epic-min.js','dist/js/doctor.js'],
+							src: [
+								'lib/epik-min.js',
+								'dist/js/doctor.js'
+							],
 							expand: true,
 							flatten: true
+						}, {
+							dest: '<%= output%>',
+							src: ['bower.json'],
+							expand: true
 						}]
 					}
 				},
@@ -141,12 +148,30 @@ module.exports = function(grunt){
 					}
 				}
 			}
+		},
+
+		bower: {
+			install: {
+				options: {
+					targetDir: '<%= output%>',
+					layout: 'byType',
+					install: true,
+					verbose: true,
+					cleanTargetDir: false,
+					cleanBowerDir: false
+				}
+			}
 		}
 	});
 
 	//require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 	grunt.loadNpmTasks('grunt-express');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-doctor-md');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-bower-task');
+
+	grunt.registerTask('docs', ['clean','doctor', 'bower:install']);
 	grunt.registerTask('default', ['express', 'express-keepalive']);
 	grunt.registerTask('build', ['requirejs:bare']);
 	grunt.registerTask('build:all', ['requirejs:all']);

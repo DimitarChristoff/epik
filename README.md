@@ -135,9 +135,23 @@ require.config({
 });
 ```
 
+Keep in mind that the strings passed to the bundles config are module IDs, not expanded paths.
+
 ## Model
 
-tbc
+```ace
+define(function(require){
+
+	var Model = require('epik/model'),
+		primish = require('primish/primish');
+
+	var bob = new primish({
+		extend: Model
+	})({name:'bob'});
+
+	console.log(bob.toJSON());
+});
+```
 
 ## Model Sync
 
@@ -196,8 +210,7 @@ define(function(require){
 		primish = epik.primish,
 		View = require('epik/view'),
 		Model = require('epik/model'),
-		tpl = 'I am template <a href="#" class="task-remove"><%=name%></a><br/><button class="done">done</button>',
-
+		tpl = 'I am template <a href="#" class="task-remove"><%=name%></a><br/><button class="done">done</button>';
 
 	var testView = primish({
 
@@ -208,7 +221,7 @@ define(function(require){
 				'click a.task-remove': 'removeTask',
 				'click button.done': 'reset'
 			}
-		}
+		},
 
 		render: function() {
 			this.empty();
