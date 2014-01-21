@@ -140,15 +140,20 @@ Keep in mind that the strings passed to the bundles config are module IDs, not e
 ## Model
 
 ```ace
-define(function(require){
+require(['epik/model','primish/primish'], function(Model, primish){
 
-	var Model = require('epik/model'),
-		primish = require('primish/primish');
+	var Person = primish({
+		extend: Model,
+		defaults: {
+			sex: 'male',
+			age: 0
+		}
+	});
 
-	var bob = new primish({
-		extend: Model
-	})({name:'bob'});
-
+	var bob = new Person({
+		name: 'Bob',
+		age: 30
+	});
 	console.log(bob.toJSON());
 });
 ```
@@ -308,14 +313,14 @@ A simple sandbox function where you can either use the lodash templating engine 
 An example override to make it work with Mustache would be:
 ```javascript
 var myView = primish({
-    extends: Epitome.View,
-    template: function(data, template) {
-        template = template || this.options.template;
-        return Mustache.render(template, data);
-    },
-    render: function() {
-        this.$element.html(this.template({name:'there'}, 'Hello {{name}}'));
-    }
+	extends: Epitome.View,
+	template: function(data, template) {
+		template = template || this.options.template;
+		return Mustache.render(template, data);
+	},
+	render: function() {
+		this.$element.html(this.template({name:'there'}, 'Hello {{name}}'));
+	}
 });
 ```
 
@@ -395,13 +400,14 @@ There is an adapter for rivets.js provided, which does the following customisati
 
 Example view implementation:
 ```ace
-define(function(require){
+require([
+	'epik/index',
+	'epik/view',
+	'epik/model',
+	'epik/plugins/rivets-adapter'
+], function(epik, View, Model, rivets) {
 
-	var epik = require('epik/index'),
-		primish = epik.primish,
-		View = require('epik/view'),
-		Model = require('epik/model'),
-		rivets = require('epik/plugins/rivets-adapter');
+	var primish = epik.primish;
 
 	var MyView = primish({
 		// mixin the rivets class

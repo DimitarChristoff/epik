@@ -124,7 +124,7 @@ module.exports = function(grunt){
 							flatten: true
 						}, {
 							dest: '<%= output%>',
-							src: ['bower.json'],
+							src: ['lib/components/**'],
 							expand: true
 						}]
 					}
@@ -148,19 +148,6 @@ module.exports = function(grunt){
 					}
 				}
 			}
-		},
-
-		bower: {
-			install: {
-				options: {
-					targetDir: '<%= output%>',
-					layout: 'byType',
-					install: true,
-					verbose: true,
-					cleanTargetDir: false,
-					cleanBowerDir: false
-				}
-			}
 		}
 	});
 
@@ -169,9 +156,8 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-doctor-md');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-bower-task');
 
-	grunt.registerTask('docs', ['clean','doctor', 'bower:install']);
+	grunt.registerTask('docs', ['clean','doctor']);
 	grunt.registerTask('default', ['express', 'express-keepalive']);
 	grunt.registerTask('build', ['requirejs:bare']);
 	grunt.registerTask('build:all', ['requirejs:all']);
