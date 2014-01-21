@@ -1,0 +1,25 @@
+{
+  "name": "slicker",
+  "description": "The Slick CSS selector parser, just the parser for nodejs / amd / browser as a simple export",
+  "keywords": [
+    "util",
+    "dom",
+    "css",
+    "selector",
+    "parser",
+    "mootools"
+  ],
+  "author": "Thomas Aylott",
+  "contributors": [
+    "Fabio Miranda Costa",
+    "Valerio Proietti",
+    "Jan Kassens"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epitome-mvc/slicker"
+  },
+  "dependencies": [],
+  "main": "index.js",
+  "version": "0.0.2"
+}
