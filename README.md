@@ -139,13 +139,46 @@ Keep in mind that the strings passed to the bundles config are module IDs, not e
 
 ## Model
 
-```ace
-require(['epik/model','primish/primish'], function(Model, primish){
+The epik Model implementation at its core is a [primish](https://github.com/DimitarChristoff/primish) class with custom data accessors that fires events. You can extend models or implement objects or other classes into your definitions.
 
-	var Person = primish({
+The Model can fire the following events:
+
+* `ready` - when instantiated
+* `change` - when any properties have changed
+* `change:key` - when a particular property `key` has changed
+* `empty` - when a model has been emptied of all properties
+* `destroy` - when a model has been `destroyed` and all data removed.
+* `error` - when a model validator fails on a property set.
+* `error:key` - when a particular key validation error has occurred
+
+The following methods are official API on all Model Classes:
+
+### constructor (initialize)
+---
+<div class="alert">
+<p>
+_Expects arguments: `(Object) obj`, `(Object) options`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `ready`_
+</p>
+</div>
+
+The `obj` sets the internal data hash to a new derefrenced object. Special accessor properties, as defined in the `epik.model.prototype.properties`, will run first and be applicable. See [properties](#model/model-properties) for more info.
+
+The `options` object is a `setOptions` override and is being merged with the `epik.model.prototype.options` when a new model is created. It typically contains various event handlers in the form of:
+
+```ace
+require(['epik/index', 'epik/model'], function(epik, Model){
+
+	var Person = epik.primish('person', {
 		extend: Model,
 		defaults: {
 			sex: 'male',
+			title: 'Mr.',
 			age: 0
 		}
 	});
@@ -154,9 +187,78 @@ require(['epik/model','primish/primish'], function(Model, primish){
 		name: 'Bob',
 		age: 30
 	});
+
 	console.log(bob.toJSON());
+	console.log(bob._id); // 'person'
 });
 ```
+
+### set
+---
+<div class="alert" markdown="1">
+<p>
+_Expects arguments: mixed: `(String) key`, `(Mixed) value` - pair - or: `(Object) obj`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events:_
+
+<ul>
+ <li> `change: function(changedProperties) {}`</li>
+ <li> `change:key: function(valueForKey) {}`</li>
+ <li> `error: function(objectFailedValidation) {}`</li>
+ <li> `error:key: function(objectFailedValidation) {}`</li>
+</ul>
+</p>
+</div>
+
+Allows changing of any individual model key or a set of key/value pairs, encapsulated in an object. Will fire a single `change` event with all the changed properties as well as a specific `change:key` event that passes just the value of the key as argument.
+
+For typing of value, you can store anything at all (Primitives, Objects, Functions). Keep in mind that, when it comes to serialising the Model and sending it to the server, only Primitive types or ones with a sensible `toString()` implementation will make sense.
+
+### get
+---
+<div class="alert">
+<p>
+_Expects arguments mixed: `(String) key` or `(Array) keys`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+</div>
+
+Returns known values within the model for either a single key or an array of keys. For an array of keys, it will return an object with `key` : `value` mapping. Properties gotten are not implicitly derefrenced so careful if you have stored an object - modifying the value of the `get` will modify your model as well.
+
+The following example illustrates why it's a bad idea to store deep model properties.
+
+```ace
+require(['epik/index', 'epik/model'], function(epik, Model){
+
+	var Person = epik.primish('person', {
+		extend: Model,
+		defaults: {
+			sex: 'male',
+			title: 'Mr.',
+			age: 0
+		}
+	});
+
+	var bob = new Person({
+		location: {
+			country: 'UK',
+			city: 'London'
+		}
+	});
+
+	var location = bob.get('location');
+	console.log(location.city); // London
+	location.city = 'Manchester';
+	console.log(bob.get('location').city); // Manchester. oh no!
+});
+```
+
 
 ## Model Sync
 
