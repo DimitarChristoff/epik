@@ -229,9 +229,9 @@ _Returns: `this`_
 </p>
 </div>
 
-Returns known values within the model for either a single key or an array of keys. For an array of keys, it will return an object with `key` : `value` mapping. Properties gotten are not implicitly derefrenced so careful if you have stored an object - modifying the value of the `get` will modify your model as well.
+Returns known values within the model for either a single key or an array of keys. For an array of keys, it will return an object with `key` : `value` mapping. Properties gotten are not implicitly de-refrenced so careful if you have stored an object - modifying the value of the `get` will modify your model as well.
 
-The following example illustrates why it's a bad idea to store deep model properties.
+The following example illustrates why it's a bad idea to store deep model properties. Alternatively, you can use `instance.toJSON()` and reference and modify properties off of that without them making it back into the model.
 
 ```ace
 require(['epik/index', 'epik/model'], function(epik, Model){
@@ -246,6 +246,8 @@ require(['epik/index', 'epik/model'], function(epik, Model){
 	});
 
 	var bob = new Person({
+		a: 'a',
+		b: 'b',
 		location: {
 			country: 'UK',
 			city: 'London'
@@ -256,9 +258,71 @@ require(['epik/index', 'epik/model'], function(epik, Model){
 	console.log(location.city); // London
 	location.city = 'Manchester';
 	console.log(bob.get('location').city); // Manchester. oh no!
+
+	// get around dereferencing
+	location = epik._.clone(bob.get('location'));
+	location.city = 'London';
+	console.log(bob.get('location').city); // Still Manchester.
+
+	// multiple property getters
+	console.log(bob.get(['a','b']));
 });
 ```
 
+### toJSON
+------
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+</div>
+
+Returns a de-referenced Object, containing all the known model keys and values.
+
+### unset
+-----
+<div class="alert">
+<p>
+_Expects arguments: mixed: `(String) key` or `(Array) keys`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+</div>
+
+Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a `change`.
+
+### empty
+-----
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `empty`_
+</p>
+</div>
+
+Empties the model of all data and fires a single change event with all keys as well as individual `change:key` events.
+
+### destroy
+-------
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `destroy`_
+</p>
+</div>
+
+Empties the model. No change event. Event is observed by Collections the model is a member of, where it triggers a `remove()`
 
 ## Model Sync
 

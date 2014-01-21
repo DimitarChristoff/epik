@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -253,8 +253,8 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 </p>
 </div>
 
-<p>Returns known values within the model for either a single key or an array of keys. For an array of keys, it will return an object with <code>key</code> : <code>value</code> mapping. Properties gotten are not implicitly derefrenced so careful if you have stored an object - modifying the value of the <code>get</code> will modify your model as well.</p>
-<p>The following example illustrates why it&#39;s a bad idea to store deep model properties.</p>
+<p>Returns known values within the model for either a single key or an array of keys. For an array of keys, it will return an object with <code>key</code> : <code>value</code> mapping. Properties gotten are not implicitly de-refrenced so careful if you have stored an object - modifying the value of the <code>get</code> will modify your model as well.</p>
+<p>The following example illustrates why it&#39;s a bad idea to store deep model properties. Alternatively, you can use <code>instance.toJSON()</code> and reference and modify properties off of that without them making it back into the model.</p>
 <pre class="prettyprint linenums"><code class="lang-ace">require([&#39;epik/index&#39;, &#39;epik/model&#39;], function(epik, Model){
 
     var Person = epik.primish(&#39;person&#39;, {
@@ -267,6 +267,8 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
     });
 
     var bob = new Person({
+        a: &#39;a&#39;,
+        b: &#39;b&#39;,
         location: {
             country: &#39;UK&#39;,
             city: &#39;London&#39;
@@ -277,8 +279,67 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
     console.log(location.city); // London
     location.city = &#39;Manchester&#39;;
     console.log(bob.get(&#39;location&#39;).city); // Manchester. oh no!
+
+    // get around dereferencing
+    location = epik._.clone(bob.get(&#39;location&#39;));
+    location.city = &#39;London&#39;;
+    console.log(bob.get(&#39;location&#39;).city); // Still Manchester.
+
+    // multiple property getters
+    console.log(bob.get([&#39;a&#39;,&#39;b&#39;]));
 });
 </code></pre>
+<h3 id="model/tojson">toJSON</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+</div>
+
+<p>Returns a de-referenced Object, containing all the known model keys and values.</p>
+<h3 id="model/unset">unset</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: mixed: <code>(String) key</code> or <code>(Array) keys</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+</div>
+
+<p>Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a <code>change</code>.</p>
+<h3 id="model/empty">empty</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>empty</code></em>
+</p>
+</div>
+
+<p>Empties the model of all data and fires a single change event with all keys as well as individual <code>change:key</code> events.</p>
+<h3 id="model/destroy">destroy</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>destroy</code></em>
+</p>
+</div>
+
+<p>Empties the model. No change event. Event is observed by Collections the model is a member of, where it triggers a <code>remove()</code></p>
 <h2 id="model-sync">Model Sync</h2>
 <p>tbc</p>
 <h2 id="collection">Collection</h2>
