@@ -451,8 +451,10 @@ of both is also possible.</p>
     &#39;epik/view&#39;,
     &#39;epik/model&#39;
 ], function(epik, View, Model) {
+    &#39;use strict&#39;;
+
     var primish = epik.primish,
-        tpl = &#39;I am template &lt;a href=&quot;#&quot; class=&quot;task-remove&quot;&gt;&lt;%=name%&gt;&lt;/a&gt;&lt;br/&gt;&lt;button class=&quot;done&quot;&gt;done&lt;/button&gt;&#39;;
+        tpl = &#39;I am template &lt;a href=&quot;#&quot; class=&quot;task-rename&quot;&gt;&lt;%=name%&gt;&lt;/a&gt;&lt;br/&gt;&lt;button class=&quot;done&quot;&gt;rename&lt;/button&gt;&#39;;
 
     var testView = primish({
 
@@ -460,7 +462,7 @@ of both is also possible.</p>
 
         options: {
             events: {
-                &#39;click a.task-remove&#39;: &#39;removeTask&#39;,
+                &#39;click a.task-rename&#39;: &#39;renameTask&#39;,
                 &#39;click button.done&#39;: &#39;reset&#39;
             }
         },
@@ -475,15 +477,20 @@ of both is also possible.</p>
         reset: function() {
             this.model.empty();
             this.render();
+        },
+
+        renameTask: function(event) {
+            event &amp;&amp; event.preventDefault &amp;&amp; event.preventDefault();
+            this.model.set(&#39;status&#39;, &#39;archived&#39;);
         }
     });
 
 
     var testInstance = new testView({
 
-        model: Model({name: &#39;View fun&#39;}),
+        model: new Model({name: &#39;View fun&#39;}),
 
-        element: &#39;main&#39;,
+        element: &#39;#main&#39;,
 
         template: tpl,
 
@@ -494,12 +501,6 @@ of both is also possible.</p>
         &#39;onModel:change&#39;: function(){
             this.model.set(&#39;name&#39;, new Date().getTime());
             this.render();
-        },
-
-        onRemoveTask: function(event, element) {
-            event &amp;&amp; event.preventDefault &amp;&amp; event.preventDefault();
-            console.log(element); // a.task-remove
-            this.model.set(&#39;status&#39;, &#39;archived&#39;);
         }
     });
 });
