@@ -446,12 +446,12 @@ of both is also possible.</p>
 <li><code>onEventHandlers</code> - code that reacts to various events that the instance fires.</li>
 </ul>
 <p>Epik views do not support the <code>tag</code> options of Backbone, you need to figure the elements on your own.</p>
-<pre class="prettyprint linenums"><code class="lang-ace">define(function(require){
-
-    var epik = require(&#39;epik/index&#39;),
-        primish = epik.primish,
-        View = require(&#39;epik/view&#39;),
-        Model = require(&#39;epik/model&#39;),
+<pre class="prettyprint linenums"><code class="lang-ace">require([
+    &#39;epik/index&#39;,
+    &#39;epik/view&#39;,
+    &#39;epik/model&#39;
+], function(epik, View, Model) {
+    var primish = epik.primish,
         tpl = &#39;I am template &lt;a href=&quot;#&quot; class=&quot;task-remove&quot;&gt;&lt;%=name%&gt;&lt;/a&gt;&lt;br/&gt;&lt;button class=&quot;done&quot;&gt;done&lt;/button&gt;&#39;;
 
     var testView = primish({
