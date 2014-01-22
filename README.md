@@ -390,6 +390,11 @@ properties: {
 			this.id = id;
 			// may want to fire events manually here.
 		}
+	},
+	price: {
+		set: function(value){
+			return this.formatCurrency(value);
+		}
 	}
 }
 ```
@@ -407,6 +412,40 @@ var Person = primish({
 	}, epik.model.prototype.properties);
 });
 ```
+
+### Model validators*
+
+You can also include basic validators into your model. Validators are an object on the Model prototype that maps any expected key to a function that will return `true` if the validation passes or a `string` error message or `false` on failure.
+
+Here is an example:
+```ace
+require(['epik/index', 'epik/model'], function(epik, Model){
+
+	var Person = epik.primish('person', {
+		extend: Model,
+		validators: {
+			email: function(value) {
+				return (/(.+)@(.+){2,}\.(.+){2,}/).test(value) ? true : 'This looks like an invalid email address';
+			}
+		}
+	});
+
+	var userInstance = new Person({}, {
+		onError: function(allErrors) {
+			console.log('The following fields were rejected', allErrors);
+		},
+		'onError:email': function(errorObj) {
+			// can have a custom message, action or whatever.
+			console.log('Email rejected', errorObj.error);
+		}
+	});
+
+	userInstance.set('email', 'this will fail!');
+
+});
+```
+The `error` event is observed by collections and views and fires on all view and collection instances.
+
 
 ## Model Sync
 

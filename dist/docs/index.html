@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -395,6 +395,11 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
             this.id = id;
             // may want to fire events manually here.
         }
+    },
+    price: {
+        set: function(value){
+            return this.formatCurrency(value);
+        }
     }
 }
 </code></pre>
@@ -409,6 +414,35 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
     }, epik.model.prototype.properties);
 });
 </code></pre>
+<h3 id="model/model-validators">Model validators*</h3>
+<p>You can also include basic validators into your model. Validators are an object on the Model prototype that maps any expected key to a function that will return <code>true</code> if the validation passes or a <code>string</code> error message or <code>false</code> on failure.</p>
+<p>Here is an example:</p>
+<pre class="prettyprint linenums"><code class="lang-ace">require([&#39;epik/index&#39;, &#39;epik/model&#39;], function(epik, Model){
+
+    var Person = epik.primish(&#39;person&#39;, {
+        extend: Model,
+        validators: {
+            email: function(value) {
+                return (/(.+)@(.+){2,}\.(.+){2,}/).test(value) ? true : &#39;This looks like an invalid email address&#39;;
+            }
+        }
+    });
+
+    var userInstance = new Person({}, {
+        onError: function(allErrors) {
+            console.log(&#39;The following fields were rejected&#39;, allErrors);
+        },
+        &#39;onError:email&#39;: function(errorObj) {
+            // can have a custom message, action or whatever.
+            console.log(&#39;Email rejected&#39;, errorObj.error);
+        }
+    });
+
+    userInstance.set(&#39;email&#39;, &#39;this will fail!&#39;);
+
+});
+</code></pre>
+<p>The <code>error</code> event is observed by collections and views and fires on all view and collection instances.</p>
 <h2 id="model-sync">Model Sync</h2>
 <p>tbc</p>
 <h2 id="collection">Collection</h2>
