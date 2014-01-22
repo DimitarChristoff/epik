@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-define(['lib/index', 'lib/router'], function(epik, router){
+define(['epik/index', 'epik/router'], function(epik, router){
 
 	var AppRouter = new router({
 		// routes definition will proxy the events

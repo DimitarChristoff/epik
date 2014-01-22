@@ -1,8 +1,8 @@
 define(function(require){
 
-	var view = require('lib/view'),
-		primish = require('lib/index').primish,
-		rivets = require('rivets-adapter'),
+	var view = require('epik/view'),
+		primish = require('epik/index').primish,
+		rivets = require('epik/plugins/rivets-adapter'),
 		template = require('text!example/templates/menu.tpl');
 
 	return primish({

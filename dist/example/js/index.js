@@ -1,6 +1,7 @@
 require.config({
 	baseUrl: '../../',
 	paths: {
+		epik: 'lib',
 		examples: 'example/js/',
 		util: 'example/util/',
 		components: 'lib/components',
@@ -26,11 +27,11 @@ require.config({
 define(function(require){
 
 	var transport = new (require('util/transport'))(),
-		epik = require('lib/index'),
+		epik = require('epik/index'),
 		primish = epik.primish,
 		_ = epik._,
-		Router = require('lib/router'),
-		Collection = require('lib/collection'),
+		Router = require('epik/router'),
+		Collection = require('epik/collection'),
 		Menu = require('util/menu-vc');
 
 	var Examples = primish({

@@ -4,7 +4,7 @@ define(function(require){
 	var primish = require('primish/primish'),
 		options = require('primish/options'),
 		emitter = require('primish/emitter'),
-		_ = require('lib/index')._,
+		_ = require('epik/index')._,
 		io = require('io');
 
 	return primish({

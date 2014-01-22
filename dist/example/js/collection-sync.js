@@ -1,7 +1,7 @@
 define(function(require){
 	return function(){
-		var epik = require('lib/index'),
-			collection = require('lib/collection-sync'),
+		var epik = require('epik/index'),
+			collection = require('epik/collection-sync'),
 			primish = epik.primish;
 
 		var Persons = primish({

@@ -1,11 +1,10 @@
 define(function(require){
 	return function(){
-		var epik = require('lib/index'),
+		var epik = require('epik/index'),
 			_ = epik._,
-			jQuery = require('jquery'),
 			primish = epik.primish,
 			Person = require('example/util/person'),
-			view = require('lib/view'),
+			view = require('epik/view'),
 			template = require('text!example/templates/person-lodash.tpl');
 
 		var PersonView = primish({
@@ -45,5 +44,9 @@ define(function(require){
 				this.model.set(data);
 			}
 		});
+
+
+
+
 	};
 });

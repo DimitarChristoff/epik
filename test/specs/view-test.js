@@ -93,6 +93,8 @@ buster.testCase('Basic epik view test >', {
 	},
 
 	'Expect the events on the element to bubble to class instance >': function(){
+		this.view.render();
+
 		var spy = this.spy();
 		this.view.on('handleClick', spy);
 		this.view.$element.click();
@@ -100,6 +102,8 @@ buster.testCase('Basic epik view test >', {
 	},
 
 	'Expect the events on the element to call method on class instance if available >': function(){
+		this.view.render();
+
 		var spy = this.spy(this.view, 'clicker');
 		var event = $.Event('click');
 		event.target = this.view.$element.find('a')[0];
@@ -109,7 +113,9 @@ buster.testCase('Basic epik view test >', {
 	},
 
 	'Expect the events on the element to call method if available and not raise an event >': function(){
-		var spy = this.spy();
+		this.view.render();
+
+			var spy = this.spy();
 		this.view.on('clicker', spy);
 		var event = $.Event('click');
 		event.target = this.view.$element.find('a')[0];
@@ -120,6 +126,8 @@ buster.testCase('Basic epik view test >', {
 	},
 
 	'Expect the delegated events on children of element to bubble to class instance >': function(){
+		this.view.render();
+
 		var spy = this.spy();
 		this.view.on('handleDelegated', spy);
 		var event = $.Event('click');

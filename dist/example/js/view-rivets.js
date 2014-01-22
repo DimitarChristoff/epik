@@ -1,12 +1,12 @@
 define(function(require){
 	return function(){
-		var epik = require('lib/index'),
+		var epik = require('epik/index'),
 			_ = epik._,
 			primish = epik.primish,
 			Person = require('example/util/person'),
-			view = require('lib/view'),
+			view = require('epik/view'),
 			template = require('text!example/templates/person.tpl'),
-			rivets = require('rivets-adapter');
+			rivets = require('epik/plugins/rivets-adapter');
 
 		var PersonView = primish({
 			implement: rivets,

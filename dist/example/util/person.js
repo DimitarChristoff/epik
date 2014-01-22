@@ -1,6 +1,6 @@
 ;(function(factory){
 	if (typeof define == 'function' && define.amd){
-		define(['lib/index', 'lib/model-sync'], factory);
+		define(['epik/index', 'epik/model-sync'], factory);
 	} else if (typeof module != 'undefined' && module.exports){
 		module.exports = factory(
 			require('../../../lib/index'),
