@@ -324,6 +324,90 @@ _Events: `destroy`_
 
 Empties the model. No change event. Event is observed by Collections the model is a member of, where it triggers a `remove()`
 
+### validate
+-------
+<div class="alert">
+<p>
+_Expects arguments: {String} key, {*} value_
+</p>
+<p>
+_Returns: `{Boolean} validates`_
+</p>
+</div>
+
+Internal method that gets run whenever a property is being set. Checks to see if there is a validator for the `key`, is so, returns the result of the validator function, else, assumes it's allowed and returns `true`
+
+### Model properties*
+
+There are several additional properties each model instance will have.
+
+#### _attributes: {Object}
+-------
+The attributes object is __public__ (exposed to manipulation on the instance) and it holds the hash data for the model, based upon keys. It is de-referenced from the constructor object used when creating a model but should not be read directly (normally). Exported by `model.toJSON()`. Avoid changing this directly as it won't fire any change events at all.
+
+#### _collections: {Array}
+-------
+An array that contains references to all instances of epik.collection that the model is currently a member of. Useful for iteration as well as utilised by collections that subscribe to events for models.
+
+#### options: {Object}
+-------
+A default options set, which can be on the prototype of the Model constructor.
+
+#### defaults: {Object}
+-------
+An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor.
+
+#### propertiesChanged: {Array}
+-------
+An array of all property keys that reflect the last `change` event. Available on all instances.
+
+#### validationFailed: {Array}
+-------
+An array of all error Objects with info on all validation failed properties after a `set`. Available on all instances.
+
+#### properties: {Object}
+-------
+A collection of custom accessors that override default `model.get` and `model.set` methods. For example:
+
+```javascript
+properties: {
+    dob: {
+        get: function() {
+            // scope is model
+            return new Date(this._attributes.dob);
+        },
+        set: function(value) {
+            // return a value to be set
+            return value instanceof Date ? +value : value;
+        }
+    },
+    id: {
+        get: function(){
+            // returns a property from instance instead of _attributes
+            return this.id;
+        },
+        set: function(id){
+            this.id = id;
+            // may want to fire events manually here.
+        }
+    }
+}
+```
+In the examples above, any calls to `model.set('dob', new Date(1985, 5, 15))` and `model.get('dob')` are handled by custom functions as we want our model to deal with unix timestamps only but return Date instances. This is a pattern that allows you to use getters and setters for properties that are handled differently than normal ones. If the `set` function returns a value, it will use the normal `set` chain and act as a formatter/pre-processor, firing events etc. You don't have to use this and can do as in the `id` example, where the value is simply redirected elsewhere.
+
+Avoid setting them on prototypes that you extend from, better to have them on the instance from the constructor or another method as they are not de-referenced and are not being merged. If you need to extend them and keep the default id getter, you need to merge with `model.prototype.properties` in your new model definitions. This may change in future versions.
+
+```javascript
+var Person = primish({
+	properties: _.merge({
+		foo: {
+			get: function(){},
+			set: function(){}
+		}
+	}, epik.model.prototype.properties);
+});
+```
+
 ## Model Sync
 
 tbc

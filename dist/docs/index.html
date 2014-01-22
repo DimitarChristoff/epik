@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -340,6 +340,75 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 </div>
 
 <p>Empties the model. No change event. Event is observed by Collections the model is a member of, where it triggers a <code>remove()</code></p>
+<h3 id="model/validate">validate</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: {String} key, {*} value</em>
+</p>
+<p>
+<em>Returns: <code>{Boolean} validates</code></em>
+</p>
+</div>
+
+<p>Internal method that gets run whenever a property is being set. Checks to see if there is a validator for the <code>key</code>, is so, returns the result of the validator function, else, assumes it&#39;s allowed and returns <code>true</code></p>
+<h3 id="model/model-properties">Model properties*</h3>
+<p>There are several additional properties each model instance will have.</p>
+<h4 id="_attributes-object-">_attributes: {Object}</h4>
+<hr>
+<p>The attributes object is <strong>public</strong> (exposed to manipulation on the instance) and it holds the hash data for the model, based upon keys. It is de-referenced from the constructor object used when creating a model but should not be read directly (normally). Exported by <code>model.toJSON()</code>. Avoid changing this directly as it won&#39;t fire any change events at all.</p>
+<h4 id="_collections-array-">_collections: {Array}</h4>
+<hr>
+<p>An array that contains references to all instances of epik.collection that the model is currently a member of. Useful for iteration as well as utilised by collections that subscribe to events for models.</p>
+<h4 id="options-object-">options: {Object}</h4>
+<hr>
+<p>A default options set, which can be on the prototype of the Model constructor.</p>
+<h4 id="defaults-object-">defaults: {Object}</h4>
+<hr>
+<p>An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor.</p>
+<h4 id="propertieschanged-array-">propertiesChanged: {Array}</h4>
+<hr>
+<p>An array of all property keys that reflect the last <code>change</code> event. Available on all instances.</p>
+<h4 id="validationfailed-array-">validationFailed: {Array}</h4>
+<hr>
+<p>An array of all error Objects with info on all validation failed properties after a <code>set</code>. Available on all instances.</p>
+<h4 id="properties-object-">properties: {Object}</h4>
+<hr>
+<p>A collection of custom accessors that override default <code>model.get</code> and <code>model.set</code> methods. For example:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">properties: {
+    dob: {
+        get: function() {
+            // scope is model
+            return new Date(this._attributes.dob);
+        },
+        set: function(value) {
+            // return a value to be set
+            return value instanceof Date ? +value : value;
+        }
+    },
+    id: {
+        get: function(){
+            // returns a property from instance instead of _attributes
+            return this.id;
+        },
+        set: function(id){
+            this.id = id;
+            // may want to fire events manually here.
+        }
+    }
+}
+</code></pre>
+<p>In the examples above, any calls to <code>model.set(&#39;dob&#39;, new Date(1985, 5, 15))</code> and <code>model.get(&#39;dob&#39;)</code> are handled by custom functions as we want our model to deal with unix timestamps only but return Date instances. This is a pattern that allows you to use getters and setters for properties that are handled differently than normal ones. If the <code>set</code> function returns a value, it will use the normal <code>set</code> chain and act as a formatter/pre-processor, firing events etc. You don&#39;t have to use this and can do as in the <code>id</code> example, where the value is simply redirected elsewhere.</p>
+<p>Avoid setting them on prototypes that you extend from, better to have them on the instance from the constructor or another method as they are not de-referenced and are not being merged. If you need to extend them and keep the default id getter, you need to merge with <code>model.prototype.properties</code> in your new model definitions. This may change in future versions.</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">var Person = primish({
+    properties: _.merge({
+        foo: {
+            get: function(){},
+            set: function(){}
+        }
+    }, epik.model.prototype.properties);
+});
+</code></pre>
 <h2 id="model-sync">Model Sync</h2>
 <p>tbc</p>
 <h2 id="collection">Collection</h2>
