@@ -467,7 +467,7 @@ require([
 	'use strict';
 
 	var primish = epik.primish,
-		tpl = 'I am template <a href="#" class="task-rename"><%=name%></a><br/><button class="done">rename</button>';
+		tpl = 'I am template <a href="#" class="task-rename"><%=name%> <%=status%></a><br/><button class="done">completed</button>';
 
 	var testView = primish({
 
@@ -480,34 +480,34 @@ require([
 			}
 		},
 
-		render: function() {
+		render: function(){
 			this.empty();
 			this.$element.html(this.template(this.model.toJSON()));
 			this.parent('render');
 			return this;
 		},
 
-		reset: function() {
-			this.model.empty();
+		reset: function(){
+			this.model.set('status', 'done');
 			this.render();
 		},
 
-		renameTask: function(event) {
+		renameTask: function(event){
 			event && event.preventDefault && event.preventDefault();
-			this.model.set('status', 'archived');
+			this.model.set('name', 'Changed name');
 		}
 	});
 
 
 	var testInstance = new testView({
 
-		model: new Model({name: 'View fun'}),
+		model: new Model({name: 'View fun', status: 'pending'}),
 
 		element: '#main',
 
 		template: tpl,
 
-		onReady: function() {
+		onReady: function(){
 			this.render();
 		},
 
