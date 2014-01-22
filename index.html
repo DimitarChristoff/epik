@@ -454,7 +454,7 @@ of both is also possible.</p>
     &#39;use strict&#39;;
 
     var primish = epik.primish,
-        tpl = &#39;I am template &lt;a href=&quot;#&quot; class=&quot;task-rename&quot;&gt;&lt;%=name%&gt;&lt;/a&gt;&lt;br/&gt;&lt;button class=&quot;done&quot;&gt;rename&lt;/button&gt;&#39;;
+        tpl = &#39;I am template &lt;a href=&quot;#&quot; class=&quot;task-rename&quot;&gt;&lt;%=name%&gt; &lt;%=status%&gt;&lt;/a&gt;&lt;br/&gt;&lt;button class=&quot;done&quot;&gt;completed&lt;/button&gt;&#39;;
 
     var testView = primish({
 
@@ -467,34 +467,34 @@ of both is also possible.</p>
             }
         },
 
-        render: function() {
+        render: function(){
             this.empty();
             this.$element.html(this.template(this.model.toJSON()));
             this.parent(&#39;render&#39;);
             return this;
         },
 
-        reset: function() {
-            this.model.empty();
+        reset: function(){
+            this.model.set(&#39;status&#39;, &#39;done&#39;);
             this.render();
         },
 
-        renameTask: function(event) {
+        renameTask: function(event){
             event &amp;&amp; event.preventDefault &amp;&amp; event.preventDefault();
-            this.model.set(&#39;status&#39;, &#39;archived&#39;);
+            this.model.set(&#39;name&#39;, &#39;Changed name&#39;);
         }
     });
 
 
     var testInstance = new testView({
 
-        model: new Model({name: &#39;View fun&#39;}),
+        model: new Model({name: &#39;View fun&#39;, status: &#39;pending&#39;}),
 
         element: &#39;#main&#39;,
 
         template: tpl,
 
-        onReady: function() {
+        onReady: function(){
             this.render();
         },
 
