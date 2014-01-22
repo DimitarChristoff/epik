@@ -371,26 +371,26 @@ A collection of custom accessors that override default `model.get` and `model.se
 
 ```javascript
 properties: {
-    dob: {
-        get: function() {
-            // scope is model
-            return new Date(this._attributes.dob);
-        },
-        set: function(value) {
-            // return a value to be set
-            return value instanceof Date ? +value : value;
-        }
-    },
-    id: {
-        get: function(){
-            // returns a property from instance instead of _attributes
-            return this.id;
-        },
-        set: function(id){
-            this.id = id;
-            // may want to fire events manually here.
-        }
-    }
+	dob: {
+		get: function() {
+			// scope is model
+			return new Date(this._attributes.dob);
+		},
+		set: function(value) {
+			// return a value to be set
+			return value instanceof Date ? +value : value;
+		}
+	},
+	id: {
+		get: function(){
+			// returns a property from instance instead of _attributes
+			return this.id;
+		},
+		set: function(id){
+			this.id = id;
+			// may want to fire events manually here.
+		}
+	}
 }
 ```
 In the examples above, any calls to `model.set('dob', new Date(1985, 5, 15))` and `model.get('dob')` are handled by custom functions as we want our model to deal with unix timestamps only but return Date instances. This is a pattern that allows you to use getters and setters for properties that are handled differently than normal ones. If the `set` function returns a value, it will use the normal `set` chain and act as a formatter/pre-processor, firing events etc. You don't have to use this and can do as in the `id` example, where the value is simply redirected elsewhere.
@@ -459,13 +459,15 @@ Significant keys to the options passed in are:
 Epik views do not support the `tag` options of Backbone, you need to figure the elements on your own.
 
 ```ace
-define(function(require){
+require([
+	'epik/index',
+	'epik/view',
+	'epik/model'
+], function(epik, View, Model) {
+	'use strict';
 
-	var epik = require('epik/index'),
-		primish = epik.primish,
-		View = require('epik/view'),
-		Model = require('epik/model'),
-		tpl = 'I am template <a href="#" class="task-remove"><%=name%></a><br/><button class="done">done</button>';
+	var primish = epik.primish,
+		tpl = 'I am template <a href="#" class="task-rename"><%=name%></a><br/><button class="done">rename</button>';
 
 	var testView = primish({
 
@@ -473,7 +475,7 @@ define(function(require){
 
 		options: {
 			events: {
-				'click a.task-remove': 'removeTask',
+				'click a.task-rename': 'renameTask',
 				'click button.done': 'reset'
 			}
 		},
@@ -488,15 +490,20 @@ define(function(require){
 		reset: function() {
 			this.model.empty();
 			this.render();
+		},
+
+		renameTask: function(event) {
+			event && event.preventDefault && event.preventDefault();
+			this.model.set('status', 'archived');
 		}
 	});
 
 
 	var testInstance = new testView({
 
-		model: Model({name: 'View fun'}),
+		model: new Model({name: 'View fun'}),
 
-		element: 'main',
+		element: '#main',
 
 		template: tpl,
 
@@ -507,12 +514,6 @@ define(function(require){
 		'onModel:change': function(){
 			this.model.set('name', new Date().getTime());
 			this.render();
-		},
-
-		onRemoveTask: function(event, element) {
-			event && event.preventDefault && event.preventDefault();
-			console.log(element); // a.task-remove
-			this.model.set('status', 'archived');
 		}
 	});
 });
