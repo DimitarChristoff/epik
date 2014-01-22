@@ -10,7 +10,8 @@
     "lib/agent.js",
     "lib/router.js",
     "lib/storage.js",
-    "lib/epik-min.js"
+    "lib/epik-min.js",
+    "lib/plugins/rivets-adapter.js"
   ],
   "ignore": [
     "**/.*",
