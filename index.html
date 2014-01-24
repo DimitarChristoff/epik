@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a><ul><li class="l3"><a href="#model-sync/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model-sync/sync">sync</a></li><li class="l3"><a href="#model-sync/postprocessor">postProcessor</a></li><li class="l3"><a href="#model-sync/save">save</a></li><li class="l3"><a href="#model-sync/preprocessor">preProcessor</a></li></ul></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a><ul><li class="l3"><a href="#model-sync/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model-sync/sync">sync</a></li><li class="l3"><a href="#model-sync/postprocessor">postProcessor</a></li><li class="l3"><a href="#model-sync/save">save</a></li><li class="l3"><a href="#model-sync/preprocessor">preProcessor</a></li><li class="l3"><a href="#model-sync/fetch">fetch</a></li><li class="l3"><a href="#model-sync/crud">CRUD</a></li></ul></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -444,7 +444,7 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 </code></pre>
 <p>The <code>error</code> event is observed by collections and views and fires on all view and collection instances.</p>
 <h2 id="model-sync">Model Sync</h2>
-<p>This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as the normal <a href="#model">Model</a>, unless outlined below:</p>
+<p>This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as per the normal <a href="#model">Model</a>, unless outlined below:</p>
 <h3 id="model-sync/constructor-initialize">constructor (initialize)</h3>
 <hr>
 <div class="alert">
@@ -453,7 +453,7 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 </p>
 </div>
 
-<p>model-sync extends the normal model by adding some extra properties, namely <code>id</code> and a <code>urlRoot</code> either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via <code>agent</code>.</p>
+<p>model-sync extends the normal model by adding some extra properties, namely <code>id</code> and a <code>urlRoot</code> either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via a custom implementation of <a href="https://github.com/kamicane/agent">agent</a>, which supports XHR2. <code>agent.js</code> is a local file that does not need to be included separately due to certain changes around CORS headers and primish that are not available upstream.</p>
 <div class="alert">
 <code>options.headers</code> {Object} is a way to pass headers to the Agent instance, such as the <code>content-type</code> to <code>application/json</code> (by default), etc.
  </div>
@@ -531,6 +531,29 @@ otherwise, the save events may not fire. Additionally, try to ensure <code>appli
     return data;
 }
 </code></pre>
+<h3 id="model-sync/fetch">fetch</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>fetch</code>, <code>read</code></em>
+</p>
+</div>
+
+<p>It will request the server to return the model object for the current id via a <code>.read()</code>. It will also change the status of the model (<code>model.isNewModel</code>) to false, meaning <code>.save()</code> will never use <code>.create()</code>. The fetch event will fire once the response object has been returned. The response object is then merged with the current model via a <code>.set</code>, it won&#39;t empty your data. To do so, you need to issue a <code>.empty()</code> first.</p>
+<h3 id="model-sync/crud">CRUD</h3>
+<p>As a side note, the following methods are exported on the model instance:</p>
+<ul>
+<li><code>create</code> - maps to POST</li>
+<li><code>read</code> - maps to GET</li>
+<li><code>update</code> - maps to POST</li>
+<li><code>delete_</code> - maps to DELETE (note that due to IE8, use of <code>delete</code> and dot notation throws so it has been renamed)</li>
+</ul>
 <h2 id="collection">Collection</h2>
 <p>tbc</p>
 <h2 id="collection-sync">Collection Sync</h2>
