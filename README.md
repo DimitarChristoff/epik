@@ -449,7 +449,7 @@ The `error` event is observed by collections and views and fires on all view and
 
 ## Model Sync
 
-This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as the normal [Model](#model), unless outlined below:
+This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as per the normal [Model](#model), unless outlined below:
 
 ### constructor (initialize)
 ---
@@ -459,7 +459,7 @@ _Expects arguments: `{Object} model`, `{Object} options`_
 </p>
 </div>
 
-model-sync extends the normal model by adding some extra properties, namely `id` and a `urlRoot` either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via `agent`.
+model-sync extends the normal model by adding some extra properties, namely `id` and a `urlRoot` either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via a custom implementation of [agent](https://github.com/kamicane/agent), which supports XHR2. `agent.js` is a local file that does not need to be included separately due to certain changes around CORS headers and primish that are not available upstream.
 
 <div class="alert">
 `options.headers` {Object} is a way to pass headers to the Agent instance, such as the `content-type` to `application/json` (by default), etc.
@@ -549,6 +549,32 @@ preProcessor: function(data) {
     return data;
 }
 ```
+
+### fetch
+---
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `fetch`, `read`_
+</p>
+</div>
+
+It will request the server to return the model object for the current id via a `.read()`. It will also change the status of the model (`model.isNewModel`) to false, meaning `.save()` will never use `.create()`. The fetch event will fire once the response object has been returned. The response object is then merged with the current model via a `.set`, it won't empty your data. To do so, you need to issue a `.empty()` first.
+
+### CRUD
+
+As a side note, the following methods are exported on the model instance:
+
+- `create` - maps to POST
+- `read` - maps to GET
+- `update` - maps to POST
+- `delete_` - maps to DELETE (note that due to IE8, use of `delete` and dot notation throws so it has been renamed)
+
 
 ## Collection
 
