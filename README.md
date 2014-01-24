@@ -449,7 +449,106 @@ The `error` event is observed by collections and views and fires on all view and
 
 ## Model Sync
 
-tbc
+This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as the normal [Model](#model), unless outlined below:
+
+### constructor (initialize)
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Object} model`, `{Object} options`_
+</p>
+</div>
+
+model-sync extends the normal model by adding some extra properties, namely `id` and a `urlRoot` either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via `agent`.
+
+<div class="alert">
+`options.headers` {Object} is a way to pass headers to the Agent instance, such as the `content-type` to `application/json` (by default), etc.
+ </div>
+
+### sync
+---
+<div class="alert">
+<p>
+Expects optional arguments: `{String} method`, `{Object} model`, `{Function} callback`_
+</p>
+<p>
+_Events: `success|failure`: `function(responseObj) {}`_
+</p>
+</div>
+
+Sync acts as a proxy/interface to the XHR instance in the model `this.request` A method can be one of the following:
+> get, post, create, read, delete, update
+
+If no method is supplied, a `read` is performed.
+
+The second argument `model` is optional and should be a simple object. If it is not supplied, the default `model.toJSON()` is used instead.
+
+If a callback is supplied, it will be called when done - although it will still raise the `success` or `failure` events
+
+As a whole, you should probably NOT use the sync directly but elect to use the API methods for each specific request task.
+
+__WARNING:__ epik is a REST framework. Please make sure you are returning a valid JSON string or 204 (no content) after all requests -
+otherwise, the save events may not fire. Additionally, try to ensure `application/json` content type of your response so that the response is converted to an Object when passed back. Failing to do so will return it raw as plain text or whatever content type you have supplied.
+
+### postProcessor
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Object} response`_
+</p>
+<p>
+_Expected return: `{Object} response`_
+</p>
+</div>
+
+A method that you pass in your definition of Models for doing any post-processing of data `returned` by sync from the server. For example:
+
+```javascript
+postProcessor: function(response) {
+    // data comes back with decoration. split them first.
+    this.meta = response.meta;
+    return response.data;
+}
+```
+
+### save
+---
+<div class="alert">
+<p>
+_Expects optional arguments: `{String} key`, `{String} value` or `{Object} keyValues`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `save`, `success|failure`, also either `create` or `update`, dependent on if the model is new_
+</p>
+</div>
+
+The save should send the contents of the model to the server for storage. If it is a model that has not been saved before or fetched from the server, it will do so via `create()`, else, it will use `update()` instead.
+
+If the optional `key` => `value` pair is passed, it will set them on the model and then save the updated model.
+
+### preProcessor
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Object} response`_
+</p>
+<p>
+_Expected return: `{Object} response`_
+</p>
+</div>
+
+A method that you can add to your definition of Models for doing any pre-processing of data before using `CREATE` or `UPDATE` via, `.save` when syncing to a server. For example:
+
+```javascript
+preProcessor: function(data) {
+    // remove local property 'meta' which the server does not like.
+    delete data.meta;
+    return data;
+}
+```
 
 ## Collection
 

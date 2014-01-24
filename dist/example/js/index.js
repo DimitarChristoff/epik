@@ -12,16 +12,16 @@ require.config({
 		jquery: 'components/jquery/jquery',
 		'rivets-adapter': 'lib/plugins/rivets-adapter',
 		io: '/socket.io/socket.io',
-		hbs: 'components/require-handlebars-plugin/hbs',
 		text: 'example/util/text'
 	},
-	hbs: {
-		helpers: true,
-		i18n: false,
-		templateExtension: 'hbs',
-		partialsUrl: ''
+	bundles: {
+		'components/primish/primish-min': [
+			'primish/primish',
+			'primish/emitter',
+			'primish/options'
+		]
 	}
-	// urlArgs: 'burst=' + (+new Date())
+	// , urlArgs: 'burst=' + (+new Date())
 });
 
 define(function(require){
