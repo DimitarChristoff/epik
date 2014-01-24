@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a><ul><li class="l3"><a href="#model-sync/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model-sync/sync">sync</a></li><li class="l3"><a href="#model-sync/postprocessor">postProcessor</a></li><li class="l3"><a href="#model-sync/save">save</a></li><li class="l3"><a href="#model-sync/preprocessor">preProcessor</a></li></ul></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -444,7 +444,93 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 </code></pre>
 <p>The <code>error</code> event is observed by collections and views and fires on all view and collection instances.</p>
 <h2 id="model-sync">Model Sync</h2>
-<p>tbc</p>
+<p>This is an example implementation of RESTful module that extends the base epik.model class and adds the ability to read, update and delete models with remote server. In terms of implementation, there are subtle differences. The API and methods are as the normal <a href="#model">Model</a>, unless outlined below:</p>
+<h3 id="model-sync/constructor-initialize">constructor (initialize)</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Object} model</code>, <code>{Object} options</code></em>
+</p>
+</div>
+
+<p>model-sync extends the normal model by adding some extra properties, namely <code>id</code> and a <code>urlRoot</code> either as a property of the model or as an options property, which allow you to sync it. The constructor function first calls the parent model constructor and then sets up the XHR instance and methods via <code>agent</code>.</p>
+<div class="alert">
+<code>options.headers</code> {Object} is a way to pass headers to the Agent instance, such as the <code>content-type</code> to <code>application/json</code> (by default), etc.
+ </div>
+
+<h3 id="model-sync/sync">sync</h3>
+<hr>
+<div class="alert">
+<p>
+Expects optional arguments: <code>{String} method</code>, <code>{Object} model</code>, <code>{Function} callback</code><em>
+</em></p>
+<p>
+_Events: <code>success|failure</code>: <code>function(responseObj) {}</code>
+</p>
+</div>
+
+<p>Sync acts as a proxy/interface to the XHR instance in the model <code>this.request</code> A method can be one of the following:</p>
+<blockquote>
+<p>get, post, create, read, delete, update</p>
+</blockquote>
+<p>If no method is supplied, a <code>read</code> is performed.</p>
+<p>The second argument <code>model</code> is optional and should be a simple object. If it is not supplied, the default <code>model.toJSON()</code> is used instead.</p>
+<p>If a callback is supplied, it will be called when done - although it will still raise the <code>success</code> or <code>failure</code> events</p>
+<p>As a whole, you should probably NOT use the sync directly but elect to use the API methods for each specific request task.</p>
+<p><strong>WARNING:</strong> epik is a REST framework. Please make sure you are returning a valid JSON string or 204 (no content) after all requests -
+otherwise, the save events may not fire. Additionally, try to ensure <code>application/json</code> content type of your response so that the response is converted to an Object when passed back. Failing to do so will return it raw as plain text or whatever content type you have supplied.</p>
+<h3 id="model-sync/postprocessor">postProcessor</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Object} response</code></em>
+</p>
+<p>
+<em>Expected return: <code>{Object} response</code></em>
+</p>
+</div>
+
+<p>A method that you pass in your definition of Models for doing any post-processing of data <code>returned</code> by sync from the server. For example:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">postProcessor: function(response) {
+    // data comes back with decoration. split them first.
+    this.meta = response.meta;
+    return response.data;
+}
+</code></pre>
+<h3 id="model-sync/save">save</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects optional arguments: <code>{String} key</code>, <code>{String} value</code> or <code>{Object} keyValues</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>save</code>, <code>success|failure</code>, also either <code>create</code> or <code>update</code>, dependent on if the model is new</em>
+</p>
+</div>
+
+<p>The save should send the contents of the model to the server for storage. If it is a model that has not been saved before or fetched from the server, it will do so via <code>create()</code>, else, it will use <code>update()</code> instead.</p>
+<p>If the optional <code>key</code> =&gt; <code>value</code> pair is passed, it will set them on the model and then save the updated model.</p>
+<h3 id="model-sync/preprocessor">preProcessor</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Object} response</code></em>
+</p>
+<p>
+<em>Expected return: <code>{Object} response</code></em>
+</p>
+</div>
+
+<p>A method that you can add to your definition of Models for doing any pre-processing of data before using <code>CREATE</code> or <code>UPDATE</code> via, <code>.save</code> when syncing to a server. For example:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">preProcessor: function(data) {
+    // remove local property &#39;meta&#39; which the server does not like.
+    delete data.meta;
+    return data;
+}
+</code></pre>
 <h2 id="collection">Collection</h2>
 <p>tbc</p>
 <h2 id="collection-sync">Collection Sync</h2>
