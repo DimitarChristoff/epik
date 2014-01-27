@@ -153,7 +153,7 @@ The Model can fire the following events:
 
 The following methods are official API on all Model Classes:
 
-### constructor (initialize)
+### constructor
 ---
 <div class="alert">
 <p>
@@ -578,7 +578,86 @@ As a side note, the following methods are exported on the model instance:
 
 ## Collection
 
-tbc
+Collections are in essence, an Array-like Type with Models as members. By passing a model prototype, adding and removing of models works either based with simple JSPO data has or an actual Model instance. Collections observe and bubble all events that all of its model members emit, firing them on the collection instance. It also allows for filtering, mapping, sorting and many sugar methods, copied from the Array.prototype and applied on the Model.
+
+Unlike Arrays, collections here also allow a powerful search/filter that can return a subset (Array) of Models from the collection that match CSS-like selectors for model attributes
+
+Instances of collection should have a `._id` property of collection, unless you override that.
+
+### constructor
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Array|Object} models|objects` (or a single model /object), `{Object} options`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `ready`_
+</p>
+</div>
+
+The constructor method will accept a large variety of arguments. You can pass on either an Array of Models or an Array of Objects or a single Model or a single Object. You can also pass an empty Array and populate it later. Typical Collection prototype definition looks something like this:
+```javascript
+var userModel = primish({extend: epik.model}),
+	usersCollection = primish({
+		extend: epik.collection,
+        model: userModel // or epik.model by default
+	});
+
+var users = new usersCollection([{
+    id: 'bob'
+}], {
+    onChange: function(model, props) {
+        console.log('model change', model, props);
+    },
+    onReady: function() {
+        console.log('the collection is ready');
+    }
+});
+```
+For reference purposes, each Model that enters a collection needs to have a `cid` - collection id. If the Model has an `id`, that is preferred. Otherwise, a `cid` will be generated. If the Model gets an `id` later on, the `cid` will not be changed.
+
+<div class="alert alert-info">
+<p>
+_Please note that Collections **observe** and bubble **all** model events. For instance, if a Model fires `change`, the Collection instance will fire `onChange`, passing the model as `arguments[0]` and then keeping the rest of the arguments in their original order. For the purposes of implementing this, a decorated local copy of each Model's `.fireEvent` method is created instead of the one from Class.Event prototype. Once a Model stops being a member of collections, the original `fireEvent` is restored by deleting the local method on the Model instance._
+</p>
+</div>
+
+### set
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Array|Object} model(s)` , `{Boolean} quiet`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `set: function() {}`_
+</p>
+</div>
+
+Sets models into the collection 'sugar'. Accepts a single model or an array of models to add, passing through to `.add` and also firing a `set` event when done. Previously `.reset` in Epitome.
+
+### add
+---
+<div class="alert">
+<p>
+_Expects arguments: `(Mixed) model` , `(Boolean) replace`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `add: function(model, cid) {}`_
+</p>
+</div>
+
+Previously `addModel` in Epitome. Adding a Model to a Collection should always go through this method. It either appends the Model instance to the internal `_models` Array or it creates a new Model and then appends it. It also starts observing the Model's events and emitting them to the Collection instance with an additional argument passed `Model`. So, if you add a Model stored in `bob` and then do `bob.trigger('hai', 'there')`, the collection will also fire an event like this: `this.trigger('hai', [bob, 'there']); Adding a Model also increases the `Collection.length` property.
+
+The monitoring of the events (Observer) is done through creating a local function override / decoration of the Model's `fireEvent` method, normally inherited from the MooTools Events Class. If a model stops being a part of a collection, the override is destroyed and the default `fireEvent`.
 
 ## Collection Sync
 
