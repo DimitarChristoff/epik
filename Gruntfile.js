@@ -157,7 +157,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-doctor-md');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask('docs', ['clean','doctor']);
+	grunt.registerTask('docs', ['clean', 'build', 'doctor']);
 	grunt.registerTask('default', ['express', 'express-keepalive']);
 	grunt.registerTask('build', ['requirejs:bare']);
 	grunt.registerTask('build:all', ['requirejs:all']);

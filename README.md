@@ -651,7 +651,7 @@ _Expects arguments: `{Object|Model} model` , `{Boolean} replace`_
 _Returns: `this`_
 </p>
 <p>
-_Events: `add: function(model, cid) {}`_
+_Events: `add: function(model, cid) {}`, `reset`_
 </p>
 </div>
 
@@ -675,7 +675,7 @@ _Events: `remove: function(model, cid) {}`, `reset`_
 </p>
 </div>
 
-This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a `remove` Event will fire (if `quiet` is not true). When removing of all Models is done, the collection will also fire a `set` event, allowing you to re-render your views etc.
+This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a `remove` Event will fire (if `quiet` is not true). When removing of all Models is done, the collection will also fire a `reset` event, allowing you to re-render your views etc.
 
 In addition to removing the Model from the Collection, it removes the reference to the Collection in the Model's `_collections` Array and stops observing the Model's events.
 

@@ -622,7 +622,7 @@ var users = new usersCollection([{
 <em>Returns: <code>this</code></em>
 </p>
 <p>
-<em>Events: <code>add: function(model, cid) {}</code></em>
+<em>Events: <code>add: function(model, cid) {}</code>, <code>reset</code></em>
 </p>
 </div>
 
@@ -643,7 +643,7 @@ var users = new usersCollection([{
 </p>
 </div>
 
-<p>This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a <code>remove</code> Event will fire (if <code>quiet</code> is not true). When removing of all Models is done, the collection will also fire a <code>set</code> event, allowing you to re-render your views etc.</p>
+<p>This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a <code>remove</code> Event will fire (if <code>quiet</code> is not true). When removing of all Models is done, the collection will also fire a <code>reset</code> event, allowing you to re-render your views etc.</p>
 <p>In addition to removing the Model from the Collection, it removes the reference to the Collection in the Model&#39;s <code>_collections</code> Array and stops observing the Model&#39;s events.</p>
 <p>Decrements the <code>Collection.length</code> property.</p>
 <h3 id="collection/at">at</h3>
