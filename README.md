@@ -817,15 +817,15 @@ require([
 		id: 3
 	}]);
 
-	console.log(collection.find('[name]'));; // where name is defined.
-	console.log(collection.find('[name=Bob]'));; // where name is exactly Bob.
-	console.log(collection.find('[name*=Bob]'));; // where name contains Bob.
-	console.log(collection.find('[name$=Bob]'));; // where name ends on Bob.
-	console.log(collection.find('[name^=Bob]'));; // where name starts with Bob.
-	console.log(collection.find('[name=Bob],[name^=Angry]'));; // name Bob OR starting with Angry.
-	console.log(collection.find('[name=Bob][id]'));; // name Bob AND to have an id
-	console.log(collection.find('#2[name=Bob],#3'));; // (name Bob AND id==2) OR id==3
-	console.log(collection.find('[name=Bob][id=2]'));; // name Bob AND id==2
+	console.log(collection.find('[name]')); // where name is defined.
+	console.log(collection.find('[name=Bob]')); // where name is exactly Bob.
+	console.log(collection.find('[name*=Bob]')); // where name contains Bob.
+	console.log(collection.find('[name$=Bob]')); // where name ends on Bob.
+	console.log(collection.find('[name^=Bob]')); // where name starts with Bob.
+	console.log(collection.find('[name=Bob],[name^=Angry]')); // name Bob OR starting with Angry.
+	console.log(collection.find('[name=Bob][id]')); // name Bob AND to have an id
+	console.log(collection.find('#2[name=Bob],#3')); // (name Bob AND id==2) OR id==3
+	console.log(collection.find('[name=Bob][id=2]')); // name Bob AND id==2
 });
 ```
 
@@ -841,12 +841,12 @@ require([
 	var collection = new Collection([{
 		name: 'Bob',
 		permissions: {
-			edit: true
+			edit: 'true'
 		}
 	}, {
 		name: 'Angry Bob',
 		permissions: {
-			edit: false
+			edit: 'false'
 		}
 	}]);
 
@@ -855,7 +855,9 @@ require([
 });
 ```
 
-However, this is more of a convenience than convention. It won't allow you to do complex CSS-like selections as you cannot combine 'tag' with properties. This means you cannot do `permissions[edit][name=Bob]` as the context changes to the permissions property. This kind of structure is possibly an anti-pattern anyway, try to keep your models flat and avoid nested objects where possible.
+However, this is more of a convenience than convention. Since it does not do type checking, it is difficult to pass what type of a value you are after in a string. In the example above, `edit` needs to be exactly the string `true`. For complex selectors and non-string data, you should use your own `.filter` methods.
+
+It also won't allow you to do complex CSS-like selections as you cannot combine 'tag' with properties. This means you cannot do `permissions[edit][name=Bob]` as the search context changes to the permissions property. This kind of structure is possibly an anti-pattern anyway, try to keep your models flat and avoid nested objects where possible.
 
 ## Collection Sync
 

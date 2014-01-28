@@ -33,7 +33,7 @@
 		</div>
 		<div class="separator"></div>
 	
-	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a><ul><li class="l3"><a href="#model-sync/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model-sync/sync">sync</a></li><li class="l3"><a href="#model-sync/postprocessor">postProcessor</a></li><li class="l3"><a href="#model-sync/save">save</a></li><li class="l3"><a href="#model-sync/preprocessor">preProcessor</a></li><li class="l3"><a href="#model-sync/fetch">fetch</a></li><li class="l3"><a href="#model-sync/crud">CRUD</a></li></ul></li><li class="l2"><a href="#collection">Collection</a></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
+	<ul id="sections"><li class="l2"><a href="#getting-started">Getting started</a><ul><li class="l3"><a href="#getting-started/amd-configuration">AMD configuration</a></li></ul></li><li class="l2"><a href="#model">Model</a><ul><li class="l3"><a href="#model/constructor">constructor</a></li><li class="l3"><a href="#model/set">set</a></li><li class="l3"><a href="#model/get">get</a></li><li class="l3"><a href="#model/tojson">toJSON</a></li><li class="l3"><a href="#model/unset">unset</a></li><li class="l3"><a href="#model/empty">empty</a></li><li class="l3"><a href="#model/destroy">destroy</a></li><li class="l3"><a href="#model/validate">validate</a></li><li class="l3"><a href="#model/model-properties">Model properties*</a></li><li class="l3"><a href="#model/model-validators">Model validators*</a></li></ul></li><li class="l2"><a href="#model-sync">Model Sync</a><ul><li class="l3"><a href="#model-sync/constructor-initialize">constructor (initialize)</a></li><li class="l3"><a href="#model-sync/sync">sync</a></li><li class="l3"><a href="#model-sync/postprocessor">postProcessor</a></li><li class="l3"><a href="#model-sync/save">save</a></li><li class="l3"><a href="#model-sync/preprocessor">preProcessor</a></li><li class="l3"><a href="#model-sync/fetch">fetch</a></li><li class="l3"><a href="#model-sync/crud">CRUD</a></li></ul></li><li class="l2"><a href="#collection">Collection</a><ul><li class="l3"><a href="#collection/constructor">constructor</a></li><li class="l3"><a href="#collection/set">set</a></li><li class="l3"><a href="#collection/add">add</a></li><li class="l3"><a href="#collection/remove">remove</a></li><li class="l3"><a href="#collection/at">at</a></li><li class="l3"><a href="#collection/getmodelbyid">getModelById</a></li><li class="l3"><a href="#collection/getmodelbycid">getModelByCID</a></li><li class="l3"><a href="#collection/tojson">toJSON</a></li><li class="l3"><a href="#collection/empty">empty</a></li><li class="l3"><a href="#collection/sort">sort</a></li><li class="l3"><a href="#collection/reverse">reverse</a></li><li class="l3"><a href="#collection/find">find</a></li></ul></li><li class="l2"><a href="#collection-sync">Collection Sync</a></li><li class="l2"><a href="#view">View</a><ul><li class="l3"><a href="#view/constructor">constructor</a></li><li class="l3"><a href="#view/render">render</a></li><li class="l3"><a href="#view/setelement">setElement</a></li><li class="l3"><a href="#view/template">template</a></li><li class="l3"><a href="#view/empty">empty</a></li><li class="l3"><a href="#view/dispose">dispose</a></li><li class="l3"><a href="#view/destroy">destroy</a></li></ul></li><li class="l2"><a href="#view-rivetsadapter">View rivets-adapter</a><ul><li class="l3"><a href="#view-rivetsadapter/bindrivets">bindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/unbindrivets">unbindRivets</a></li><li class="l3"><a href="#view-rivetsadapter/syncrivets">syncRivets</a></li></ul></li><li class="l2"><a href="#contributing">Contributing</a></li></ul>
 	<div class="separator"></div>
 	
 		<div class="extra" id="github">
@@ -183,7 +183,7 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <li><code>error:key</code> - when a particular key validation error has occurred</li>
 </ul>
 <p>The following methods are official API on all Model Classes:</p>
-<h3 id="model/constructor-initialize">constructor (initialize)</h3>
+<h3 id="model/constructor">constructor</h3>
 <hr>
 <div class="alert">
 <p>
@@ -555,7 +555,258 @@ otherwise, the save events may not fire. Additionally, try to ensure <code>appli
 <li><code>delete_</code> - maps to DELETE (note that due to IE8, use of <code>delete</code> and dot notation throws so it has been renamed)</li>
 </ul>
 <h2 id="collection">Collection</h2>
-<p>tbc</p>
+<p>Collections are in essence, an Array-like Type with Models as members. By passing a model prototype, adding and removing of models works either based with simple JSPO data has or an actual Model instance. Collections observe and bubble all events that all of its model members emit, firing them on the collection instance. It also allows for filtering, mapping, sorting and many sugar methods, copied from the Array.prototype and applied on the Model.</p>
+<p>Unlike Arrays, collections here also allow a powerful search/filter that can return a subset (Array) of Models from the collection that match CSS-like selectors for model attributes</p>
+<p>Instances of collection should have a <code>._id</code> property of collection, unless you override that.</p>
+<h3 id="collection/constructor">constructor</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Array|Object} models|objects</code> (or a single model /object), <code>{Object} options</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>ready</code></em>
+</p>
+</div>
+
+<p>The constructor method will accept a large variety of arguments. You can pass on either an Array of Models or an Array of Objects or a single Model or a single Object. You can also pass an empty Array and populate it later. Typical Collection prototype definition looks something like this:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">var userModel = primish({extend: epik.model}),
+    usersCollection = primish({
+        extend: epik.collection,
+        model: userModel // or epik.model by default
+    });
+
+var users = new usersCollection([{
+    id: &#39;bob&#39;
+}], {
+    onChange: function(model, props) {
+        console.log(&#39;model change&#39;, model, props);
+    },
+    onReady: function() {
+        console.log(&#39;the collection is ready&#39;);
+    }
+});
+</code></pre>
+<p>For reference purposes, each Model that enters a collection needs to have a <code>cid</code> - collection id. If the Model has an <code>id</code>, that is preferred. Otherwise, a <code>cid</code> will be generated. If the Model gets an <code>id</code> later on, the <code>cid</code> will not be changed.</p>
+<div class="alert alert-info">
+<p>
+<em>Please note that Collections <strong>observe</strong> and bubble <strong>all</strong> model events. For instance, if a Model fires <code>change</code>, the Collection instance will fire <code>onChange</code>, passing the model as <code>arguments[0]</code> and then keeping the rest of the arguments in their original order. For the purposes of implementing this, a decorated local copy of each Model&#39;s <code>.fireEvent</code> method is created instead of the one from Class.Event prototype. Once a Model stops being a member of collections, the original <code>fireEvent</code> is restored by deleting the local method on the Model instance.</em>
+</p>
+</div>
+
+<h3 id="collection/set">set</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Array|Object} model(s)</code> , <code>{Boolean} quiet</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>set: function() {}</code></em>
+</p>
+</div>
+
+<p>Sets models into the collection &#39;sugar&#39;. Accepts a single model or an array of models to add, passing through to <code>.add</code> and also firing a <code>set</code> event when done. Previously <code>.reset</code> in Epitome.</p>
+<h3 id="collection/add">add</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Object|Model} model</code> , <code>{Boolean} replace</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>add: function(model, cid) {}</code></em>
+</p>
+</div>
+
+<p>Previously <code>addModel</code> in Epitome. Adding a Model to a Collection should always go through this method. It either appends the Model instance to the internal <code>_models</code> Array or it creates a new Model and then appends it. It also starts observing the Model&#39;s events and emitting them to the Collection instance with an additional argument passed <code>Model</code>. So, if you add a Model stored in <code>bob</code> and then do <code>bob.trigger(&#39;hai&#39;, &#39;there&#39;)</code>, the collection will also fire an event like this: <code>this.trigger(&#39;hai&#39;, [bob, &#39;there&#39;]); Adding a Model also increases the</code>Collection.length` property.</p>
+<p>When a model is added, the collection uses <code>listenTo()</code> to subscribe to all methods from the model and bubble them locally. Previously, this used to overload the <code>fireEvent</code> method in Epitome&#39;s Models but it no longer does.</p>
+<p>Increments the <code>Collection.length</code> property (if not replacing existing models).</p>
+<h3 id="collection/remove">remove</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Mixed} model(s)</code>, <code>{Boolean} quiet</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>remove: function(model, cid) {}</code>, <code>reset</code></em>
+</p>
+</div>
+
+<p>This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a <code>remove</code> Event will fire (if <code>quiet</code> is not true). When removing of all Models is done, the collection will also fire a <code>set</code> event, allowing you to re-render your views etc.</p>
+<p>In addition to removing the Model from the Collection, it removes the reference to the Collection in the Model&#39;s <code>_collections</code> Array and stops observing the Model&#39;s events.</p>
+<p>Decrements the <code>Collection.length</code> property.</p>
+<h3 id="collection/at">at</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>(Number) index</code></em>
+</p>
+<p>
+<em>Returns: <code>modelInstance</code> or <code>undefined</code></em>
+</p>
+</div>
+
+<p>Returns a particular model by reference to current oder, eg. <code>collection.at(3)</code> will return <code>collection._models[3]</code>. Index is 0-based.</p>
+<h3 id="collection/getmodelbyid">getModelById</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>(String) id</code></em>
+</p>
+<p>
+<em>Returns: <code>modelInstance</code> or <code>null</code></em>
+</p>
+</div>
+
+<p>Performs a search in the collection by the Model&#39;s <code>id</code> via the standard model <code>getter</code>. Returns found Model instance or <code>null</code> if no match is found.</p>
+<h3 id="collection/getmodelbycid">getModelByCID</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>(String) cid</code></em>
+</p>
+<p>
+<em>Returns: <code>modelInstance</code> or <code>null</code></em>
+</p>
+</div>
+
+<p>Performs a search in the collection by the <code>cid</code> property (Collection ID). Returns found Model instance or <code>null</code> if no match is found.</p>
+<h3 id="collection/tojson">toJSON</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+<p>
+<em>Returns: <code>modelsData</code></em>
+</p>
+</div>
+
+<p>Returns an array of the results of the <code>.toJSON()</code> method called on all Models instances in the collection. Resulting array is de-referenced from both the collection and models instances.</p>
+<h3 id="collection/empty">empty</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: <code>{Boolean} quiet</code></em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>remove</code>, <code>set</code>, <code>empty</code></em>
+</p>
+</div>
+
+<p>Applies <code>this.remove</code> to all Models of the collection. Fires <code>empty</code> when done - though before that, a <code>remove</code> and <code>reset</code> will fire unless <code>quiet</code> is set as <code>true</code>, see <a href="#collection/remove">remove</a></p>
+<h3 id="collection/sort">sort</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: {String|Function} how</em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>sort</code></em>
+</p>
+</div>
+
+<p>Sorting is quite flexible. It works a lot like <code>Array.prototype.sort</code>. By default, you can sort based upon strings that represent keys in the Models. You can also stack up secondary, trinary etc sort keys in case the previous keys are equal. For example:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">users.sort(&#39;name&#39;);
+// descending order pseduo
+users.sort(&#39;name:desc&#39;);
+// by type and then birthdate in reverse order (oldest first)
+users.sort(&#39;type,birthdate:desc&#39;);
+</code></pre>
+<p>Sorting also allows you to pass a function you define yourself as per the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort">Array.prototype.sort</a> interface. When done, it will fire a <code>sort</code> event.</p>
+<h3 id="collection/reverse">reverse</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: none</em>
+</p>
+<p>
+<em>Returns: <code>this</code></em>
+</p>
+<p>
+<em>Events: <code>sort</code></em>
+</p>
+</div>
+
+<p>Reverses sort the order of Models in the collection. Fires a <code>sort</code> event, not <code>reverse</code></p>
+<h3 id="collection/find">find</h3>
+<hr>
+<div class="alert">
+<p>
+<em>Expects arguments: {String} expression</em>
+</p>
+<p>
+<em>Returns: <code>{Array} MatchingModelObjects</code></em>
+</p>
+</div>
+
+<p>This is an experimental API and is subject to change without notice. <code>Collection.find</code> is currently powered by the MooTools <code>Slick.parse</code> engine. This means you can
+ search through your Collection for Models by attributes and <code>#ids</code> like you would search in a CSS selector.</p>
+<p>For example:</p>
+<pre class="prettyprint linenums"><code class="lang-ace">require([
+    &#39;epik/collection&#39;
+], function(Collection) {
+
+    var collection = new Collection([{
+        name: &#39;Bob&#39;,
+        id: 2
+    }, {
+        name: &#39;Angry Bob&#39;,
+        id: 3
+    }]);
+
+    console.log(collection.find(&#39;[name]&#39;)); // where name is defined.
+    console.log(collection.find(&#39;[name=Bob]&#39;)); // where name is exactly Bob.
+    console.log(collection.find(&#39;[name*=Bob]&#39;)); // where name contains Bob.
+    console.log(collection.find(&#39;[name$=Bob]&#39;)); // where name ends on Bob.
+    console.log(collection.find(&#39;[name^=Bob]&#39;)); // where name starts with Bob.
+    console.log(collection.find(&#39;[name=Bob],[name^=Angry]&#39;)); // name Bob OR starting with Angry.
+    console.log(collection.find(&#39;[name=Bob][id]&#39;)); // name Bob AND to have an id
+    console.log(collection.find(&#39;#2[name=Bob],#3&#39;)); // (name Bob AND id==2) OR id==3
+    console.log(collection.find(&#39;[name=Bob][id=2]&#39;)); // name Bob AND id==2
+});
+</code></pre>
+<p>Supported operators are <code>=</code> (equals), <code>!=</code> (not equal), <code>*=</code> (contains), <code>$=</code> (ends on), <code>^=</code> (starts with). Currently, you cannot reverse a condition by adding <code>!</code> or <code>not:</code> - in fact, pseudos are not supported yet. Find is just sugar and for more complicated stuff, you can either extend it or use <code>filter</code> instead.</p>
+<p>A sugar &#39;feature&#39; has been added that allows you to quickly select deeper object properties by treating any parent keys as tags. For instance:</p>
+<pre class="prettyprint linenums"><code class="lang-ace">require([
+    &#39;epik/collection&#39;
+], function(Collection) {
+
+    var collection = new Collection([{
+        name: &#39;Bob&#39;,
+        permissions: {
+            edit: &#39;true&#39;
+        }
+    }, {
+        name: &#39;Angry Bob&#39;,
+        permissions: {
+            edit: &#39;false&#39;
+        }
+    }]);
+
+    console.log(collection.find(&#39;permissions[edit]&#39;)); // all where there is an edit property
+    console.log(collection.find(&#39;permissions[edit=true]&#39;)); // all where there edit is true
+});
+</code></pre>
+<p>However, this is more of a convenience than convention. Since it does not do type checking, it is difficult to pass what type of a value you are after in a string. In the example above, <code>edit</code> needs to be exactly the string <code>true</code>. For complex selectors and non-string data, you should use your own <code>.filter</code> methods.</p>
+<p>It also won&#39;t allow you to do complex CSS-like selections as you cannot combine &#39;tag&#39; with properties. This means you cannot do <code>permissions[edit][name=Bob]</code> as the search context changes to the permissions property. This kind of structure is possibly an anti-pattern anyway, try to keep your models flat and avoid nested objects where possible.</p>
 <h2 id="collection-sync">Collection Sync</h2>
 <p>tbc</p>
 <h2 id="view">View</h2>
