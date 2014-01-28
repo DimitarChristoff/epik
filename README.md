@@ -859,9 +859,79 @@ However, this is more of a convenience than convention. Since it does not do typ
 
 It also won't allow you to do complex CSS-like selections as you cannot combine 'tag' with properties. This means you cannot do `permissions[edit][name=Bob]` as the search context changes to the permissions property. This kind of structure is possibly an anti-pattern anyway, try to keep your models flat and avoid nested objects where possible.
 
+### findOne
+---
+<div class="alert">
+<p>
+_Expects arguments: {String} expression_
+</p>
+<p>
+_Returns: `{Model} First matching Model instance or null`_
+</p>
+</div>
+
+Useful for getting a single Model via the `.find`, this method will return the first matched Model or null if none found.
+
+```javascript
+var bob = collection.findOne('[name=bob]');
+// if found, set
+bob && bob.set('name','Robert');
+```
+
+### Array helpers
+
+The following Array methods are also available directly on the Collection instances:
+
+* forEach
+* each (alias for forEach)
+* invoke
+* filter
+* map
+* some
+* indexOf
+* contains
+* getRandom
+* getLast
+
+### Collection properties*
+
+#### _models
+---
+Each Collection instance has an Array property called `_models` that contains all referenced Model instances. Even though it is not a real private property, it is recommended you do not alter it from outside of the API.
+
+#### length
+---
+Tries to always reference the length of `_models`, unless you have directly modified `_models` without using the API.
+
+#### model
+---
+Each Collection prototype has that property that references a Model prototype constructor. When data is being received in raw format (so, simple Objects), Models are being created by instantiating the stored constructor object in `this.model`.
+
+#### id
+---
+Due to serialisation and the ability to use storage to retrieve a collection later, each collection has an, derrived either from the options object or generated at random.
+
 ## Collection Sync
 
-tbc
+The Sync collection is just a tiny layer on top of the normal [collection](#collection). It extends the default Collection prototype and adds an agent instance that can retrieve an Array of Model data from a server and add / update the Collection after.
+
+### constructor (initialize)
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Array|Object} models|objects` (or a single model /object), `{Object} options`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `ready`_
+</p>
+</div>
+
+In terms of differences with the original prototype, the `options`, needs just one extra key: `urlRoot`, which should contain the absolute or relative URL to the end-point that can return the Model data.
+
+more tbc.
 
 ## View
 
