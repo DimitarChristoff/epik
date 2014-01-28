@@ -645,7 +645,7 @@ Sets models into the collection 'sugar'. Accepts a single model or an array of m
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Mixed) model` , `(Boolean) replace`_
+_Expects arguments: `{Object|Model} model` , `{Boolean} replace`_
 </p>
 <p>
 _Returns: `this`_
@@ -657,7 +657,205 @@ _Events: `add: function(model, cid) {}`_
 
 Previously `addModel` in Epitome. Adding a Model to a Collection should always go through this method. It either appends the Model instance to the internal `_models` Array or it creates a new Model and then appends it. It also starts observing the Model's events and emitting them to the Collection instance with an additional argument passed `Model`. So, if you add a Model stored in `bob` and then do `bob.trigger('hai', 'there')`, the collection will also fire an event like this: `this.trigger('hai', [bob, 'there']); Adding a Model also increases the `Collection.length` property.
 
-The monitoring of the events (Observer) is done through creating a local function override / decoration of the Model's `fireEvent` method, normally inherited from the MooTools Events Class. If a model stops being a part of a collection, the override is destroyed and the default `fireEvent`.
+When a model is added, the collection uses `listenTo()` to subscribe to all methods from the model and bubble them locally. Previously, this used to overload the `fireEvent` method in Epitome's Models but it no longer does.
+
+Increments the `Collection.length` property (if not replacing existing models).
+
+### remove
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Mixed} model(s)`, `{Boolean} quiet`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `remove: function(model, cid) {}`, `reset`_
+</p>
+</div>
+
+This method allows you to remove a single model or an array of models from the collection in the same call. For each removed model, a `remove` Event will fire (if `quiet` is not true). When removing of all Models is done, the collection will also fire a `set` event, allowing you to re-render your views etc.
+
+In addition to removing the Model from the Collection, it removes the reference to the Collection in the Model's `_collections` Array and stops observing the Model's events.
+
+Decrements the `Collection.length` property.
+
+### at
+---
+<div class="alert">
+<p>
+_Expects arguments: `(Number) index`_
+</p>
+<p>
+_Returns: `modelInstance` or `undefined`_
+</p>
+</div>
+
+Returns a particular model by reference to current oder, eg. `collection.at(3)` will return `collection._models[3]`. Index is 0-based.
+
+### getModelById
+---
+<div class="alert">
+<p>
+_Expects arguments: `(String) id`_
+</p>
+<p>
+_Returns: `modelInstance` or `null`_
+</p>
+</div>
+
+Performs a search in the collection by the Model's `id` via the standard model `getter`. Returns found Model instance or `null` if no match is found.
+
+### getModelByCID
+---
+<div class="alert">
+<p>
+_Expects arguments: `(String) cid`_
+</p>
+<p>
+_Returns: `modelInstance` or `null`_
+</p>
+</div>
+
+Performs a search in the collection by the `cid` property (Collection ID). Returns found Model instance or `null` if no match is found.
+
+### toJSON
+---
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+<p>
+_Returns: `modelsData`_
+</p>
+</div>
+
+Returns an array of the results of the `.toJSON()` method called on all Models instances in the collection. Resulting array is de-referenced from both the collection and models instances.
+
+### empty
+---
+<div class="alert">
+<p>
+_Expects arguments: `{Boolean} quiet`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `remove`, `set`, `empty`_
+</p>
+</div>
+
+Applies `this.remove` to all Models of the collection. Fires `empty` when done - though before that, a `remove` and `reset` will fire unless `quiet` is set as `true`, see [remove](#collection/remove)
+
+### sort
+---
+<div class="alert">
+<p>
+_Expects arguments: {String|Function} how_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `sort`_
+</p>
+</div>
+
+Sorting is quite flexible. It works a lot like `Array.prototype.sort`. By default, you can sort based upon strings that represent keys in the Models. You can also stack up secondary, trinary etc sort keys in case the previous keys are equal. For example:
+```javascript
+users.sort('name');
+// descending order pseduo
+users.sort('name:desc');
+// by type and then birthdate in reverse order (oldest first)
+users.sort('type,birthdate:desc');
+```
+Sorting also allows you to pass a function you define yourself as per the [Array.prototype.sort](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort) interface. When done, it will fire a `sort` event.
+
+### reverse
+---
+<div class="alert">
+<p>
+_Expects arguments: none_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `sort`_
+</p>
+</div>
+
+Reverses sort the order of Models in the collection. Fires a `sort` event, not `reverse`
+
+### find
+---
+<div class="alert">
+<p>
+_Expects arguments: {String} expression_
+</p>
+<p>
+_Returns: `{Array} MatchingModelObjects`_
+</p>
+</div>
+
+This is an experimental API and is subject to change without notice. `Collection.find` is currently powered by the MooTools `Slick.parse` engine. This means you can
+ search through your Collection for Models by attributes and `#ids` like you would search in a CSS selector.
+
+For example:
+```ace
+require([
+	'epik/collection'
+], function(Collection) {
+
+	var collection = new Collection([{
+		name: 'Bob',
+		id: 2
+	}, {
+		name: 'Angry Bob',
+		id: 3
+	}]);
+
+	console.log(collection.find('[name]'));; // where name is defined.
+	console.log(collection.find('[name=Bob]'));; // where name is exactly Bob.
+	console.log(collection.find('[name*=Bob]'));; // where name contains Bob.
+	console.log(collection.find('[name$=Bob]'));; // where name ends on Bob.
+	console.log(collection.find('[name^=Bob]'));; // where name starts with Bob.
+	console.log(collection.find('[name=Bob],[name^=Angry]'));; // name Bob OR starting with Angry.
+	console.log(collection.find('[name=Bob][id]'));; // name Bob AND to have an id
+	console.log(collection.find('#2[name=Bob],#3'));; // (name Bob AND id==2) OR id==3
+	console.log(collection.find('[name=Bob][id=2]'));; // name Bob AND id==2
+});
+```
+
+Supported operators are `=` (equals), `!=` (not equal), `*=` (contains), `$=` (ends on), `^=` (starts with). Currently, you cannot reverse a condition by adding `!` or `not:` - in fact, pseudos are not supported yet. Find is just sugar and for more complicated stuff, you can either extend it or use `filter` instead.
+
+A sugar 'feature' has been added that allows you to quickly select deeper object properties by treating any parent keys as tags. For instance:
+
+```ace
+require([
+	'epik/collection'
+], function(Collection) {
+
+	var collection = new Collection([{
+		name: 'Bob',
+		permissions: {
+			edit: true
+		}
+	}, {
+		name: 'Angry Bob',
+		permissions: {
+			edit: false
+		}
+	}]);
+
+	console.log(collection.find('permissions[edit]')); // all where there is an edit property
+	console.log(collection.find('permissions[edit=true]')); // all where there edit is true
+});
+```
+
+However, this is more of a convenience than convention. It won't allow you to do complex CSS-like selections as you cannot combine 'tag' with properties. This means you cannot do `permissions[edit][name=Bob]` as the context changes to the permissions property. This kind of structure is possibly an anti-pattern anyway, try to keep your models flat and avoid nested objects where possible.
 
 ## Collection Sync
 
