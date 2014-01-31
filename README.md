@@ -913,7 +913,7 @@ Due to serialisation and the ability to use storage to retrieve a collection lat
 
 ## Collection Sync
 
-The Sync collection is just a tiny layer on top of the normal [collection](#collection). It extends the default Collection prototype and adds an agent instance that can retrieve an Array of Model data from a server and add / update the Collection after.
+The Sync collection is just a tiny layer on top of the normal [collection](#collection). It `extends` the default Collection class and adds an agent instance that can retrieve an array of Model data from a server and add / update the Collection after.
 
 ### constructor (initialize)
 ---
@@ -931,7 +931,55 @@ _Events: `ready`_
 
 In terms of differences with the original prototype, the `options`, needs just one extra key: `urlRoot`, which should contain the absolute or relative URL to the end-point that can return the Model data.
 
-more tbc.
+### fetch
+---
+<div class="alert">
+<p>
+_Expects optional arguments: `{Boolean} refresh`, `(Object) queryParams`_
+</p>
+<p>
+_Returns: `this`_
+</p>
+<p>
+_Events: `fetch`_
+</p>
+</div>
+
+When called, it will asynchronously try to go and fetch Model data. When data arrives, Models are reconciled with the Models in the collection already by `id`. If they exist already, a `set()` is called that will merge new data into the Model instance and fire `change` events as appropriate. If the optional `refresh` argument is set to true, the current collection will be emptied first via [empty](#epitomecollection/empty).
+
+Returns the instance 'now' but because it is async, applying anything to the collection before the `fetch` event has fired may have unexpected results.
+
+The `queryParams` object, which is also optional, allows you to pass on any `GET` arguments to the `baseUrl`. If your default endpoint looks like this:
+
+`/comments/2/` and you call `collection.fetch(false, {page: 2})`, it will actually get `/comments/2/?page=2`.
+
+Keep in mind that agent will serialize the response as per the content type, just like in Model Sync. If it's `application/Json`, the decoder will kick in and set the response into the instance.
+
+### postProcessor
+---
+<div class="alert">
+<p>
+_Expects arguments: `(Mixed) response`_
+</p>
+<p>
+_Expected return: `(Array) response`_
+</p>
+</div>
+
+A method that you can extend in your definition of Epitome.Collection.Sync for doing any pre-processing of data returned by sync from the server. For example:
+
+```javascript
+var Users = primish({
+	extend: epik.collection,
+	model: UserModel,
+	postProcessor: function(response){
+		// data comes back with decoration. split them first.
+		// { meta: { something: 'here' }, models: [] }
+		this.meta = response.meta;
+		return response.models;
+	}
+});
+```
 
 ## View
 
