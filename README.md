@@ -157,10 +157,10 @@ The following methods are official API on all Model Classes:
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Object) obj`, `(Object) options`_
+_Expects arguments: `{Object} obj`, `{Object} options`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `modelInstance`_
 </p>
 <p>
 _Events: `ready`_
@@ -197,10 +197,10 @@ require(['epik/index', 'epik/model'], function(epik, Model){
 ---
 <div class="alert" markdown="1">
 <p>
-_Expects arguments: mixed: `(String) key`, `(Mixed) value` - pair - or: `(Object) obj`_
+_Expects arguments: mixed: `{String} key`, `{Mixed} value` - pair - or: `{Object} obj`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `modelInstance`_
 </p>
 <p>
 _Events:_
@@ -222,10 +222,10 @@ For typing of value, you can store anything at all (Primitives, Objects, Functio
 ---
 <div class="alert">
 <p>
-_Expects arguments mixed: `(String) key` or `(Array) keys`_
+_Expects arguments mixed: `{String} key` or `{Array} keys`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `{mixed|Object}`_
 </p>
 </div>
 
@@ -275,6 +275,9 @@ require(['epik/index', 'epik/model'], function(epik, Model){
 <p>
 _Expects arguments: none_
 </p>
+<p>
+_Returns: `{Object} data`_
+</p>
 </div>
 
 Returns a de-referenced Object, containing all the known model keys and values.
@@ -283,10 +286,10 @@ Returns a de-referenced Object, containing all the known model keys and values.
 -----
 <div class="alert">
 <p>
-_Expects arguments: mixed: `(String) key` or `(Array) keys`_
+_Expects arguments: mixed: `{String} key` or `{Array} keys`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `modelInstance`_
 </p>
 </div>
 
@@ -299,7 +302,7 @@ Removes keys from model, either a single one or an array of multiple keys. Shoul
 _Expects arguments: none_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `modelInstance`_
 </p>
 <p>
 _Events: `empty`_

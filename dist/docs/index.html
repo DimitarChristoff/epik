@@ -187,10 +187,10 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: <code>(Object) obj</code>, <code>(Object) options</code></em>
+<em>Expects arguments: <code>{Object} obj</code>, <code>{Object} options</code></em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>modelInstance</code></em>
 </p>
 <p>
 <em>Events: <code>ready</code></em>
@@ -223,10 +223,10 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <hr>
 <div class="alert" markdown="1">
 <p>
-<em>Expects arguments: mixed: <code>(String) key</code>, <code>(Mixed) value</code> - pair - or: <code>(Object) obj</code></em>
+<em>Expects arguments: mixed: <code>{String} key</code>, <code>{Mixed} value</code> - pair - or: <code>{Object} obj</code></em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>modelInstance</code></em>
 </p>
 <p>
 <em>Events:</em>
@@ -246,10 +246,10 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments mixed: <code>(String) key</code> or <code>(Array) keys</code></em>
+<em>Expects arguments mixed: <code>{String} key</code> or <code>{Array} keys</code></em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>{mixed|Object}</code></em>
 </p>
 </div>
 
@@ -295,6 +295,9 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <p>
 <em>Expects arguments: none</em>
 </p>
+<p>
+<em>Returns: <code>{Object} data</code></em>
+</p>
 </div>
 
 <p>Returns a de-referenced Object, containing all the known model keys and values.</p>
@@ -302,10 +305,10 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: mixed: <code>(String) key</code> or <code>(Array) keys</code></em>
+<em>Expects arguments: mixed: <code>{String} key</code> or <code>{Array} keys</code></em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>modelInstance</code></em>
 </p>
 </div>
 
@@ -317,7 +320,7 @@ requirejs know it will resolve rivets.js, jquery, lodash and primish as well:</p
 <em>Expects arguments: none</em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>modelInstance</code></em>
 </p>
 <p>
 <em>Events: <code>empty</code></em>
