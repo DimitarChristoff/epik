@@ -505,9 +505,9 @@ A method that you pass in your definition of Models for doing any post-processin
 
 ```javascript
 postProcessor: function(response) {
-    // data comes back with decoration. split them first.
-    this.meta = response.meta;
-    return response.data;
+	// data comes back with decoration. split them first.
+	this.meta = response.meta;
+	return response.data;
 }
 ```
 
@@ -544,9 +544,9 @@ A method that you can add to your definition of Models for doing any pre-process
 
 ```javascript
 preProcessor: function(data) {
-    // remove local property 'meta' which the server does not like.
-    delete data.meta;
-    return data;
+	// remove local property 'meta' which the server does not like.
+	delete data.meta;
+	return data;
 }
 ```
 
@@ -603,18 +603,18 @@ The constructor method will accept a large variety of arguments. You can pass on
 var userModel = primish({extend: epik.model}),
 	usersCollection = primish({
 		extend: epik.collection,
-        model: userModel // or epik.model by default
+		model: userModel // or epik.model by default
 	});
 
 var users = new usersCollection([{
-    id: 'bob'
+	id: 'bob'
 }], {
-    onChange: function(model, props) {
-        console.log('model change', model, props);
-    },
-    onReady: function() {
-        console.log('the collection is ready');
-    }
+	onChange: function(model, props) {
+		console.log('model change', model, props);
+	},
+	onReady: function() {
+		console.log('the collection is ready');
+	}
 });
 ```
 For reference purposes, each Model that enters a collection needs to have a `cid` - collection id. If the Model has an `id`, that is preferred. Otherwise, a `cid` will be generated. If the Model gets an `id` later on, the `cid` will not be changed.
@@ -992,10 +992,10 @@ of both is also possible.
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Object) options`_
+_Expects arguments: `{Object} options`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `viewInstance`_
 </p>
 <p>
 _Events: `ready`_
@@ -1087,7 +1087,7 @@ require([
 _Expects arguments: unknown_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `viewInstance`_
 </p>
 <p>
 _Events: `render`_
@@ -1100,20 +1100,20 @@ It is essential that this method is defined in your View prototype declaration. 
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Mixed) element`, optional `(Object) events`_
+_Expects arguments: `{Object|String} element`, optional `{Object} events`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `viewInstance`_
 </p>
 </div>
 
-A public method that allows you to change or set an element that powers a view. If called the first time, it will get the Element (through `jQuery()`) and save the reference in `this.element` as well as `this.$element` to the wrapped jQuery object. If an events object is passed, it will bind the events. If called a second time, it will unbind all events on the old element, change the element reference and rebind any new events.
+A public method that allows you to change or set an element that powers a view. If called the first time, it will get the Element (through Sizzle / `jQuery()`) and save a reference in `this.element` to the raw object, as well as `this.$element` to the wrapped jQuery object. If an events object is passed, it will bind the events. If called a second time, it will unbind all events on the old element, change the element reference and rebind any new events.
 
 ### template
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Object) data`, optional `(String) template`_
+_Expects arguments: `{Object} data`, optional `{String} template`_
 </p>
 <p>
 _Returns: compiled template or function._
@@ -1124,14 +1124,14 @@ A simple sandbox function where you can either use the lodash templating engine 
 
 An example override to make it work with Mustache would be:
 ```javascript
-var myView = primish({
-	extends: Epitome.View,
+var myView = epik.primish({
+	extends: epik.view,
 	template: function(data, template) {
 		template = template || this.options.template;
 		return Mustache.render(template, data);
 	},
 	render: function() {
-		this.$element.html(this.template({name:'there'}, 'Hello {{name}}'));
+		this.$element.html(this.template(this.model.toJSON(), 'Hello {{name}}'));
 	}
 });
 ```
@@ -1158,10 +1158,10 @@ define(['epik/view'], function(View){
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Boolean) soft`_
+_Expects arguments: `{Boolean} soft`_
 </p>
 <p>
-_Returns: this._
+_Returns: `viewInstance`_
 </p>
 <p>
 _Events: `empty`_
@@ -1177,7 +1177,7 @@ By default, it will empty the element through making `innerHTML` an empty string
 _Expects arguments: none_
 </p>
 <p>
-_Returns: this._
+_Returns: `viewInstance`._
 </p>
 <p>
 _Events: `dispose`_
@@ -1193,7 +1193,7 @@ Will detach `this.$element` from the DOM. It can be injected again later on.
 _Expects arguments: none_
 </p>
 <p>
-_Returns: this._
+_Returns: `viewInstance`._
 </p>
 <p>
 _Events: `dispose`_
@@ -1283,101 +1283,100 @@ A method that calls `rivets.sync()` on the bound view to force manual processing
 
 ## router
 
-## Eptiome.Router
+The Router prime is a hashbang controller, useful for single page applications. Currently, it works with `window.onhashchange` and a `setInterval` polyfill for older browsers. It may change to push/pop state soon.
 
-The Router prime is a hashbang controller, useful for single page applications.
-
-### constructor (initialize)
+### constructor
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Object) options`_
+_Expects arguments: `{Object} options`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `routerInstance`_
 </p>
 <p>
 _Events: `ready`, `before`, `after`, mixed, `undefined`, `error`, `route:add`, `route:remove`_
 </p>
 </div>
 
-As this is quite involved and can act as a Controller for your app, here's a practical example that defines a few routes and event handlers within the Epitome.Router Class instantiation:
+As this is quite involved and can act as a Controller for your app, here's a practical example that defines a few routes and event handlers within the epik.router prime instantiation:
+
 ```javascript
 App.router = new epik.router({
-    // routes definition will proxy the events
-    routes: {
-        ''						: 'index',
-        '#!help'				: 'help',
-        '#!test1/:query/:id?'	: 'test1',
-        '#!test2/:query/*'		: 'test2',
-        '#!error'               : 'dummyerror'
-    },
+	// routes definition will proxy the events
+	routes: {
+		''						: 'index',
+		'#!help'				: 'help',
+		'#!test1/:query/:id?'	: 'test1',
+		'#!test2/:query/*'		: 'test2',
+		'#!error'				: 'dummyerror'
+	},
 
-    // router init
-    onReady: function(){
-        console.log('init');
-    },
+	// router init
+	onReady: function(){
+		console.log('init');
+	},
 
-    // before route method, fires before the event handler once a match has been found
-    onBefore: function(routeId){
-        console.log('before', routeId)
-    },
+	// before route method, fires before the event handler once a match has been found
+	onBefore: function(routeId){
+		console.log('before', routeId)
+	},
 
-    // specific pseudos for :before
-    'onIndex:before': function() {
-        console.log('we are about to go to the index route');
-    },
+	// specific pseudos for :before
+	'onIndex:before': function() {
+		console.log('we are about to go to the index route');
+	},
 
-    // specific pseudos for after
-    'onIndex:after': function() {
-        console.log('navigated already to index route, update breadcrumb?');
-    },
+	// specific pseudos for after
+	'onIndex:after': function() {
+		console.log('navigated already to index route, update breadcrumb?');
+	},
 
-    // after route method has fired, post-route event.
-    onAfter: function(route){
-        console.info('after', route)
-    },
+	// after route method has fired, post-route event.
+	onAfter: function(route){
+		console.info('after', route)
+	},
 
-    // routes events callbacks are functions that call parts of your app
+	// routes events callbacks are functions that call parts of your app
 
-    // index
-    onIndex: function() {
-        console.log('index')
-    },
+	// index
+	onIndex: function() {
+		console.log('index')
+	},
 
-    onHelp: function() {
-        console.log('help');
-        console.log(this.route, this.req, this.param, this.query)
-    },
+	onHelp: function() {
+		console.log('help');
+		console.log(this.route, this.req, this.param, this.query)
+	},
 
-    onTest1: function(query, id) {
-        console.info('test1', query, id);
-        console.log(this.route, this.req, this.param, this.query)
-    },
+	onTest1: function(query, id) {
+		console.info('test1', query, id);
+		console.log(this.route, this.req, this.param, this.query)
+	},
 
-    onTest2: function(query) {
-        console.info('test2', query);
-        console.log(this.route, this.req, this.param, this.query)
-    },
+	onTest2: function(query) {
+		console.info('test2', query);
+		console.log(this.route, this.req, this.param, this.query)
+	},
 
-    // no route event was found, though route was defined
-    onError: function(error){
-        console.error(error);
-        // recover by going default route
-        this.navigate('');
-    },
+	// no route event was found, though route was defined
+	onError: function(error){
+		console.error(error);
+		// recover by going default route
+		this.navigate('');
+	},
 
-    onUndefined: function() {
-        console.log('this is an undefined route');
-    },
+	onUndefined: function() {
+		console.log('this is an undefined route');
+	},
 
-    'onRoute:remove': function(route) {
-        alert(route + ' was removed by popular demand');
-    },
+	'onRoute:remove': function(route) {
+		alert(route + ' was removed by popular demand');
+	},
 
-    'onRoute:add': function(constructorObject) {
-        console.log(constructorObject.id + ' was added as a new route');
-    }
+	'onRoute:add': function(constructorObject) {
+		console.log(constructorObject.id + ' was added as a new route');
+	}
 });
 ```
 ### addRoute
@@ -1387,26 +1386,26 @@ App.router = new epik.router({
 _Expects arguments: `{Object} route`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `routerInstance`_
 </p>
 <p>
 _Events: `route:add`_
 <p>
 </div>
 
-Example adding of route to your instance after instantiation:
+Example late adding of route to your instance (after instantiation):
 
 ```javascript
 App.router.addRoute({
-    route: '#!dynamicRoute',
-    id: 'dynamic',
-    events: {
-        onDynamic: function() {
-            alert('you found the blowfish');
-            if (confirm('remove this route?'))
-                this.removeRoute('#!dynamicRoute');
-        }
-    }
+	route: '#!dynamicRoute',
+	id: 'dynamic',
+	events: {
+		onDynamic: function() {
+			alert('you found the blowfish');
+			if (confirm('remove this route?'))
+				this.removeRoute('#!dynamicRoute');
+		}
+	}
 });
 ```
 
@@ -1417,7 +1416,7 @@ App.router.addRoute({
 _Expects arguments: `{String} route`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `routerInstance`_
 </p>
 <p>
 _Events: `route:remove`_
@@ -1426,8 +1425,7 @@ _Events: `route:remove`_
 
 Removes a route by the route identifier string.
 
-For more examples of Router, have a look inside the `dist/examples` folder
-
+For more examples of Router, have a look inside the `dist/example` folder, it's powered by a router instance.
 
 ## Contributing
 
