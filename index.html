@@ -65,9 +65,31 @@
 <p>Via bower:</p>
 <pre><code class="lang-sh">$ bower install epik --save
 </code></pre>
+<p>A bower install will only bring down the following files:</p>
+<ul>
+<li>&quot;lib/index.js&quot;,</li>
+<li>&quot;lib/model.js&quot;,</li>
+<li>&quot;lib/model-sync.js&quot;,</li>
+<li>&quot;lib/collection.js&quot;,</li>
+<li>&quot;lib/collection-sync.js&quot;,</li>
+<li>&quot;lib/agent.js&quot;,</li>
+<li>&quot;lib/router.js&quot;,</li>
+<li>&quot;lib/storage.js&quot;,</li>
+<li>&quot;lib/plugins/rivets-adapter.js&quot;</li>
+</ul>
+<p>And also, the minified concatenated version:</p>
+<p><a class="btn btn-large btn-primary" rel="download" target="_blank" href="https://rawgithub.com/DimitarChristoff/epik/master/lib/epik-min.js">epik-min.js (27.5k)</a> (pointing to master branch)</p>
 <p>For node:</p>
 <pre><code class="lang-sh">$ npm install epik --save
 </code></pre>
+<p><code>epik</code> uses the following packages as dependencies, not part of the build:</p>
+<ul>
+<li>lodash (utils)</li>
+<li>primish (classes)</li>
+<li>jquery (views)</li>
+<li>rivets.js (views)</li>
+</ul>
+<p>Additionally, <code>slicker</code>, MooTools Slick parser for the web, is bundled in the concatenated minified files but if you use it in development mode and reference all the files locally, you&#39;d need to resolve it as well. Should be done automatically if you use bower/AMD, see below.</p>
 <h3 id="getting-started/amd-configuration">AMD configuration</h3>
 <p>You can use epik in a number of ways.</p>
 <p>In development, you can let requirejs fetch all dependencies as needed. A typical require.config looks like this:</p>
