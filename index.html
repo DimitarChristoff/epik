@@ -559,7 +559,7 @@ otherwise, the save events may not fire. Additionally, try to ensure <code>appli
 </ul>
 <h2 id="collection">Collection</h2>
 <p>Collections are in essence, an Array-like Type with Models as members. By passing a model prototype, adding and removing of models works either based with simple JSPO data has or an actual Model instance. Collections observe and bubble all events that all of its model members emit, firing them on the collection instance. It also allows for filtering, mapping, sorting and many sugar methods, copied from the Array.prototype and applied on the Model.</p>
-<p>Unlike Arrays, collections here also allow a powerful search/filter that can return a subset (Array) of Models from the collection that match CSS-like selectors for model attributes</p>
+<p>Unlike Arrays, collections here also allow a powerful search/filter that can return a subset {Array} of Models from the collection that match CSS-like selectors for model attributes</p>
 <p>Instances of collection should have a <code>._id</code> property of collection, unless you override that.</p>
 <h3 id="collection/constructor">constructor</h3>
 <hr>
@@ -665,7 +665,7 @@ var users = new usersCollection([{
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: <code>(String) id</code></em>
+<em>Expects arguments: <code>{String} id</code></em>
 </p>
 <p>
 <em>Returns: <code>modelInstance</code> or <code>null</code></em>
@@ -677,7 +677,7 @@ var users = new usersCollection([{
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: <code>(String) cid</code></em>
+<em>Expects arguments: <code>{String} cid</code></em>
 </p>
 <p>
 <em>Returns: <code>modelInstance</code> or <code>null</code></em>
@@ -874,7 +874,7 @@ bob &amp;&amp; bob.set(&#39;name&#39;,&#39;Robert&#39;);
 <hr>
 <div class="alert">
 <p>
-<em>Expects optional arguments: <code>{Boolean} refresh</code>, <code>(Object) queryParams</code></em>
+<em>Expects optional arguments: <code>{Boolean} refresh</code>, <code>{Object} queryParams</code></em>
 </p>
 <p>
 <em>Returns: <code>this</code></em>
@@ -893,10 +893,10 @@ bob &amp;&amp; bob.set(&#39;name&#39;,&#39;Robert&#39;);
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: <code>(Mixed) response</code></em>
+<em>Expects arguments: <code>{Array|Mixed} response</code></em>
 </p>
 <p>
-<em>Expected return: <code>(Array) response</code></em>
+<em>Expected return: <code>{Array} response</code></em>
 </p>
 </div>
 
