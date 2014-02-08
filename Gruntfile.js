@@ -104,7 +104,7 @@ module.exports = function(grunt){
 					github: 'https://github.com/DimitarChristoff/epik',
 					travis: 'http://travis-ci.org/DimitarChristoff/epik',
 					images: 'dist/images',
-					logo: 'images/epitome-logo-small.png',
+					logo: 'images/epik-logo-small.png',
 					//disqus: 'epitome-mvc'
 				},
 				files: {
