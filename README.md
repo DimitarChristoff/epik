@@ -5,34 +5,36 @@ epitome 2 for primish and lodash, no depenency on mootools
 
 > this is an experiment. if you like primish, mootools and epitome, feel free to contribute. otherwise, don't use.
 
+epik is a small, modular and extensible MVC framework for modern web development, built in the spirit of AMD and bower components. It will also work with global exports (w/o a dependency loader) and it works under node.js. epik offers 90% of the functionality of Backbone but allows you to develop in the style of MooTools classes via [primish](http://dimitarchristoff.github.io/primish/). The views are either powered by jQuery or via a built-in [rivets.js](http://www.rivetsjs.com/) adapter for bi-directional binding in the style of AngularJS.
 
 ## Getting started
 
-Via bower:
+To install epik in your project, you have several routes.
+
+### bower
 ```sh
 $ bower install epik --save
 ```
 
 A bower install will only bring down the following files:
 
- - "lib/index.js",
- - "lib/model.js",
- - "lib/model-sync.js",
- - "lib/collection.js",
- - "lib/collection-sync.js",
- - "lib/agent.js",
- - "lib/router.js",
- - "lib/storage.js",
- - "lib/plugins/rivets-adapter.js"
+ - `lib/index.js`
+ - `lib/model.js`
+ - `lib/model-sync.js`
+ - `lib/collection.js`
+ - `lib/collection-sync.js`
+ - `lib/agent.js`
+ - `lib/router.js`
+ - `lib/storage.js`
+ - `lib/plugins/rivets-adapter.js`
+ - `lib/epik-min.js`
 
-And also, the minified concatenated version:
+### script tags
+
+You can grab the minified concatenated version:
 
 <a class="btn btn-large btn-primary" rel="download" target="_blank" href="https://rawgithub.com/DimitarChristoff/epik/master/lib/epik-min.js">epik-min.js (27.5k)</a> (pointing to master branch)
 
-For node:
-```sh
-$ npm install epik --save
-```
 
 `epik` uses the following packages as dependencies, not part of the build:
 
@@ -42,6 +44,15 @@ $ npm install epik --save
  - rivets.js (views)
 
 Additionally, `slicker`, MooTools Slick parser for the web, is bundled in the concatenated minified files but if you use it in development mode and reference all the files locally, you'd need to resolve it as well. Should be done automatically if you use bower/AMD, see below.
+
+Make sure that the dependencies listed above - `primish`, `lodash` and view helpers `jquery` and `rivets.js`, if applicable, are loaded beforehand and use the global object `epik` to reference components.
+
+### node.js
+
+```sh
+$ npm install epik --save
+```
+
 
 ### AMD configuration
 
