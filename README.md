@@ -11,6 +11,9 @@ epik is a small, modular and extensible MVC framework for modern web development
 
 - __Q: Should I use it?__ Whereas epik is fully functional, tested and powerful, it has literally no adoption in the wild, therefore no community help. For the time being, only use it if you know what you are doing.
 
+[![Build Status](https://secure.travis-ci.org/DimitarChristoff/epik.png?branch=master)](http://travis-ci.org/DimitarChristoff/epik)
+
+
 ## Getting started
 
 To install epik in your project, you have several routes.
