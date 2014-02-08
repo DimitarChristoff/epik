@@ -13,10 +13,35 @@ Via bower:
 $ bower install epik --save
 ```
 
+A bower install will only bring down the following files:
+
+ - "lib/index.js",
+ - "lib/model.js",
+ - "lib/model-sync.js",
+ - "lib/collection.js",
+ - "lib/collection-sync.js",
+ - "lib/agent.js",
+ - "lib/router.js",
+ - "lib/storage.js",
+ - "lib/plugins/rivets-adapter.js"
+
+And also, the minified concatenated version:
+
+<a class="btn btn-large btn-primary" rel="download" target="_blank" href="https://rawgithub.com/DimitarChristoff/epik/master/lib/epik-min.js">epik-min.js (27.5k)</a> (pointing to master branch)
+
 For node:
 ```sh
 $ npm install epik --save
 ```
+
+`epik` uses the following packages as dependencies, not part of the build:
+
+ - lodash (utils)
+ - primish (classes)
+ - jquery (views)
+ - rivets.js (views)
+
+Additionally, `slicker`, MooTools Slick parser for the web, is bundled in the concatenated minified files but if you use it in development mode and reference all the files locally, you'd need to resolve it as well. Should be done automatically if you use bower/AMD, see below.
 
 ### AMD configuration
 
