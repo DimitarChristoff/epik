@@ -1,11 +1,15 @@
 epik
 ====
 
-epitome 2 for primish and lodash, no depenency on mootools
+epik is [Epitome](http://epitome-mvc.github.io/Epitome/) ver 2 for `primish`, `lodash` and `jquery/zepto`, no depenency on MooTools
 
-> this is an experiment. if you like primish, mootools and epitome, feel free to contribute. otherwise, don't use.
+> Warning: this is a fully functional experiment. If you like primish, MooTools and Epitome, feel free to use or to contribute
 
 epik is a small, modular and extensible MVC framework for modern web development, built in the spirit of AMD and bower components. It will also work with global exports (w/o a dependency loader) and it works under node.js. epik offers 90% of the functionality of Backbone but allows you to develop in the style of MooTools classes via [primish](http://dimitarchristoff.github.io/primish/). The views are either powered by jQuery or via a built-in [rivets.js](http://www.rivetsjs.com/) adapter for bi-directional binding in the style of AngularJS.
+
+- __Q: Why would you use it?__ It allows you to quickly prototype and develop code that runs in the browser or in node.js, sharing components between client and server. It also makes it easy to work with for any ex MooTools developers who are being forced to use jquery in their work.
+
+- __Q: Should I use it?__ Whereas epik is fully functional, tested and powerful, it has literally no adoption in the wild, therefore no community help. For the time being, only use it if you know what you are doing.
 
 ## Getting started
 
@@ -52,7 +56,6 @@ Make sure that the dependencies listed above - `primish`, `lodash` and view help
 ```sh
 $ npm install epik --save
 ```
-
 
 ### AMD configuration
 
