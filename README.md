@@ -583,7 +583,7 @@ As a side note, the following methods are exported on the model instance:
 
 Collections are in essence, an Array-like Type with Models as members. By passing a model prototype, adding and removing of models works either based with simple JSPO data has or an actual Model instance. Collections observe and bubble all events that all of its model members emit, firing them on the collection instance. It also allows for filtering, mapping, sorting and many sugar methods, copied from the Array.prototype and applied on the Model.
 
-Unlike Arrays, collections here also allow a powerful search/filter that can return a subset (Array) of Models from the collection that match CSS-like selectors for model attributes
+Unlike Arrays, collections here also allow a powerful search/filter that can return a subset {Array} of Models from the collection that match CSS-like selectors for model attributes
 
 Instances of collection should have a `._id` property of collection, unless you override that.
 
@@ -701,7 +701,7 @@ Returns a particular model by reference to current oder, eg. `collection.at(3)` 
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(String) id`_
+_Expects arguments: `{String} id`_
 </p>
 <p>
 _Returns: `modelInstance` or `null`_
@@ -714,7 +714,7 @@ Performs a search in the collection by the Model's `id` via the standard model `
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(String) cid`_
+_Expects arguments: `{String} cid`_
 </p>
 <p>
 _Returns: `modelInstance` or `null`_
@@ -938,7 +938,7 @@ In terms of differences with the original prototype, the `options`, needs just o
 ---
 <div class="alert">
 <p>
-_Expects optional arguments: `{Boolean} refresh`, `(Object) queryParams`_
+_Expects optional arguments: `{Boolean} refresh`, `{Object} queryParams`_
 </p>
 <p>
 _Returns: `this`_
@@ -962,10 +962,10 @@ Keep in mind that agent will serialize the response as per the content type, jus
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Mixed) response`_
+_Expects arguments: `{Array|Mixed} response`_
 </p>
 <p>
-_Expected return: `(Array) response`_
+_Expected return: `{Array} response`_
 </p>
 </div>
 
