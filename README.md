@@ -60,6 +60,13 @@ Make sure that the dependencies listed above - `primish`, `lodash` and view help
 $ npm install epik --save
 ```
 
+When using it under node.js, you need to reference relative paths for sub components. For example:
+
+```javascript
+var epik = require('epik'),
+	model = require('epik/lib/model');
+```
+
 ### AMD configuration
 
 You can use epik in a number of ways.
