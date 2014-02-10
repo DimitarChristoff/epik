@@ -102,6 +102,10 @@
 <h3 id="getting-started/nodejs">node.js</h3>
 <pre><code class="lang-sh">$ npm install epik --save
 </code></pre>
+<p>When using it under node.js, you need to reference relative paths for sub components. For example:</p>
+<pre class="prettyprint linenums"><code class="lang-javascript">var epik = require(&#39;epik&#39;),
+    model = require(&#39;epik/lib/model&#39;);
+</code></pre>
 <h3 id="getting-started/amd-configuration">AMD configuration</h3>
 <p>You can use epik in a number of ways.</p>
 <p>In development, you can let requirejs fetch all dependencies as needed. A typical require.config looks like this:</p>
