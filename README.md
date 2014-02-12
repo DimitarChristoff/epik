@@ -186,6 +186,35 @@ require.config({
 
 Keep in mind that the strings passed to the bundles config are module IDs, not expanded paths.
 
+## Overview
+
+The framework has been written to use [primish](https://github.com/DimitarChristoff/primish) classes so usage implies
+some familiarity with how that works - or at the very least, knowledge of either MooTools Class or similar from
+prototype.js or DOJO.
+
+The basic premise is, `epik` itself returns `primish` in the same namespace (or AMD module). A typical Class looks like
+this:
+
+```javascript
+// assume a non-AMD environment
+var MyView = epik.primish({
+	// set super
+	extend: epik.view,
+	// local methods and overrides
+	// ..
+	render: function(){
+		this.$element.html(this.model.toJSON());
+	}
+});
+
+var instance = new MyView({
+	element: '#header',
+	template: 'some html',
+	model: modelInstance
+});
+```
+You can use primish to create your own controllers or to extend / mixin the existing ones that epik provides.
+
 ## Model
 
 The epik Model implementation at its core is a [primish](https://github.com/DimitarChristoff/primish) class with custom data accessors that fires events. You can extend models or implement objects or other classes into your definitions.
@@ -1070,6 +1099,9 @@ Significant keys to the options passed in are:
 * `onEventHandlers` - code that reacts to various events that the instance fires.
 
 Epik views do not support the `tag` options of Backbone, you need to figure the elements on your own.
+
+> By default, if you have a method called `attachEvents`, it will automatically get called from the constructor function. If
+you are extending `view`, then `this.parent('constructor', options);` will have the same effect.
 
 ```ace
 require([
