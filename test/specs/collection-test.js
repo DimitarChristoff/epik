@@ -201,7 +201,6 @@ buster.testCase('Basic epik collection with a model creation >', {
 		var self = this;
 		this.collection.offAll();
 		this.collection.on('change', function(model, props){
-			console.log(arguments);
 			buster.assert.equals(model, self.model);
 			buster.assert.equals(_.indexOf(props, 'foo'), 0);
 		});

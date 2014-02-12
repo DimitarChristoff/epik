@@ -178,11 +178,7 @@ buster.testCase('Basic epik model creation with initial data >', {
 	'Expect model to fire a change passing all changed properties as an object >': function(){
 		var self = this;
 		var model = this.model;
-		var before = model.toJSON();
 		model.on('change', function(changed){
-			if (changed.length !== 3) {
-				console.log(before);
-			}
 			buster.assert.equals(changed, _.keys(self.dataMany));
 		});
 
