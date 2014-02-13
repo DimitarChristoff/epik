@@ -1539,3 +1539,7 @@ $ grunt requirejs
 
 The web server is on port 8000 - visit [http://locahost:8000/example/](http://locahost:8000/example/) to view live examples
 
+A nice example of a practical web app running mocked FX currency pairs is here: [https://github.com/DimitarChristoff/cp](https://github.com/DimitarChristoff/cp). It has been written to test the speed of bindings via the rivets adapter and should work fine
+with as many as 200+ currency pairs running and streaming via socket.io under chrome, all at no more than 20-30% CPU use.
+
+A TodoMVC implementation can be seen [here](https://github.com/epitome-mvc/todomvc/tree/epik/labs/dependency-examples/epik)
