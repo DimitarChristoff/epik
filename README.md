@@ -1,7 +1,7 @@
-epik
+epik [![NPM version](https://badge.fury.io/js/epik.png)](http://badge.fury.io/js/epik)
 ====
 
-epik is [Epitome](http://epitome-mvc.github.io/Epitome/) ver 2 for `primish`, `lodash` and `jquery/zepto`, no depenency on MooTools
+epik is [Epitome](http://epitome-mvc.github.io/Epitome/) ver 2 for `primish`, `lodash` and `jquery/zepto`, no depenency on MooTools.
 
 > Warning: this is a fully functional experiment. If you like primish, MooTools and Epitome, feel free to use or to contribute
 
@@ -11,8 +11,7 @@ epik is a small, modular and extensible MVC framework for modern web development
 
 - __Q: Should I use it?__ Whereas epik is fully functional, tested and powerful, it has literally no adoption in the wild, therefore no community help. For the time being, only use it if you know what you are doing.
 
-[![Build Status](https://secure.travis-ci.org/DimitarChristoff/epik.png?branch=master)](http://travis-ci.org/DimitarChristoff/epik)
-[![NPM version](https://badge.fury.io/js/epik.png)](http://badge.fury.io/js/epik)
+[![Build Status](https://api.travis-ci.org/DimitarChristoff/epik.png)](http://travis-ci.org/DimitarChristoff/epik)
 
 ## Getting started
 
