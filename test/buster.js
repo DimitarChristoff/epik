@@ -31,7 +31,8 @@ config['Epik browser tests'] = {
 		'test/specs/model-sync-test.js',
 		'test/specs/collection-test.js',
 		'test/specs/collection-sync-test.js',
-		'test/specs/view-test.js'
+		'test/specs/view-test.js',
+		'test/specs/emitter-test.js'
 		//'test/specs/*-test.js'
 	],
 
