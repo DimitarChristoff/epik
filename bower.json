@@ -25,7 +25,7 @@
     "tests"
   ],
   "dependencies": {
-    "primish": "~0.3.5",
+    "primish": "~0.3.6",
     "requirejs": "~2.1.10",
     "lodash": "~2.4.1",
     "slicker": "~0.0.2",

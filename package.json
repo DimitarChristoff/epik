@@ -5,10 +5,13 @@
   "version": "0.4.5",
   "author": "Dimitar Christoff <christoff@gmail.com> (https://twitter.com/D_mitar)",
   "keywords": [
-    "mootools",
-    "epitome",
+    "epik",
     "mvc",
-    "mvp"
+    "mvp",
+    "primish",
+    "rivets",
+    "lodash",
+    "epitome"
   ],
   "scripts": {
     "test": "node_modules/buster/bin/buster-test -r specification -s http://localhost:11111"
@@ -21,7 +24,7 @@
   "license": "MIT (http://mootools.net/license.txt)",
   "dependencies": {
     "slicker": "0.0.2",
-    "primish": "~0.3.3",
+    "primish": "~0.3.6",
     "lodash": "~2.4.1"
   },
   "devDependencies": {
@@ -35,7 +38,7 @@
     "express": "~3.4.7",
     "glob": "~3.2.7",
     "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-doctor-md": "0.0.6",
+    "grunt-doctor-md": "0.1.1",
     "grunt-contrib-clean": "~0.5.0"
   },
   "engines": {

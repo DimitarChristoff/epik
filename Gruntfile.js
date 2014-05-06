@@ -62,11 +62,11 @@ module.exports = function(grunt){
 						rivets: 'lib/components/rivets/dist/rivets'
 					}
 				}
-			},
+			}/*,
 			all: {
 				options: {
 					optimize: 'uglify2',
-					out: './dist/build/epik-full-min.js',
+					out: './lib/epik-full-min.js',
 					skipModuleInsertion: true,
 					// name: 'epik',
 					// build all including components
@@ -80,7 +80,8 @@ module.exports = function(grunt){
 						'lib/collection-sync',
 						'lib/view',
 						'lib/plugins/rivets-adapter',
-						'lib/router'
+						'lib/router',
+						'slicker'
 					],
 					paths: {
 						primish: 'lib/components/primish',
@@ -90,7 +91,7 @@ module.exports = function(grunt){
 						rivets: 'lib/components/rivets/dist/rivets'
 					}
 				}
-			}
+			}*/
 		},
 
 		// builds the docs via grunt-doctor-md task.
@@ -107,7 +108,7 @@ module.exports = function(grunt){
 					travis: 'http://travis-ci.org/DimitarChristoff/epik',
 					images: 'dist/images',
 					logo: 'images/epik-logo-small.png',
-					//disqus: 'epitome-mvc'
+					disqus: 'epitome-mvc'
 				},
 				files: {
 					'<%= output%>/index.html': './README.md'
@@ -159,7 +160,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-doctor-md');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask('docs', ['clean', 'build', 'doctor']);
+	grunt.registerTask('docs', ['clean', 'build:bare', 'doctor']);
 	grunt.registerTask('default', ['express', 'express-keepalive']);
 	grunt.registerTask('build', ['requirejs:bare']);
 	grunt.registerTask('build:all', ['requirejs:all']);
