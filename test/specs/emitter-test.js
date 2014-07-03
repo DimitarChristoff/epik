@@ -6,13 +6,13 @@ buster.testRunner.timeout = 1000;
 
 buster.testCase('Extended emitter functionality', {
 	setUp: function(){
-		var classy = primish({
+		var Classy = primish({
 			implement: emitter
 		});
 
 
-		this.classA = new classy;
-		this.classB = new classy;
+		this.classA = new Classy();
+		this.classB = new Classy();
 	},
 
 	tearDown: function(){
