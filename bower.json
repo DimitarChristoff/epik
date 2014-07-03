@@ -25,12 +25,12 @@
     "tests"
   ],
   "dependencies": {
-    "primish": "~0.3.6",
-    "requirejs": "~2.1.10",
+    "primish": "~0.3.7",
+    "requirejs": "~2.1.14",
     "lodash": "~2.4.1",
     "slicker": "~0.0.2",
-    "rivets": "~0.6.5",
-    "jquery": "1.10.2"
+    "rivets": "~0.6.8",
+    "jquery": "1.11.1"
   },
   "authors": [
     "DimitarChristoff <christoff@gmail.com>"

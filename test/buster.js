@@ -11,7 +11,7 @@ config['Epik browser tests'] = {
 		'lib/components/primish/emitter.js',
 		'lib/components/primish/options.js',
 		'lib/components/slicker/index.js',
-		'lib/components/jquery/jquery.js',
+		'lib/components/jquery/dist/jquery.js',
 		'lib/index.js'
 	],
 
