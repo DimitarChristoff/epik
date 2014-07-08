@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "primish": "~0.3.7",
-    "requirejs": "~2.1.14",
+    "requirejs": "2.1.14",
     "lodash": "~2.4.1",
     "slicker": "~0.0.2",
     "rivets": "~0.6.8",

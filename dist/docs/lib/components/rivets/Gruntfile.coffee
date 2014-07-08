@@ -20,7 +20,7 @@ module.exports = (grunt) ->
             'src/view.coffee'
             'src/bindings.coffee'
             'src/parsers.coffee'
-            'src/keypath_observer.coffee'
+            'src/observer.coffee'
             'src/binders.coffee'
             'src/adapters.coffee'
             'src/export.coffee'
@@ -50,7 +50,7 @@ module.exports = (grunt) ->
 
     watch:
       all:
-        files: 'src/rivets.coffee'
+        files: 'src/*.coffee'
         tasks: ['build', 'spec']
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
