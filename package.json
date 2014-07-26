@@ -32,7 +32,7 @@
     "grunt-express": "~1.2.1",
     "socket.io": "~0.9.16",
     "buster-amd": "~0.3.1",
-    "buster": "~0.7.6",
+    "buster": "~0.7.13",
     "grunt-express-server": "~0.4.10",
     "matchdep": "~0.3.0",
     "express": "~3.4.7",
