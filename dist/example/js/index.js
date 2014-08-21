@@ -9,7 +9,7 @@ require.config({
 		lodash: 'components/lodash/dist/lodash',
 		slicker: 'components/slicker/index',
 		rivets: 'components/rivets/dist/rivets',
-		jquery: 'components/jquery/jquery',
+		jquery: 'components/jquery/dist/jquery',
 		'rivets-adapter': 'lib/plugins/rivets-adapter',
 		io: '/socket.io/socket.io',
 		text: 'example/util/text'
@@ -95,4 +95,21 @@ define(function(require){
 		menu.collection.set(demos);
 	});
 	transport.send('demos:get');
+
+	var foo = new epik.emitter(),
+		bar = new epik.emitter();
+
+	foo.on('foo', function(bar){
+		bar;
+	});
+
+	setTimeout(function(){
+		var c = 500000;
+		console.time('events:trigger');
+		while (c--)
+			foo.trigger('foo').trigger('foo', 'bar');
+		console.timeEnd('events:trigger');
+	}, 1000);
+
+	bar.listenTo(foo);
 });
