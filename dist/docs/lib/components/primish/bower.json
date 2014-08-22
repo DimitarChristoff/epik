@@ -1,0 +1,20 @@
+{
+  "name": "primish",
+  "version": "0.3.8",
+  "main": [
+    "primish-min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "spec",
+    "dist",
+    "example",
+    "Gruntfile.js",
+    "LICENSE",
+    "README.md",
+    "bower.json",
+    "package.json"
+  ]
+}
