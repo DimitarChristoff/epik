@@ -684,7 +684,7 @@ var users = new usersCollection([{
 <em>Expects arguments: <code>{Object|Model} model</code> , <code>{Boolean} replace</code></em>
 </p>
 <p>
-<em>Returns: <code>this</code></em>
+<em>Returns: <code>model</code></em>
 </p>
 <p>
 <em>Events: <code>add: function(model, cid) {}</code>, <code>reset</code></em>
@@ -715,7 +715,7 @@ var users = new usersCollection([{
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: <code>(Number) index</code></em>
+<em>Expects arguments: <code>{Number} index</code></em>
 </p>
 <p>
 <em>Returns: <code>modelInstance</code> or <code>undefined</code></em>
@@ -914,7 +914,7 @@ bob &amp;&amp; bob.set(&#39;name&#39;,&#39;Robert&#39;);
 <p>Each Collection prototype has that property that references a Model prototype constructor. When data is being received in raw format (so, simple Objects), Models are being created by instantiating the stored constructor object in <code>this.model</code>.</p>
 <h4 id="id">id</h4>
 <hr>
-<p>Due to serialisation and the ability to use storage to retrieve a collection later, each collection has an, derrived either from the options object or generated at random.</p>
+<p>Due to serialisation and the ability to use storage to retrieve a collection later, each collection has an id, derived either from the options object or generated at random.</p>
 <h2 id="collection-sync">Collection Sync</h2>
 <p>The Sync collection is just a tiny layer on top of the normal <a href="#collection">collection</a>. It <code>extends</code> the default Collection class and adds an agent instance that can retrieve an array of Model data from a server and add / update the Collection after.</p>
 <h3 id="collection-sync/constructor-initialize">constructor (initialize)</h3>

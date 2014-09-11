@@ -728,7 +728,7 @@ Sets models into the collection 'sugar'. Accepts a single model or an array of m
 _Expects arguments: `{Object|Model} model` , `{Boolean} replace`_
 </p>
 <p>
-_Returns: `this`_
+_Returns: `model`_
 </p>
 <p>
 _Events: `add: function(model, cid) {}`, `reset`_
@@ -765,7 +765,7 @@ Decrements the `Collection.length` property.
 ---
 <div class="alert">
 <p>
-_Expects arguments: `(Number) index`_
+_Expects arguments: `{Number} index`_
 </p>
 <p>
 _Returns: `modelInstance` or `undefined`_
@@ -989,7 +989,7 @@ Each Collection prototype has that property that references a Model prototype co
 
 #### id
 ---
-Due to serialisation and the ability to use storage to retrieve a collection later, each collection has an, derrived either from the options object or generated at random.
+Due to serialisation and the ability to use storage to retrieve a collection later, each collection has an id, derived either from the options object or generated at random.
 
 ## Collection Sync
 
