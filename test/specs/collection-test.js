@@ -42,6 +42,23 @@ buster.testCase('Basic epik empty collection creation >', {
 		this.collection.add(this.model);
 	},
 
+	'Expect to be able to add a model to collection when it has defaults >': function(){
+		var M = primish({
+			extend: Model,
+			defaults: {
+				name: 'bob'
+			}
+		});
+
+		var collection = new (primish({
+			extend: Collection,
+			model: M
+		}));
+
+		var model = collection.add();
+		buster.assert.equals(model.get('name'), 'bob');
+	},
+
 	'Expect not to be able to add the same model twice to the collection >': function(){
 		this.collection.add(this.model);
 		this.collection.add(this.model);
@@ -496,7 +513,7 @@ buster.testCase('Basic epik collection array methods >', {
 });
 
 
-buster.testCase('Basic Epitome collection.find >', {
+buster.testCase('Basic epik collection.find >', {
 	setUp: function(){
 		this.Collection = primish({
 			extend: Collection
