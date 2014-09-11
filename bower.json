@@ -1,6 +1,6 @@
 {
   "name": "epik",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "main": [
     "lib/index.js",
     "lib/model.js",
