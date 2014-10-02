@@ -87,6 +87,8 @@ require.config({
 });
 ```
 
+A sample `requirejs-config.js` can be seen at this [gist](https://gist.github.com/DimitarChristoff/e2eafaa605e8d8f19b11). 
+
 The above is applicable after a `bower install epik --save` and will dynamically load any components as needed.
 Obviously, you may have a different config for `jquery`, `lodash` and `rivets` so reflect them as needed - epik will require
 them via the root level ids of `jquery`, `lodash` and `rivets` respectively.
