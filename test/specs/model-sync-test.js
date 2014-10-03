@@ -64,7 +64,7 @@ buster.testCase('epik model sync >', {
 			id: '1.json'
 		});
 
-		buster.refute.isFalse(this.model.isNew());
+		buster.assert.isFalse(this.model.isNew());
 	},
 
 	'Expect model.isNew() to return true if the model has no id and not sync\'d before >': function(){
