@@ -28,7 +28,7 @@
     "lodash": "~2.4.1"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
+    "grunt": "~0.4.5",
     "grunt-express": "~1.2.1",
     "socket.io": "~0.9.16",
     "buster-amd": "~0.3.1",
