@@ -1,6 +1,6 @@
 define(function(require){
 	return function(){
-		var storage = require('lib/storage'),
+		var storage = require('epik/storage'),
 			Person = require('example/util/person');
 
 		// get session storage from factory

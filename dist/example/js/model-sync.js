@@ -1,6 +1,6 @@
 define(function(require){
 	return function(){
-		var epik = require('lib/index'),
+		var epik = require('epik/index'),
 			Person = require('example/util/person'),
 			_ = epik._;
 
