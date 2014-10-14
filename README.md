@@ -975,6 +975,26 @@ The following Array methods are also available directly on the Collection instan
 * getRandom
 * getLast
 
+### where
+---
+<div class="alert">
+<p>
+_Expects arguments: {Object} attributes_
+</p>
+<p>
+_Returns: `{Model} First matching Model instance or null`_
+</p>
+</div>
+
+Useful for getting a single Model via the lodash `_.find` API, this method will return the first matched Model that has
+the exact same properties as the attributes map passed in or null/undefined if none found. CASE SENSITIVE.
+
+```javascript
+var bob = collection.where({name: 'bob'});
+// if found, set
+bob && bob.set('name','Robert');
+```
+
 ### Collection properties*
 
 #### _models

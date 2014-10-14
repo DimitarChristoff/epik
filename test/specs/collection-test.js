@@ -628,6 +628,27 @@ buster.testCase('Basic epik collection.find >', {
 
 	'Expect search via .findOne when no match to return null >': function(){
 		buster.assert.equals(this.collection.findOne('[name=notbob]'), null);
+	},
+
+	'Expect search via .where to find exact matches >': function(){
+		buster.assert.isTrue(typeof this.collection.where({
+			name: 'bob'
+		}) === 'object');
+
+		buster.assert.isTrue(typeof this.collection.where({
+			name: 'Robert'
+		}) === 'object');
+
+		buster.refute.isTrue(typeof this.collection.where({
+			name: 'invalid'
+		}) === 'object');
+	},
+
+	'Expect search via where to match multiple attributes >': function(){
+		buster.assert.equals(this.collection.where({
+			name: 'Robert',
+			surname: 'Roberts'
+		}).get('name'), 'Robert');
 	}
 
 });
