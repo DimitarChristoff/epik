@@ -152,6 +152,26 @@ buster.testCase('Basic epik model creation with initial data >', {
 		buster.assert.isNull(model.get('foo'));
 	},
 
+	'Expect .unset() fires change for removed properties only >': function(){
+		var spy = this.spy();
+		var spy2 = this.spy();
+		var model = this.model;
+		model.on('change:foo', function(v){
+			spy(v);
+		});
+
+		model.on('change:bar', function(v){
+			spy2(v);
+		});
+
+		model.unset('foo', 'bar');
+		buster.assert.calledWith(spy, null);
+		buster.refute.called(spy2);
+
+		buster.assert.isNull(model.get('foo'));
+	},
+
+
 	'Expect .unset([array]) removes all keys from model >': function(){
 		var model = this.model;
 		var keys = _.keys(this.dataMany),

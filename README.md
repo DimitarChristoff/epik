@@ -365,14 +365,14 @@ Returns a de-referenced Object, containing all the known model keys and values.
 -----
 <div class="alert">
 <p>
-_Expects arguments: mixed: `{String} key` or `{Array} keys`_
+_Expects arguments: mixed: `{String} key1` .. `{String} keyN` or `{Array} keys`_
 </p>
 <p>
 _Returns: `modelInstance`_
 </p>
 </div>
 
-Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a `change`.
+Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a `change`. If a property does not exist in the model, no change event will fire for it.
 
 ### empty
 -----

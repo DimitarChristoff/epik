@@ -368,14 +368,14 @@ var instance = new MyView({
 <hr>
 <div class="alert">
 <p>
-<em>Expects arguments: mixed: <code>{String} key</code> or <code>{Array} keys</code></em>
+<em>Expects arguments: mixed: <code>{String} key1</code> .. <code>{String} keyN</code> or <code>{Array} keys</code></em>
 </p>
 <p>
 <em>Returns: <code>modelInstance</code></em>
 </p>
 </div>
 
-<p>Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a <code>change</code>.</p>
+<p>Removes keys from model, either a single one or an array of multiple keys. Should fire a change event for every property removed as well as a <code>change</code>. If a property does not exist in the model, no change event will fire for it.</p>
 <h3 id="model/empty">empty</h3>
 <hr>
 <div class="alert">
