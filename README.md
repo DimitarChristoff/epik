@@ -435,9 +435,9 @@ An array that contains references to all instances of epik.collection that the m
 -------
 A default options set, which can be on the prototype of the Model constructor.
 
-#### defaults: {Object}
+#### defaults: {Object|Function}
 -------
-An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor.
+An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor. Also accepts a function, which should return an object, performed in the constructor.
 
 #### propertiesChanged: {Array}
 -------

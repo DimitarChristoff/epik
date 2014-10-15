@@ -67,6 +67,26 @@ buster.testCase('Basic epik model creation with initial data >', {
 		buster.assert.equals(model.get('name'), 'bob');
 	},
 
+	'Expect the model to be able to take defaults as a function >': function(){
+		var proto = primish({
+			extend: Model,
+			defaults: function(){
+				return {
+					foo: 'not bar',
+					name: 'bob',
+					items: []
+				};
+			}
+		});
+
+		var model = new proto();
+		buster.assert.equals(model.get('items'), []);
+		buster.assert.equals(model.get('name'), 'bob');
+		model.get('items').push('one');
+		model = new proto();
+		buster.assert.equals(model.get('items'), []);
+	},
+
 	'Expect the model to have the default value overridden by model object >': function(){
 		var model = this.model;
 		buster.refute.equals(model.get('foo'), 'not bar');
