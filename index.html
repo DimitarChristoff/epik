@@ -429,9 +429,9 @@ var instance = new MyView({
 <h4 id="options-object-">options: {Object}</h4>
 <hr>
 <p>A default options set, which can be on the prototype of the Model constructor.</p>
-<h4 id="defaults-object-">defaults: {Object}</h4>
+<h4 id="defaults-object-function-">defaults: {Object|Function}</h4>
 <hr>
-<p>An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor.</p>
+<p>An object with default Model Attributes to use when instantiating. Merged with Model object when populating model data via the constructor. Also accepts a function, which should return an object, performed in the constructor.</p>
 <h4 id="propertieschanged-array-">propertiesChanged: {Array}</h4>
 <hr>
 <p>An array of all property keys that reflect the last <code>change</code> event. Available on all instances.</p>
