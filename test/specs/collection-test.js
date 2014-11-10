@@ -169,6 +169,19 @@ buster.testCase('Basic epik empty collection creation >', {
 
 		this.collection.add(fakeModel);
 		buster.assert.equals(fakeModel, this.collection.getModelById(fakeModel.get('id')));
+		buster.assert.equals(fakeModel, this.collection._map['em' + fakeModel.get('id')]);
+	},
+
+	'Expect a model that changes its ID to change map reference': function(){
+		var fakeModel = new Model({
+			id: 'hello'
+		});
+
+		this.collection.add(fakeModel);
+		buster.assert.equals(typeof this.collection._map['emhello'], 'object');
+		fakeModel.set('id', 'bye');
+		buster.assert.equals(typeof this.collection._map['embye'], 'object');
+		//buster.assert.equals(typeof this.collection._map['emhello'], 'undefined');
 	},
 
 	'Expect to be able to get a model from collection by cid': function(){
