@@ -10,8 +10,8 @@ define(function(require){
 			onChange: function(keys){
 				console.log(keys);
 			},
-			'onChange:one': function(value){
-				console.log('one changed to ' + value);
+			'onChange:age': function(value){
+				console.log('age changed to ' + value, this.get('age'));
 			},
 			onEmpty: function(){
 				console.log('emptied', this.toJSON());

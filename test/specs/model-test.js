@@ -127,6 +127,7 @@ buster.testCase('Basic epik model creation with initial data >', {
 		var model = this.model;
 		model.on('change:bar', function(val){
 			buster.assert.equals(val, self.dataAfter.bar);
+			buster.assert.equals(val, this.get('bar'));
 			done();
 		});
 
