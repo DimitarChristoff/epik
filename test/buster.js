@@ -6,7 +6,7 @@ config['Epik browser tests'] = {
 	environment: 'browser',
 
 	libs: [
-		'lib/components/lodash/dist/lodash.js',
+		'lib/components/lodash/lodash.js',
 		'lib/components/primish/primish.js',
 		'lib/components/primish/emitter.js',
 		'lib/components/primish/options.js',

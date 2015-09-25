@@ -6,7 +6,7 @@ require.config({
 		util: 'example/util/',
 		components: 'lib/components',
 		primish: 'components/primish',
-		lodash: 'components/lodash/dist/lodash',
+		lodash: 'components/lodash/lodash',
 		slicker: 'components/slicker/index',
 		rivets: 'components/rivets/dist/rivets',
 		jquery: 'components/jquery/dist/jquery',
