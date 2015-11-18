@@ -56,7 +56,7 @@ module.exports = function(grunt){
 					],
 					paths: {
 						primish: 'lib/components/primish',
-						lodash: 'lib/components/lodash/dist/lodash',
+						lodash: 'lib/components/lodash/lodash',
 						slicker: 'lib/components/slicker/index',
 						jquery: 'lib/components/jquery/dist/jquery',
 						rivets: 'lib/components/rivets/dist/rivets'

@@ -2,7 +2,7 @@
   "name": "epik",
   "description": "Epik (aka, Epitome 2), a micro MVP framework ",
   "homepage": "https://github.com/DimitarChristoff/epik",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "Dimitar Christoff <christoff@gmail.com> (https://twitter.com/D_mitar)",
   "keywords": [
     "epik",
@@ -21,7 +21,7 @@
     "url": "https://github.com/DimitarChristoff/epik"
   },
   "main": "./lib/index.js",
-  "license": "MIT (http://mootools.net/license.txt)",
+  "license": "MIT",
   "dependencies": {
     "slicker": "0.0.2",
     "primish": "~0.3.9",
